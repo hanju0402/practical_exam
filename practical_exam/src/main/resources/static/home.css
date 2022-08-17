@@ -1,11 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>안녕하세요.</title>
-<style>
+@charset "EUC-KR";
+
 body, .signin {
 	background-color: #d3d3d3;
 	font-family: 'Montserrat', sans-serif;
@@ -174,37 +168,3 @@ a {
 	text-decoration: none;
 	color: rgba(255, 255, 255, 0.2);
 }
-</style>
-
-<script>
-	
-</script>
-</head>
-<body>
-
-	<div class="login">
-		<h2 class="active">로그인</h2>
-
-		<h2 class="nonactive">회원가입</h2>
-		<form>
-
-
-
-			<input type="text" class="text" name="username"> <span>계정명</span>
-
-			<br> <br> <input type="password" class="text"
-				name="password"> <span>비밀번호</span> <br> <input
-				type="checkbox" id="checkbox-1-1" class="custom-checkbox" /> <label
-				for="checkbox-1-1">로그인 유지</label>
-
-			<button class="signin">로그인</button>
-
-
-			<hr>
-
-			<a href="#">비밀번호 찾기</a>
-		</form>
-
-	</div>
-</body>
-</html>
