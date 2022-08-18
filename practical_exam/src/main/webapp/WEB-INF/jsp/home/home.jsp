@@ -11,16 +11,20 @@
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';
 		document.getElementById('signInTxt').className = 'active';
+		const divA = document.getElementById('passwordDiv');
+		  
+		 divA.remove();
 	}
 	
 	function signUp() {
 		document.getElementById('signUpTxt').className = 'active';
 		document.getElementById('signInTxt').className = 'nonactive';
 		
-		 var input = document.createElement("input");
-		 input.type = "text";
-		 input.className = "css-class-name";
-		
+		const box = document.getElementById("passwordDiv");
+       	const newP = document.createElement('div');
+        newP.innerHTML = "<br> <input type='password' class='text' name='passwordChk'><span>비밀번호 확인</span>";
+        box.appendChild(newP);
+    
 		
 	}
 	
@@ -36,7 +40,7 @@
 			<input type="text" class="text" name="username"> <span>계정명</span>
 			<br>
 			<br> <input type="password" class="text" name="password"><span>비밀번호</span>
-			
+			<div id="passwordDiv"></div>
 			
 			<br> <input type="checkbox" id="checkbox-1-1"
 				class="custom-checkbox" /> <label for="checkbox-1-1">로그인 유지</label>
