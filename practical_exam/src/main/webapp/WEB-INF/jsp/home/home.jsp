@@ -70,7 +70,7 @@
 	<div class="login">
 		<h2 id="signInTxt" class="active" onclick='signIn()'>로그인</h2>
 		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>회원가입</h2>
-		<form onsubmit="return false">
+		<form onsubmit="return false" id="dataForm" method="post">
 			<input type="text" class="text" id="userId" name="userId"> <span>계정명</span>
 			<input type="password" class="text" id="password" name="password"><span>비밀번호</span>
 			<div id="addTxtDiv"></div>
