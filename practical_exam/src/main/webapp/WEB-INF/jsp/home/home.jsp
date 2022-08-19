@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Á¤º¸Ã³¸®±â»ç ½Ç±â »çÀÌÆ®</title>
+<meta charset="UTF-8">
+<title>ì •ë³´ì²˜ë¦¬ê¸°ì‚¬ ì‹¤ê¸° ì‚¬ì´íŠ¸</title>
 <link href="home.css" rel="stylesheet" type="text/css">
 <script>
 
@@ -20,16 +20,15 @@
 		document.getElementById("keepLoginTxt").style.display = "";
 		
 		let x = document.getElementById("signin");
-	    x.innerText="·Î±×ÀÎ"; 
+	    x.innerText="ë¡œê·¸ì¸"; 
 	}
 	
 	function signUp() {
 		
 		if (document.getElementById('signUpTxt').className != 'active') {
-			
 			const box = document.getElementById("passwordDiv");
 	       	const newP = document.createElement('div');
-	        newP.innerHTML = "<br> <input type='password' class='text' name='passwordChk'><span>ºñ¹Ğ¹øÈ£ È®ÀÎ</span>";
+	        newP.innerHTML = "<br> <input type='password' class='text' name='passwordChk'><span>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</span>";
 	        newP.id = 'pwDivId';
 	        box.appendChild(newP);
 	        document.getElementById("findPw").style.display = "none";
@@ -37,13 +36,11 @@
 	        document.getElementById("keepLoginTxt").style.display = "none";
 	        
 	        let x = document.getElementById("signin");
-	        x.innerText="È¸¿ø°¡ÀÔ"; 
+	        x.innerText="íšŒì›ê°€ì…"; 
 		} 
 		
 		document.getElementById('signUpTxt').className = 'active';
 		document.getElementById('signInTxt').className = 'nonactive';
-		
-    
 		
 	}
 	
@@ -53,19 +50,19 @@
 </head>
 <body>
 	<div class="login">
-		<h2 id="signInTxt" class="active" onclick='signIn()'>·Î±×ÀÎ</h2>
-		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>È¸¿ø°¡ÀÔ</h2>
+		<h2 id="signInTxt" class="active" onclick='signIn()'>ë¡œê·¸ì¸</h2>
+		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>íšŒì›ê°€ì…</h2>
 		<form>
-			<input type="text" class="text" name="username"> <span>°èÁ¤¸í</span>
+			<input type="text" class="text" name="username"> <span>ê³„ì •ëª…</span>
 			<br>
-			<br> <input type="password" class="text" name="password"><span>ºñ¹Ğ¹øÈ£</span>
+			<br> <input type="password" class="text" name="password"><span>ë¹„ë°€ë²ˆí˜¸</span>
 			<div id="passwordDiv"></div>
 			
 			<br> <input type="checkbox" id="keepLogin"
-				class="custom-checkbox" /> <label id="keepLoginTxt" for="keepLogin">·Î±×ÀÎ À¯Áö</label>
-			<button id="signin" class="signin">·Î±×ÀÎ</button>
+				class="custom-checkbox" /> <label id="keepLoginTxt" for="keepLogin">ë¡œê·¸ì¸ ìœ ì§€</label>
+			<button id="signin" class="signin">ë¡œê·¸ì¸</button>
 			<hr>
-			<a id="findPw" href="#">ºñ¹Ğ¹øÈ£ Ã£±â</a>
+			<a id="findPw" href="#">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
 		</form>
 	</div>
 </body>
