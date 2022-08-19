@@ -22,7 +22,7 @@ body, .signin {
 }
 
 form {
-	padding-top: 80px;
+	padding-top: 30px;
 }
 
 .active {
@@ -168,4 +168,36 @@ a {
 	position: relative;
 	text-decoration: none;
 	color: rgba(255, 255, 255, 0.2);
+}
+
+#phoneNum {
+	border: none;
+	width: 60%;
+	padding: 10px 20px;
+	display: block;
+	height: 15px;
+	border-radius: 20px;
+	background: rgba(255, 255, 255, 0.1);
+	border: 2px solid rgba(255, 255, 255, 0);
+	float: left;
+	overflow: hidden;
+	margin-top: 15px;
+	transition: all 0.5s ease-in-out;
+}
+
+#phoneCheck {
+	
+	background-color: #1161ed;
+	color: #FFF;
+	width: 25%;
+	padding: 10px 20px;
+	display: inline-block;
+	height: 39px;
+	border-radius: 20px;
+	margin: 0 0 30px 15px;
+	transition: all 0.5s ease-in-out;
+	border: none;
+	float: left;
+	text-transform: uppercase;
+
 }
