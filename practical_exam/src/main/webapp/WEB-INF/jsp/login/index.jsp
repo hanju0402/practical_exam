@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>정보처리기사 실기 사이트</title>
-<link href="css/home.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/ajax.js"></script>
+<link href="css/login.css" rel="stylesheet" type="text/css">
 <script>
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';

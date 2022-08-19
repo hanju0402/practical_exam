@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정보처리기사 실기 사이트</title>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script>
+	function hello(){
+		callPost('ak');
+	}
+</script>
 </head>
 <body>
-
+	<p onclick="hello()">안녕하세요 테스트입니다.</p>
 </body>
 </html>
