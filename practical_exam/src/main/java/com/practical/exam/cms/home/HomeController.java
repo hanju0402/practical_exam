@@ -33,11 +33,9 @@ public class HomeController {
 	public ModelAndView loginPage() {
 		ModelAndView mav = new ModelAndView();
 		if(userInfo.getUserId() == null) {
-			System.out.println("세션 없음");
-			mav.setViewName("/home/home");			
+			mav.setViewName("/login/index");			
 		} else {
-			System.out.println("로그인 계정 세션 정보 ===>"+userInfo.getUserId());
-			mav.setViewName("/home/home");
+			mav.setViewName("/home/index");
 		}
 		
 		return mav;
