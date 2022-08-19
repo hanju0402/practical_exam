@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>정보처리기사 실기 사이트</title>
-<link href="home.css" rel="stylesheet" type="text/css">
+<link href="css/home.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/ajax.js"></script>
 <script>
-
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';
 		document.getElementById('signInTxt').className = 'active';
@@ -20,11 +20,11 @@
 		document.getElementById("keepLoginTxt").style.display = "";
 		
 		let x = document.getElementById("signin");
+		
 	    x.innerText="로그인"; 
 	}
 	
 	function signUp() {
-		
 		if (document.getElementById('signUpTxt').className != 'active') {
 			const box = document.getElementById("passwordDiv");
 	       	const newP = document.createElement('div');
@@ -41,23 +41,27 @@
 		
 		document.getElementById('signUpTxt').className = 'active';
 		document.getElementById('signInTxt').className = 'nonactive';
-		
 	}
 	
-	
-	
+	function loginBtnClickEvent(){
+		let userId = document.getElementById("username").value;
+		let pwd = document.getElementById("password").value;
+		
+		let postData = {"userId":userId,"pwd":pwd};
+		callPostData('/login', JSON.stringify(postData));
+	}
 </script>
 </head>
 <body>
 	<div class="login">
 		<h2 id="signInTxt" class="active" onclick='signIn()'>로그인</h2>
 		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>회원가입</h2>
-		<form>
-			<input type="text" class="text" name="username"> <span>계정명</span>
-			<input type="password" class="text" name="password"><span>비밀번호</span>
+		<form onsubmit="return false">
+			<input type="text" class="text" id="username" name="username"> <span>계정명</span>
+			<input type="password" class="text" id="password" name="password"><span>비밀번호</span>
 			<div id="passwordDiv"></div>
 			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
-			<button id="signin" class="signin">로그인</button>
+			<button type="button" id="signin" class="signin" onclick="loginBtnClickEvent()">로그인</button>
 			<hr>
 			<a id="findPw" href="#">비밀번호 찾기</a>
 		</form>
