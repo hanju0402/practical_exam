@@ -56,12 +56,13 @@
 		document.getElementById('signInTxt').className = 'nonactive';
 	}
 	
-	function loginBtnClickEvent(){
-		let userId = document.getElementById("userId").value;
-		let pwd = document.getElementById("password").value;
+	function btnClick(){
+		const dataForm= document.getElementById('dataForm');
 		
-		let postData = {"userId":userId,"pwd":pwd};
-		callPostData('/login', JSON.stringify(postData));
+		if(document.getElementById("signin").innerHTML == '로그인'){
+			dataForm.action="/login"
+			dataForm.submit();
+		}
 	}
 </script>
 </head>
@@ -76,7 +77,7 @@
 			<div id="addPhoneNum"></div>
 			
 			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
-			<button type="button" id="signin" class="signin" onclick="loginBtnClickEvent()">로그인</button>
+			<button type="button" id="signin" class="signin" onclick="btnClick()">로그인</button>
 			<hr>
 			<a id="findPw" href="#">비밀번호 찾기</a>
 		</form>
