@@ -28,7 +28,7 @@
 		if (document.getElementById('signUpTxt').className != 'active') {
 			const box = document.getElementById("passwordDiv");
 	       	const newP = document.createElement('div');
-	        newP.innerHTML = "<br> <input type='password' class='text' name='passwordChk'><span>비밀번호 확인</span>";
+	        newP.innerHTML = "<input type='password' class='text' name='passwordChk'><span>비밀번호 확인</span>";
 	        newP.id = 'pwDivId';
 	        box.appendChild(newP);
 	        document.getElementById("findPw").style.display = "none";
@@ -54,12 +54,9 @@
 		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>회원가입</h2>
 		<form>
 			<input type="text" class="text" name="username"> <span>계정명</span>
-			<br>
-			<br> <input type="password" class="text" name="password"><span>비밀번호</span>
+			<input type="password" class="text" name="password"><span>비밀번호</span>
 			<div id="passwordDiv"></div>
-			
-			<br> <input type="checkbox" id="keepLogin"
-				class="custom-checkbox" /> <label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
+			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
 			<button id="signin" class="signin">로그인</button>
 			<hr>
 			<a id="findPw" href="#">비밀번호 찾기</a>
