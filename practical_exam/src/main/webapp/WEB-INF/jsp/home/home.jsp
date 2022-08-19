@@ -13,10 +13,9 @@
 		document.getElementById('signInTxt').className = 'active';
 		
 		
-		const box = document.getElementById("pwDivId");
-		box.remove();
-		const box2 = document.getElementById("phoneCheckDiv");
-		box2.remove();
+		document.getElementById("pwDivId").remove();
+		document.getElementById("phoneCheckDiv").remove();
+		document.getElementById("AuthenticationNumber").remove();
 		
 		document.getElementById("findPw").style.display = "";
 		document.getElementById("keepLogin").style.display = "";
@@ -39,10 +38,16 @@
 	        
 			const box2 = document.getElementById("addPhoneNum");
 			const newP2 = document.createElement('div');
-			newP2.innerHTML = "<input type='text' class='text' id='phoneNum' name='phoneNum'> <span>전화번호</span>" +
-			 				  "<button type='button' id='phoneCheck'>인증번호발송</button>";
+			const newP3 = document.createElement('div');
+			newP2.innerHTML = "<div><input type='text' class='text' id='phoneNum' name='phoneNum'> <span id='phoneNumWord'>전화번호</span></div>" +
+							  "<button type='button' id='phoneCheck'>인증번호발송</button>";
+							  
+			newP3.innerHTML = "<input type='text' class='text' id='checkNum' name='checkNum'>";		  
 		  	newP2.id = 'phoneCheckDiv';
+		  	newP3.id = 'AuthenticationNumber';
+		  	
 		  	box2.appendChild(newP2);
+		  	box2.appendChild(newP3);
 	        
 	        document.getElementById("findPw").style.display = "none";
 	        document.getElementById("keepLogin").style.display = "none";
