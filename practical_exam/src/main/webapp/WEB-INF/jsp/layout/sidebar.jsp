@@ -1,4 +1,8 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=utf-8"%>
+
+<script>
+
+</script>
 <a class="s-sidebar__trigger" href="#0"> <i class="fa fa-bars"></i>
 </a>
 
@@ -11,12 +15,12 @@
 		</li>
 		<li>
 			<a class="s-sidebar__nav-link" href="#0"> 
-				<i class="fa fa-user"></i><em>Profile</em>
+				<i class="fa fa-camera"></i><em>Test</em>
 			</a>
 		</li>
 		<li>
 			<a class="s-sidebar__nav-link" href="#0"> 
-				<i class="fa fa-camera"></i><em>Test</em>
+				<i class="fa fa-user"></i><em>My Page</em>
 			</a>
 		</li>
 	</ul>

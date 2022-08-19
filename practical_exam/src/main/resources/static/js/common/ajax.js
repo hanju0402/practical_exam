@@ -4,6 +4,8 @@
  * jsonValidation(jsonStr) : JSON 검증
  * callPostData(url, jsonStr) : POST방식의 데이터 전송 (parameter가 없는 경우, JSON Parsing Exception)
  * callPost(url) : POST방식의 데이터 전송 (Parameter 기입 받지 않음)
+ * 
+ * @author : 이동준 (blog.naver.com/adgjl1125 )
  */
 
 //JSON String 검증
