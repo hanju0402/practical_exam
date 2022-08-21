@@ -1,11 +1,14 @@
 package com.practical.exam.cms.login.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.practical.exam.cms.login.dao.LoginDao;
 import com.practical.exam.common.auth.UserInfo;
 
 @Service("loginService")
@@ -14,6 +17,9 @@ public class LoginService {
 
 	@Resource
 	private UserInfo userInfo;
+	
+	@Autowired
+	private LoginDao loginDao;
 	/**
 	 * 로그인 처리 
 	 * 
@@ -21,18 +27,14 @@ public class LoginService {
 	 * @return
 	 */
 	public void login(HashMap<String,String> reqData) {
-		// DB가 없으므로 , 'sss' ,'ddd'로 하드코딩 되어있음.
-		String id="sss";
-		String pw="ddd";
-		
-		String reqUserId= reqData.get("userId");
-		String reqUserpw= reqData.get("password");
+		Map<String,String> reslt = loginDao.getUserInfo(reqData);
+		System.out.println("유저 정보 : "+reslt);
 		
 		// 로그인 성공 시,
-		if(id.equals(reqUserId) && pw.equals(reqUserpw)) {
+		if(reslt.size() == 1) {
 			// 세션 생성
-			userInfo.setUserId(reqUserId);
-			userInfo.setUserNm(reqUserpw);
+			userInfo.setUserId(reslt.get("userId"));
+			userInfo.setUserNm(reslt.get("userPw"));
 		}
 	}
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.practical.exam.cms.login.dao.LoginDao">
+	<resultMap id="getUserInfoReslt" type="Map">
+	  <result column="userId" 	property="USER_ID" 		javaType="String"/>
+	  <result column="userPw"	property="USER_PW" 		javaType="String"/>
+	  <result column="salt"		property="USER_SALT" 	javaType="String"/>
+	  <result column="userNm"	property="USER_NAME" 	javaType="String"/>
+	  <result column="phone"	property="USER_PHONE" 	javaType="String"/>
+	</resultMap>
+    <select id="getUserInfo" resultMap="getUserInfoReslt">
+        SELECT USER_ID
+        	 , USER_PW
+        	 , USER_SALT
+        	 , USER_NAME
+        	 , USER_PHONE 
+      	FROM P_MEMBER
+      	WHERE USER_ID = #{userId}
+      	AND USER_PW = #{password};
+    </select>
+</mapper>
