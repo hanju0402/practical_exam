@@ -14,14 +14,14 @@ function jsonValidation(jsonStr){
 	try { 
 		JSON.parse(jsonStr);
 	} catch (e) {
-		console.log("JSON Validation Error");
+		
 		try{
-			JSON.parse(JSON.stringify(jsonStr));
-			return 1
+			return 1;
 		}catch (ek){
 			console.log("JSON Validation Error");
 			return 2;
 		}
+		console.log("JSON Validation Error");
 		return 2;
 	}
 	
