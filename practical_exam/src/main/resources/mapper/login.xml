@@ -11,11 +11,11 @@
 	  <result column="phone"	property="USER_PHONE" 	javaType="String"/>
 	</resultMap>
     <select id="getUserInfo" resultMap="getUserInfoReslt">
-        SELECT USER_ID
-        	 , USER_PW
-        	 , USER_SALT
-        	 , USER_NAME
-        	 , USER_PHONE 
+        SELECT user_id
+        	 , user_pw
+        	 , user_salt
+        	 , user_name
+        	 , user_phone 
       	FROM P_MEMBER
       	WHERE USER_ID = #{userId}
       	AND USER_PW = #{password};

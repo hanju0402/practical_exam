@@ -28,13 +28,14 @@ public class LoginService {
 	 */
 	public void login(HashMap<String,String> reqData) {
 		Map<String,String> reslt = loginDao.getUserInfo(reqData);
-		System.out.println("유저 정보 : "+reslt);
 		
 		// 로그인 성공 시,
-		if(reslt.size() == 1) {
-			// 세션 생성
-			userInfo.setUserId(reslt.get("userId"));
-			userInfo.setUserNm(reslt.get("userPw"));
+		if(reslt != null) {			
+			if(reslt.size() == 1) {
+				// 세션 생성
+				userInfo.setUserId(reslt.get("userId"));
+				userInfo.setUserNm(reslt.get("userPw"));
+			}
 		}
 	}
 }
