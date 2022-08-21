@@ -6,9 +6,11 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.practical.exam.cms.login.service.LoginService;
@@ -50,6 +52,15 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(@RequestParam HashMap<String,String> params) {
 		loginService.login(params);
+		return "redirect:/";
+	}
+	
+	
+	@RequestMapping(value="/signUp", method = RequestMethod.POST)
+	@ResponseBody
+	public String signUp(@RequestParam HashMap<String,String> params) {
+		//loginService.login(params);
+		System.out.println("ㅋㅋ3" + params); 
 		return "redirect:/";
 	}
 	
