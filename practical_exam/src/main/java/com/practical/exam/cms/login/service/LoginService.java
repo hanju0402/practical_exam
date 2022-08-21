@@ -31,11 +31,9 @@ public class LoginService {
 		
 		// 로그인 성공 시,
 		if(reslt != null) {			
-			if(reslt.size() == 1) {
-				// 세션 생성
-				userInfo.setUserId(reslt.get("userId"));
-				userInfo.setUserNm(reslt.get("userPw"));
-			}
+			// 세션 생성
+			userInfo.setUserId(reslt.get("userId"));
+			userInfo.setUserNm(reslt.get("userNm"));
 		}
 	}
 }
