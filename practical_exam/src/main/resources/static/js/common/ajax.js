@@ -15,18 +15,28 @@ function jsonValidation(jsonStr){
 		JSON.parse(jsonStr);
 	} catch (e) {
 		console.log("JSON Validation Error");
-		return false;
+		try{
+			JSON.parse(JSON.stringify(jsonStr));
+			return 1
+		}catch (ek){
+			console.log("JSON Validation Error");
+			return 2;
+		}
+		return 2;
 	}
 	
-	return true;
+	return 0;
 }
 
 //POST 방식 데이터 전송 
 function callPostData(url , jsonStr){
 
 	//호출한 데이터가 JSON이 아닌 경우, 실행하지 않음
-	if(!jsonValidation(jsonStr)){
+	if(jsonValidation(jsonStr)==2){
 		return ;
+	}
+	if(jsonValidation(jsonStr)==1){
+		jsonStr = JSON.stringify(jsonStr);
 	}
 	
 	var httpRequest = new XMLHttpRequest();
