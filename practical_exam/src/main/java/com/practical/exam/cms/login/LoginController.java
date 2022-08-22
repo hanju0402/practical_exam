@@ -57,12 +57,11 @@ public class LoginController {
 	
 	
 	@RequestMapping(value="/signUp", method = RequestMethod.POST)
-	@ResponseBody
-	public String signUp(@RequestParam HashMap<String,String> params) {
-		//loginService.login(params);
-		System.out.println("ㅋㅋ3" + params); 
-		return "redirect:/";
-	}
+	   public String signUp(@RequestBody HashMap<String,String> params) {
+	      //loginService.login(params);
+	      System.out.println("요청 전문 확인 =======>" + params); 
+	      return "redirect:/";
+	   }
 	
 	
 }
