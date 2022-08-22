@@ -3,6 +3,7 @@ package com.practical.exam.common.auth;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +24,7 @@ import com.practical.exam.common.utils.RequestUtils;
 public class ApiInterceptor implements HandlerInterceptor {
 	private static final Logger LOGGER = LogManager.getLogger(ApiInterceptor.class);
     private static final String REQUEST_METHODS_TYPE_OF_GET="GET";
-    
+    private static final String[] REQUEST_SESSION_NOT_CHECK={"/","/login"};
     @Autowired
     
 	@Override
@@ -35,9 +36,26 @@ public class ApiInterceptor implements HandlerInterceptor {
 		LOGGER.info("Request URL ==> "+request.getRequestURI());
 		LOGGER.info("Request Params ==>"+RequestUtils.getParameter(request));
 		
-//		if(true) {
-//			LOGGER.info(RequestUtils.getIp(request)+ " session has expired...");
-//		}
+		// 현재 요청한 URL이 세션 체크 대상인지 확인
+		boolean sessionUrl = false;
+		for(String uri:REQUEST_SESSION_NOT_CHECK) {
+			if(uri.equals(request.getRequestURI())) {
+				sessionUrl = true;
+				break;
+			}
+		}
+		
+		// 세션 체크 대상인 경우,
+		if(sessionUrl) {
+			HttpSession session = request.getSession();
+			if(session != null) {			
+				Object obj = session.getAttribute("scopedTarget.userInfo");
+				
+				System.out.println("User Id =>" + ((UserInfo)obj).getUserId());
+			} else {
+				System.out.println("세션 없음");				
+			}
+		}
         return true;
     }
 
