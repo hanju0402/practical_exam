@@ -38,8 +38,14 @@ public class LoginService {
 	}
 	
 	
-	public void signUp(HashMap<String,String> reqData) {
-		loginDao.addUserInfo(reqData);
+	public int signUp(HashMap<String,String> reqData) {
+//		if (loginDao.getUserId(reqData) != null) {
+//			return 0;
+//		}
+		
+		int resultCode = loginDao.addUserInfo(reqData);
+		System.out.println("이게 뭐길래?" + resultCode);
+		return resultCode;
 		
 	}
 }

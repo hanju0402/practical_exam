@@ -8,5 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface LoginDao {
 	Map<String,String> getUserInfo(Map<String,String> userInfo);
 	
-	void addUserInfo(Map<String,String> userInfo);
+	int addUserInfo(Map<String,String> userInfo);
+	
+	Map<String,String> getUserId(Map<String,String> userInfo);
 }

@@ -20,11 +20,14 @@
 		document.getElementById("findPw").style.display = "";
 		document.getElementById("keepLogin").style.display = "";
 		document.getElementById("keepLoginTxt").style.display = "";
+		document.getElementById("bottomLine").style.display = "block";
 		
 		let x = document.getElementById("signin");
 		
 	    x.innerText="로그인"; 
 	}
+	
+
 	
 	function signUp() {
 		if (document.getElementById('signUpTxt').className != 'active') {
@@ -50,6 +53,7 @@
 	        document.getElementById("findPw").style.display = "none";
 	        document.getElementById("keepLogin").style.display = "none";
 	        document.getElementById("keepLoginTxt").style.display = "none";
+	        document.getElementById("bottomLine").style.display = "none";
 	        
 	        let x = document.getElementById("signin");
 	        x.innerText="회원가입"; 
@@ -62,10 +66,10 @@
 	// 인증번호발송 버튼 눌렀을때
 	function checkNumBtn() {
 
-			
 			if (document.getElementById('checkNum').className == 'notAdd') {
 				
 				document.getElementById('checkNum').className = 'text';
+				alert("인증번호가 발송되었습니다."); 
 				}
 			
 		}
@@ -78,6 +82,7 @@
 		}       
 	 	return true;   
 	}
+
 	
 	// 아이디 유효성체크
     function checkId(id) {      
@@ -160,6 +165,7 @@
  			return true; //확인이 완료되었을 때   
  	}
 	
+	// 유효성검사 통합
 	function checkAll() {        
 		if (!checkId(document.getElementById('userId').value)) {            
 			return false;        
@@ -172,8 +178,18 @@
 		}   
 			return true;    
 		}
-
 	
+/* 	function idDoubleCheck(userId) {
+		
+		let jsonStr = {
+            	"userId":userId;
+            }
+		let reslt = callPostData('/doubleCheck' , jsonStr);
+		
+
+		} */
+
+	// 로그인 or 회원가입 버튼 클릭시
 	function btnClick(){
 		const dataForm= document.getElementById('dataForm');
 		
@@ -190,14 +206,14 @@
 				
 				let jsonStr = {
                 	"userId":document.getElementById('userId').value,
-	                "userPw":document.getElementById('password').value,
+	                "password":document.getElementById('password').value,
 	                "userName":document.getElementById('userName').value,
-	                "userTell":document.getElementById('phoneNum').value
+	                "phoneNum":document.getElementById('phoneNum').value
 	            }
 				console.log(jsonStr);
 				
 	            let reslt = callPostData('/signUp' , jsonStr);
-	            alert(reslt);
+	           
 						
 			}
 			     
@@ -211,7 +227,9 @@
 		<h2 id="signInTxt" class="active" onclick='signIn()'>로그인</h2>
 		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>회원가입</h2>
 		<form onsubmit="return false" id="dataForm" method="post">
-			<input type="text" class="text" id="userId" name="userId"> <span>계정명</span> <input type="password" class="text" id="password" name="password"><span>비밀번호</span>
+
+			<input type="text" class="text" id="userId" name="userId" onblur="idBlur()"> <span>계정명</span>
+			<input type="password" class="text" id="password" name="password"><span>비밀번호</span>
 			<div id="addTxtDiv"></div>
 			<div id="addPhoneNum"></div>
 			<div id="addCheckNumTxt">
@@ -220,7 +238,7 @@
 
 			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
 			<button type="button" id="signin" class="signin" onclick="btnClick()">로그인</button>
-			<hr>
+			<hr id="bottomLine">
 			<a id="findPw" href="#">비밀번호 찾기</a>
 		</form>
 	</div>

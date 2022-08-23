@@ -64,6 +64,7 @@ span {
 
 
 .text {
+	position: relative;
 	border: none;
 	width: 89%;
 	padding: 10px 20px;
@@ -181,9 +182,9 @@ a {
 
 #phoneNum {
 	border: none;
-	width: 70%;
+	width: 115%;
 	flex: 1;
-	padding: 10px 50px;
+	padding: 10px 20px;
 	display: block;
 	height: 15px;
 	border-radius: 20px;
@@ -191,6 +192,7 @@ a {
 	border: 2px solid rgba(255, 255, 255, 0);
 	overflow: hidden;
 	margin-top: 15px;
+	text-align: left;
 	transition: all 0.5s ease-in-out;
 }
 
@@ -204,7 +206,7 @@ a {
 	display: block;
 	height: 39px;
 	border-radius: 20px;
-	margin: 15px 0 0 40px; 
+	margin: 15px 0 0 94px; 
 	transition: all 0.5s ease-in-out;
 	border: none;
 	font-size: 8px;
@@ -217,3 +219,4 @@ a {
 	box-shadow: 0px 4px 35px -5px #4082f5;
 	cursor: pointer;
 }
+

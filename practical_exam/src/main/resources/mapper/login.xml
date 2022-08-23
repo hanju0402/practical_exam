@@ -21,6 +21,12 @@
       	AND USER_PW = #{password};
     </select>
     
+    <select id="getUserId" resultMap="getUserInfoReslt">
+        SELECT USER_ID
+      	FROM P_MEMBER
+      	WHERE USER_ID = #{userId}
+    </select>
+    
     <insert id="addUserInfo" >
     
 	   	INSERT INTO P_MEMBER (USER_ID
@@ -28,10 +34,10 @@
 	   						, USER_SALT
 	   						, USER_NAME
 	   						, USER_PHONE) VALUES (#{userId}
-							, #{userPw}
+							, #{password}
 							, ''
 							, #{userName}
-							, #{userTell});  
+							, #{phoneNum});  
     </insert>
 </mapper>
 
