@@ -1,6 +1,6 @@
 package com.practical.exam.cms.login;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 
 import javax.annotation.Resource;
 
@@ -51,6 +51,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(@RequestParam HashMap<String,String> params) {
+		System.out.println("어떻게나오나 ===>?" + params);
 		loginService.login(params);
 		return "redirect:/";
 	}
@@ -58,7 +59,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/signUp", method = RequestMethod.POST)
 	   public String signUp(@RequestBody HashMap<String,String> params) {
-	      //loginService.login(params);
+	      loginService.signUp(params);
 	      System.out.println("요청 전문 확인 =======>" + params); 
 	      return "redirect:/";
 	   }

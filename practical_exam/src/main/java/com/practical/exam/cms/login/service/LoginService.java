@@ -36,4 +36,10 @@ public class LoginService {
 			userInfo.setUserNm(reslt.get("userNm"));
 		}
 	}
+	
+	
+	public void signUp(HashMap<String,String> reqData) {
+		loginDao.addUserInfo(reqData);
+		
+	}
 }

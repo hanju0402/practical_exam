@@ -21,5 +21,17 @@
       	AND USER_PW = #{password};
     </select>
     
- 
+    <insert id="addUserInfo" >
+    
+	   	INSERT INTO P_MEMBER (USER_ID
+	   						, USER_PW
+	   						, USER_SALT
+	   						, USER_NAME
+	   						, USER_PHONE) VALUES (#{userId}
+							, #{password}
+							, ''
+							, #{userName}
+							, #{phoneNum});  
+    </insert>
 </mapper>
+

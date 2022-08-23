@@ -15,7 +15,7 @@
 		
 		document.getElementById("pwDivId").remove();
 		document.getElementById("phoneCheckDiv").remove();
-		document.getElementById("AuthenticationNumber").remove();
+
 		
 		document.getElementById("findPw").style.display = "";
 		document.getElementById("keepLogin").style.display = "";
@@ -187,15 +187,17 @@
 		if (document.getElementById("signin").innerHTML == '회원가입') {
 			
 			if (checkAll()) {
-				alert("로그인 성공");
+				
 				let jsonStr = {
                 	"userId":document.getElementById('userId').value,
 	                "userPw":document.getElementById('password').value,
-	                "userName":document.getElementById('userName').value
+	                "userName":document.getElementById('userName').value,
+	                "userTell":document.getElementById('phoneNum').value
 	            }
 				console.log(jsonStr);
 				
 	            let reslt = callPostData('/signUp' , jsonStr);
+	            alert(reslt);
 						
 			}
 			     
