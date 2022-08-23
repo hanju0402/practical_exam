@@ -28,10 +28,10 @@
 	   						, USER_SALT
 	   						, USER_NAME
 	   						, USER_PHONE) VALUES (#{userId}
-							, #{password}
+							, #{userPw}
 							, ''
 							, #{userName}
-							, #{phoneNum});  
+							, #{userTell});  
     </insert>
 </mapper>
 
