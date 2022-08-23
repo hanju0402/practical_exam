@@ -24,11 +24,32 @@ import com.practical.exam.common.utils.RequestUtils;
 public class ApiInterceptor implements HandlerInterceptor {
 	private static final Logger LOGGER = LogManager.getLogger(ApiInterceptor.class);
     private static final String REQUEST_METHODS_TYPE_OF_GET="GET";
-    private static final String[] REQUEST_SESSION_NOT_CHECK={"/","/login"};
+    private static final String[] REQUEST_SESSION_NOT_CHECK={"/login"};
     @Autowired
     
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    	// 현재 요청한 URL이 세션 체크 대상인지 확인
+    	boolean sessionUrl = false;
+    	for(String uri:REQUEST_SESSION_NOT_CHECK) {
+    		if(uri.equals(request.getRequestURI())) {
+    			sessionUrl = true;
+    			break;
+    		}
+    	}
+    	
+    	// 세션 체크 대상인 경우,
+    	if(sessionUrl) {
+    		HttpSession session = request.getSession();
+    		if(session != null) {			
+    			Object obj = session.getAttribute("scopedTarget.userInfo");
+    			
+    			System.out.println("User Id =>" + ((UserInfo)obj).getUserId());
+    		} else {
+    			System.out.println("세션 없음");				
+    		}
+    	}
+    	
     	//GET 방식인 경우, log를 남기지 않음
 		if(request.getMethod().equals(REQUEST_METHODS_TYPE_OF_GET)) {
     		return true;
@@ -36,26 +57,6 @@ public class ApiInterceptor implements HandlerInterceptor {
 		LOGGER.info("Request URL ==> "+request.getRequestURI());
 		LOGGER.info("Request Params ==>"+RequestUtils.getParameter(request));
 		
-		// 현재 요청한 URL이 세션 체크 대상인지 확인
-		boolean sessionUrl = false;
-		for(String uri:REQUEST_SESSION_NOT_CHECK) {
-			if(uri.equals(request.getRequestURI())) {
-				sessionUrl = true;
-				break;
-			}
-		}
-		
-		// 세션 체크 대상인 경우,
-		if(sessionUrl) {
-			HttpSession session = request.getSession();
-			if(session != null) {			
-				Object obj = session.getAttribute("scopedTarget.userInfo");
-				
-				System.out.println("User Id =>" + ((UserInfo)obj).getUserId());
-			} else {
-				System.out.println("세션 없음");				
-			}
-		}
         return true;
     }
 
