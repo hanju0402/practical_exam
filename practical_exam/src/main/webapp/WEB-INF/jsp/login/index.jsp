@@ -10,6 +10,7 @@
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';
 		document.getElementById('signInTxt').className = 'active';
+		document.getElementById('checkNum').className = 'notAdd';
 		
 		
 		document.getElementById("pwDivId").remove();
@@ -37,16 +38,14 @@
 	        
 			const box2 = document.getElementById("addPhoneNum");
 			const newP2 = document.createElement('div');
-			const newP3 = document.createElement('div');
+			
 			newP2.innerHTML = "<div><input type='text' class='text' id='phoneNum' name='phoneNum'> <span id='phoneNumWord'>전화번호</span></div>" +
-							  "<button type='button' id='phoneCheck'>인증번호발송</button>";
-							  
-			newP3.innerHTML = "<input type='text' class='text' id='checkNum' name='checkNum'>";		  
+							  "<button type='button' id='phoneCheck' onclick='checkNumBtn()'>인증번호발송</button>";
+							 		  
 		  	newP2.id = 'phoneCheckDiv';
-		  	newP3.id = 'AuthenticationNumber';
-		  	
+	
 		  	box2.appendChild(newP2);
-		  	box2.appendChild(newP3);
+		  	
 	        
 	        document.getElementById("findPw").style.display = "none";
 	        document.getElementById("keepLogin").style.display = "none";
@@ -59,6 +58,17 @@
 		document.getElementById('signUpTxt').className = 'active';
 		document.getElementById('signInTxt').className = 'nonactive';
 	}
+
+	// 인증번호발송 버튼 눌렀을때
+	function checkNumBtn() {
+
+			
+			if (document.getElementById('checkNum').className == 'notAdd') {
+				
+				document.getElementById('checkNum').className = 'text';
+				}
+			
+		}
 	
 	// 공백확인 함수    
 	function checkExistData(value, dataName) {        
@@ -202,6 +212,9 @@
 			<input type="text" class="text" id="userId" name="userId"> <span>계정명</span> <input type="password" class="text" id="password" name="password"><span>비밀번호</span>
 			<div id="addTxtDiv"></div>
 			<div id="addPhoneNum"></div>
+			<div id="addCheckNumTxt">
+				<input type='text' class='notAdd' id='checkNum' name='checkNum'> 
+			</div>
 
 			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
 			<button type="button" id="signin" class="signin" onclick="btnClick()">로그인</button>
