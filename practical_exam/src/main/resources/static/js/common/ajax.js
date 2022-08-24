@@ -29,7 +29,7 @@ function jsonValidation(jsonStr){
 }
 
 //POST 방식 데이터 전송 
-function callPostData(url , jsonStr){
+function callPostData(url , jsonStr , callback){
 
 	//호출한 데이터가 JSON이 아닌 경우, 실행하지 않음
 	if(jsonValidation(jsonStr)==2){
@@ -46,56 +46,7 @@ function callPostData(url , jsonStr){
 	//send메소드에 인수 전달
 	httpRequest.send(jsonStr);
 	
-	httpRequest.onreadystatechange = function(){
-		// 요청과 응답에 성공했을 때
-		if(httpRequest.readyState == XMLHttpRequest.DONE){
-			// 응답 값을 받아온다.
-			if(httpRequest.status == 200){
-				console.log(httpRequest);
-				return httpRequest.responseText;
-			} else {
-				alert("서버 에러!!");
-				console.log(httpRequest);
-				return ;
-			}
-		}
-	}
-}
-
-//POST 방식 데이터 전송 
-function callPostData(url , jsonStr){
-
-	//호출한 데이터가 JSON이 아닌 경우, 실행하지 않음
-	if(jsonValidation(jsonStr)==2){
-		return ;
-	}
-	if(jsonValidation(jsonStr)==1){
-		jsonStr = JSON.stringify(jsonStr);
-	}
-	
-	var httpRequest = new XMLHttpRequest();
-	
-	httpRequest.open("POST", url , true);
-	httpRequest.setRequestHeader('Content-Type', 'application/json');
-	//send메소드에 인수 전달
-	httpRequest.send(jsonStr);
-	
-	httpRequest.onreadystatechange = function(){
-		// 요청과 응답에 성공했을 때
-		if(httpRequest.readyState == XMLHttpRequest.DONE){
-			// 응답 값을 받아온다.
-			if(httpRequest.status == 200){
-				console.log("???" + httpRequest);
-				alert("여기다!");
-				alert(httpRequest.responseText);
-				return httpRequest.responseText;
-			} else {
-				alert("서버 에러!!");
-				console.log(httpRequest);
-				return ;
-			}
-		}
-	}
+	httpRequest.onreadystatechange = callback(httpRequest)
 }
 
 

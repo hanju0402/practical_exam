@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,20 +58,10 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping(value="/signUp", method = RequestMethod.POST)
-	   public void signUp(@RequestBody HashMap<String,String> params) {
-	      loginService.signUp(params);
-	      System.out.println("요청 전문 확인 =======>" + params);      
-	   }
-	
-	@RequestMapping(value="/doubleCheck", method = RequestMethod.POST)
-	   public String dooubleCheck(@RequestBody HashMap<String,String> params) {
-	      String result = loginService.doubleCheck(params);
-	      System.out.println("요청 전문 확인 =======>" + params); 
-	     // return "redirect:/";
-	      return result;
-	    
-	   }
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
+	public ResponseEntity<Object> signUp(@RequestBody HashMap<String, String> params) {
+		return loginService.signUp(params);
+	}
 	
 	
 }

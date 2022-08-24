@@ -187,27 +187,26 @@
 	
 	function idDoubleCheck(userId) {
 		
-		let jsonStr = {
-            	"userId":userId
-            }
+		let jsonStr = 
+		{
+           	"userId":userId
+        }
         
 		let reslt = callPostData('/doubleCheck' , jsonStr);
 
 		if (reslt == "1") {
 			alert("중복이다");
-			console.log(reslt);
-			return false
-			} 
-		alert("중복 아니다");
-		alert("뭘까" + reslt);
-		console.log(reslt);
-		return true
+			return false;
+		} 
+		return true;
 		
 	
-		}
+	}
 
 	// 로그인 or 회원가입 버튼 클릭시
-	
+	function callback(httpRequest){
+		console.log(httpRequest)
+	}
 	
 	function btnClick(){
 		const dataForm= document.getElementById('dataForm');
@@ -221,7 +220,7 @@
 		
 		if (document.getElementById("signin").innerHTML == '회원가입') {
 			
-			if (checkAll()) {
+			//if (checkAll()) {
 				
 				let jsonStr = {
                 	"userId":document.getElementById('userId').value,
@@ -229,13 +228,11 @@
 	                "userName":document.getElementById('userName').value,
 	                "phoneNum":document.getElementById('phoneNum').value
 	            }
-	            
-				console.log(jsonStr);
 				
-	            let reslt = callPostData('/signUp' , jsonStr);
+	            callPostData('/signUp' , jsonStr, callback);
 	           
 						
-			}
+			//}
 			     
 	         
 		}

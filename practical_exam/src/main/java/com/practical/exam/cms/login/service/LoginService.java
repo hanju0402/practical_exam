@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.practical.exam.cms.login.dao.LoginDao;
@@ -38,23 +40,21 @@ public class LoginService {
 	}
 	
 	
-	public void signUp(HashMap<String,String> reqData) {
-		
+	public ResponseEntity<Object> signUp(HashMap<String,String> reqData) {
 		int resultCode = loginDao.addUserInfo(reqData);
-		System.out.println("이게 뭐길래?" + resultCode);
 		
-		
-	}
-	
-	public String doubleCheck(HashMap<String,String> reqData) {
-		 System.out.println("뭐가나올라나 =======>" + loginDao.getUserId(reqData));
+		int userExistChk=0;
 		if (loginDao.getUserId(reqData) != null) {
-			return "1";
+			userExistChk= 1;
 		} 
 		
-		return "0";
-		
+		if(userExistChk == 1) {			
+			return new ResponseEntity<>(resultCode,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(resultCode,HttpStatus.FAILED_DEPENDENCY);
+		}
 	}
+	
 	
 	
 }
