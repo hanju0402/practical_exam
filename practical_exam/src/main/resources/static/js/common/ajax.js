@@ -46,7 +46,11 @@ function callPostData(url , jsonStr , callback){
 	//send메소드에 인수 전달
 	httpRequest.send(jsonStr);
 	
-	httpRequest.onreadystatechange = callback(httpRequest)
+	httpRequest.onreadystatechange = function(){
+		if(httpRequest.readyState == XMLHttpRequest.DONE){
+			callback(httpRequest.responseText)
+		}
+	}
 }
 
 
