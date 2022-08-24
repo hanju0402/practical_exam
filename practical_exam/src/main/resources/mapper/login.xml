@@ -21,8 +21,9 @@
       	AND USER_PW = #{password};
     </select>
     
-    <select id="getUserId" resultMap="getUserInfoReslt">
-        SELECT USER_ID
+    <select id="getUserId" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) = 0 THEN 0
+        			ELSE 1 END  
       	FROM P_MEMBER
       	WHERE USER_ID = #{userId}
     </select>

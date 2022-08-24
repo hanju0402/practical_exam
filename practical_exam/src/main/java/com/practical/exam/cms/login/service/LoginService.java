@@ -49,14 +49,9 @@ public class LoginService {
 	public ResponseEntity<Object> signUp(HashMap<String,String> reqData) {
 		
 		// 아이디 중복여부 확인
-		int userExistChk=0;
-		if (loginDao.getUserId(reqData) != null) {
-			userExistChk= 1;
-		} 
 		
 		String result = "해당 계정 중복입니다. 다시 가입해주세요.";
-		
-		if(userExistChk == 0) {			
+		if(loginDao.idDuplicated(reqData)) {			
 			int resultCd= loginDao.addUserInfo(reqData);
 			result = "회원가입 성공하셨습니다 !";
 			return new ResponseEntity<>(result,HttpStatus.OK);
