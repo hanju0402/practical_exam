@@ -204,8 +204,14 @@
 	}
 
 	// 로그인 or 회원가입 버튼 클릭시
-	function callback(httpRequest){
-		console.log(httpRequest)
+	function callback(response){
+		console.log(response);
+		console.log(response.responseData);
+		console.log(response.responseCode);
+		
+		alert(response.responseData);
+		
+		// 해당 계정 중복일 경우, 패스워드 및 ID칸 공란으로 변경할것..
 	}
 	
 	function btnClick(){

@@ -48,7 +48,11 @@ function callPostData(url , jsonStr , callback){
 	
 	httpRequest.onreadystatechange = function(){
 		if(httpRequest.readyState == XMLHttpRequest.DONE){
-			callback(httpRequest.responseText)
+			let responseData = {
+				"responseData":httpRequest.responseText,
+				"responseCode":httpRequest.status
+			};
+			callback(responseData);
 		}
 	}
 }
