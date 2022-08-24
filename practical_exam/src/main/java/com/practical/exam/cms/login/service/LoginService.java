@@ -38,14 +38,23 @@ public class LoginService {
 	}
 	
 	
-	public int signUp(HashMap<String,String> reqData) {
-//		if (loginDao.getUserId(reqData) != null) {
-//			return 0;
-//		}
+	public void signUp(HashMap<String,String> reqData) {
 		
 		int resultCode = loginDao.addUserInfo(reqData);
 		System.out.println("이게 뭐길래?" + resultCode);
-		return resultCode;
+		
 		
 	}
+	
+	public String doubleCheck(HashMap<String,String> reqData) {
+		 System.out.println("뭐가나올라나 =======>" + loginDao.getUserId(reqData));
+		if (loginDao.getUserId(reqData) != null) {
+			return "1";
+		} 
+		
+		return "0";
+		
+	}
+	
+	
 }

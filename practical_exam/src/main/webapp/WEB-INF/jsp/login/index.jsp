@@ -7,6 +7,8 @@
 <link href="css/login.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/common/ajax.js"></script>
 <script>
+
+	// 로그인 탭 눌렀을때
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';
 		document.getElementById('signInTxt').className = 'active';
@@ -28,7 +30,7 @@
 	}
 	
 
-	
+	// 회원가입 탭 눌렀을때	
 	function signUp() {
 		if (document.getElementById('signUpTxt').className != 'active') {
 			
@@ -166,9 +168,13 @@
  	}
 	
 	// 유효성검사 통합
-	function checkAll() {        
+	function checkAll() {   
+
+		     
 		if (!checkId(document.getElementById('userId').value)) {            
 			return false;        
+		} else if (!idDoubleCheck(document.getElementById('userId').value)) {
+			return false;
 		} else if (!checkPw(document.getElementById('userId').value, document.getElementById('password').value, document.getElementById('password2').value)) {            
 			return false;        
 		} else if (!checkName(document.getElementById('userName').value)) {            
@@ -179,17 +185,30 @@
 			return true;    
 		}
 	
-/* 	function idDoubleCheck(userId) {
+	function idDoubleCheck(userId) {
 		
 		let jsonStr = {
-            	"userId":userId;
+            	"userId":userId
             }
+        
 		let reslt = callPostData('/doubleCheck' , jsonStr);
-		
 
-		} */
+		if (reslt == "1") {
+			alert("중복이다");
+			console.log(reslt);
+			return false
+			} 
+		alert("중복 아니다");
+		alert("뭘까" + reslt);
+		console.log(reslt);
+		return true
+		
+	
+		}
 
 	// 로그인 or 회원가입 버튼 클릭시
+	
+	
 	function btnClick(){
 		const dataForm= document.getElementById('dataForm');
 		
@@ -210,6 +229,7 @@
 	                "userName":document.getElementById('userName').value,
 	                "phoneNum":document.getElementById('phoneNum').value
 	            }
+	            
 				console.log(jsonStr);
 				
 	            let reslt = callPostData('/signUp' , jsonStr);
@@ -228,7 +248,7 @@
 		<h2 id="signUpTxt" class="nonactive" onclick='signUp()'>회원가입</h2>
 		<form onsubmit="return false" id="dataForm" method="post">
 
-			<input type="text" class="text" id="userId" name="userId" onblur="idBlur()"> <span>계정명</span>
+			<input type="text" class="text" id="userId" name="userId" > <span>계정명</span>
 			<input type="password" class="text" id="password" name="password"><span>비밀번호</span>
 			<div id="addTxtDiv"></div>
 			<div id="addPhoneNum"></div>

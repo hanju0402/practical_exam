@@ -58,18 +58,19 @@ public class LoginController {
 	
 	
 	@RequestMapping(value="/signUp", method = RequestMethod.POST)
-	   public int signUp(@RequestBody HashMap<String,String> params) {
-	      int result = loginService.signUp(params);
-	      System.out.println("요청 전문 확인 =======>" + params); 
-	      return result;
+	   public void signUp(@RequestBody HashMap<String,String> params) {
+	      loginService.signUp(params);
+	      System.out.println("요청 전문 확인 =======>" + params);      
 	   }
 	
-//	@RequestMapping(value="/doubleCheck", method = RequestMethod.POST)
-//	   public int dooubleCheck(@RequestBody HashMap<String,String> params) {
-//	      int result = loginService.signUp(params);
-//	      System.out.println("요청 전문 확인 =======>" + params); 
-//	      return result;
-//	   }
+	@RequestMapping(value="/doubleCheck", method = RequestMethod.POST)
+	   public String dooubleCheck(@RequestBody HashMap<String,String> params) {
+	      String result = loginService.doubleCheck(params);
+	      System.out.println("요청 전문 확인 =======>" + params); 
+	     // return "redirect:/";
+	      return result;
+	    
+	   }
 	
 	
 }
