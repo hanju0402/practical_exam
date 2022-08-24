@@ -52,12 +52,17 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(@RequestParam HashMap<String,String> params) {
-		System.out.println("어떻게나오나 ===>?" + params);
 		loginService.login(params);
 		return "redirect:/";
 	}
 	
 	
+	/**
+	 * 회원가입 신청
+	 * 
+	 * @param params
+	 * @return
+	 */
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestBody HashMap<String, String> params) {
 		return loginService.signUp(params);

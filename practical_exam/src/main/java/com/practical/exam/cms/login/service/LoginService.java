@@ -40,18 +40,28 @@ public class LoginService {
 	}
 	
 	
+	/**
+	 * 회원가입 신청
+	 * 
+	 * @param reqData
+	 * @return
+	 */
 	public ResponseEntity<Object> signUp(HashMap<String,String> reqData) {
-		int resultCode = loginDao.addUserInfo(reqData);
 		
+		// 아이디 중복여부 확인
 		int userExistChk=0;
 		if (loginDao.getUserId(reqData) != null) {
 			userExistChk= 1;
 		} 
 		
-		if(userExistChk == 1) {			
-			return new ResponseEntity<>(resultCode,HttpStatus.OK);
+		String result = "해당 계정 중복입니다. 다시 가입해주세요.";
+		
+		if(userExistChk == 0) {			
+			int resultCd= loginDao.addUserInfo(reqData);
+			result = "회원가입 성공하셨습니다 !";
+			return new ResponseEntity<>(result,HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(resultCode,HttpStatus.FAILED_DEPENDENCY);
+			return new ResponseEntity<>(result,HttpStatus.FAILED_DEPENDENCY);
 		}
 	}
 	
