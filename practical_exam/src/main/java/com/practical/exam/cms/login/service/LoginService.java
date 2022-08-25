@@ -50,7 +50,7 @@ public class LoginService {
 		
 		// 아이디 중복여부 확인
 		
-		String result = "해당 계정 중복입니다. 다시 가입해주세요.";
+		String result = "해당 계정 중복입니다. 다시 입력해주세요.";
 		
 		if(!loginDao.idDuplicated(reqData)) {			
 			loginDao.addUserInfo(reqData);

@@ -8,11 +8,14 @@
 <script type="text/javascript" src="js/common/ajax.js"></script>
 <script>
 
+
+
 	// 로그인 탭 눌렀을때
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';
 		document.getElementById('signInTxt').className = 'active';
 		document.getElementById('checkNum').className = 'notAdd';
+		
 		
 		
 		document.getElementById("pwDivId").remove();
@@ -23,6 +26,9 @@
 		document.getElementById("keepLogin").style.display = "";
 		document.getElementById("keepLoginTxt").style.display = "";
 		document.getElementById("bottomLine").style.display = "block";
+		
+		document.getElementById('userId').value = "";
+		document.getElementById('password').value = "";
 		
 		let x = document.getElementById("signin");
 		
@@ -57,25 +63,18 @@
 	        document.getElementById("keepLoginTxt").style.display = "none";
 	        document.getElementById("bottomLine").style.display = "none";
 	        
+	        document.getElementById('userId').value = "";
+			document.getElementById('password').value = "";
+	        
 	        let x = document.getElementById("signin");
 	        x.innerText="회원가입"; 
+	        
 		} 
 		
 		document.getElementById('signUpTxt').className = 'active';
 		document.getElementById('signInTxt').className = 'nonactive';
 	}
 
-	// 인증번호발송 버튼 눌렀을때
-	function checkNumBtn() {
-
-			if (document.getElementById('checkNum').className == 'notAdd') {
-				
-				document.getElementById('checkNum').className = 'text';
-				alert("인증번호가 발송되었습니다."); 
-				}
-			
-		}
-	
 	// 공백확인 함수    
 	function checkExistData(value, dataName) {        
 		if (value == "") {            
@@ -167,41 +166,72 @@
  			return true; //확인이 완료되었을 때   
  	}
 	
+	// 인증번호발송 버튼 눌렀을때
+	function checkNumBtn() {
+		
+		
+		var tellRegExp = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;  
+
+		
+			
+		if (document.getElementById('phoneCheck').innerText == '인증번호발송') {
+
+			if (tellRegExp.test(document.getElementById('phoneNum').value)) {
+				document.getElementById('checkNum').className = 'text';
+				document.getElementById('phoneNum').disabled = true;
+				document.getElementById('inNum').className = 'inNum';
+				document.getElementById('phoneCheck').innerText = '전화번호수정';
+				confirmNumOk = true;
+				alert("인증번호가 발송되었습니다.");
+				
+				
+			} else {
+				alert("전화번호가 올바르지 않습니다.\n하이픈(-)없이 입력해주세요.");
+				confirmNumOk = false;
+				
+				
+			}
+			
+		} else {
+			document.getElementById('phoneNum').disabled = false;
+			document.getElementById('checkNum').className = 'notAdd'
+			document.getElementById('phoneNum').value = "";
+			document.getElementById('inNum').className = 'notAdd';
+			document.getElementById('phoneCheck').innerText = '인증번호발송';
+			confirmNumOk = false;
+			
+		}
+		confirmNumOk = false;
+
+	}
+	
+	function inNum(checkNum) {
+		
+		if(checkNum == '7777') {
+			//confirmNumOk = true;
+			return true
+		}
+		alert("전화번호 인증을 해주세요.");
+		return false
+	}
+	
 	// 유효성검사 통합
 	function checkAll() {   
 
 		     
 		if (!checkId(document.getElementById('userId').value)) {            
 			return false;        
-		} else if (!idDoubleCheck(document.getElementById('userId').value)) {
-			return false;
 		} else if (!checkPw(document.getElementById('userId').value, document.getElementById('password').value, document.getElementById('password2').value)) {            
 			return false;        
 		} else if (!checkName(document.getElementById('userName').value)) {            
 			return false;        
 		} else if (!checkTell(document.getElementById('phoneNum').value)) {            
 			return false;        
-		}   
+		}  else if (!inNum(document.getElementById('checkNum').value)) {
+			return false;
+		}  
 			return true;    
 		}
-	
-	function idDoubleCheck(userId) {
-		
-		let jsonStr = 
-		{
-           	"userId":userId
-        }
-        
-		let reslt = callPostData('/doubleCheck' , jsonStr);
-
-		if (reslt == "1") {
-			alert("중복이다");
-			return false;
-		} 
-		return true;
-		
-	
-	}
 
 	// 로그인 or 회원가입 버튼 클릭시
 	function callback(response){
@@ -209,9 +239,15 @@
 		console.log(response.responseData);
 		console.log(response.responseCode);
 		
-		alert(response.responseData);
+		if (response.responseCode == 200) {
+			alert(response.responseData);
+			window.location.href = '/';
+			
+		} else {
+			alert(response.responseData);
+			document.getElementById('userId').value = "";
+		}
 		
-		// 해당 계정 중복일 경우, 패스워드 및 ID칸 공란으로 변경할것..
 	}
 	
 	function btnClick(){
@@ -226,7 +262,7 @@
 		
 		if (document.getElementById("signin").innerHTML == '회원가입') {
 			
-			//if (checkAll()) {
+			if (checkAll()) {
 				
 				let jsonStr = {
                 	"userId":document.getElementById('userId').value,
@@ -236,9 +272,8 @@
 	            }
 				
 	            callPostData('/signUp' , jsonStr, callback);
-	           
-						
-			//}
+	           		
+			}
 			     
 	         
 		}
@@ -256,7 +291,7 @@
 			<div id="addTxtDiv"></div>
 			<div id="addPhoneNum"></div>
 			<div id="addCheckNumTxt">
-				<input type='text' class='notAdd' id='checkNum' name='checkNum'> 
+				<input type='text' class='notAdd' id='checkNum' name='checkNum'> <span id='inNum' class='notAdd'>인증번호</span>
 			</div>
 
 			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
