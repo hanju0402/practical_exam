@@ -15,6 +15,7 @@
 		document.getElementById('signUpTxt').className = 'nonactive';
 		document.getElementById('signInTxt').className = 'active';
 		document.getElementById('checkNum').className = 'notAdd';
+		document.getElementById('inNum').className = 'notAdd';
 		
 		
 		
@@ -126,6 +127,7 @@
 		//비밀번호와 비밀번호 확인이 맞지 않을때
 		if (pw1.value != pw2.value) {
 			alert("두 비밀번호가 일치하지 않습니다.");
+			pw1.value = ""; 
 			pw2.value = ""; 
 			pw2.focus(); 
 			return false;
