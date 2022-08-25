@@ -10,17 +10,17 @@
 	<ul>
 		<li>
 			<a class="s-sidebar__nav-link" href="#0"> 
-				<i class="fa fa-home"></i><em>Home</em>
+				<i class="fa fa-home"></i><em>대시보드</em>
 			</a>
 		</li>
 		<li>
 			<a class="s-sidebar__nav-link" href="#0"> 
-				<i class="fa fa-camera"></i><em>Test</em>
+				<i class="fa fa-camera"></i><em>모의 시험</em>
 			</a>
 		</li>
 		<li>
 			<a class="s-sidebar__nav-link" href="#0"> 
-				<i class="fa fa-user"></i><em>My Page</em>
+				<i class="fa fa-user"></i><em>내 정보</em>
 			</a>
 		</li>
 	</ul>

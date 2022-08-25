@@ -59,7 +59,7 @@ function callPostData(url , jsonStr , callback){
 
 
 //POST 방식 데이터 전송 (parameter 없음)
-function callPost(url){
+function callPost(url,callback){
 	var httpRequest = new XMLHttpRequest();
 	
 	httpRequest.open("POST", url , true);
@@ -70,15 +70,11 @@ function callPost(url){
 	
 	httpRequest.onreadystatechange = function(){
 		if(httpRequest.readyState == XMLHttpRequest.DONE){
-			// 요청과 응답에 성공했을 때
-			if(httpRequest.status == 200){
-				console.log(httpRequest);
-				return httpRequest.response.hi;
-			} else {
-				alert("서버 에러!!");
-				console.log(httpRequest);
-				return ;
-			}
+			let responseData = {
+				"responseData":httpRequest.responseText,
+				"responseCode":httpRequest.status
+			};
+			callback(responseData);
 		}
 	}
 }

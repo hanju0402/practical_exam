@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.practical.exam.cms.common.dao.CommonDao">
+	<resultMap id="getMenuListResult" type="Map">
+	  <result column="MENU_URL" 		property="menuUrl" 		javaType="String"/>
+	  <result column="MENU_NM"			property="menuNm" 		javaType="String"/>
+	  <result column="MENU_IMG_CLASS"	property="imgClass" 	javaType="String"/>
+	</resultMap>
+    <select id="getMenuList" parameterType="UserInfo" resultMap="getMenuListResult">
+        SELECT MENU_URL
+        	 , MENU_NM
+        	 , MENU_IMG_CLASS 
+      	FROM P_MENU_INFO
+      	WHERE USER_ID = #{userId}
+      	AND USER_PW = #{auth}
+      	ORDER BY ORD;
+    </select>
+</mapper>

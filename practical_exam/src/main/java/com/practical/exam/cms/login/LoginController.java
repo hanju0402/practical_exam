@@ -1,6 +1,6 @@
 package com.practical.exam.cms.login;
 
-import java.util.HashMap; 
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.practical.exam.cms.login.service.LoginService;
 import com.practical.exam.common.auth.UserInfo;
 
+/**
+ * 메인 페이지 ( 로그인 , 회원가입) 호출 컨트롤러
+ * 
+ * @author adgjl
+ *
+ */
 @Controller
 public class LoginController {
 	

@@ -14,5 +14,9 @@
    <definition name="/home/*" extends="main-layout">
        <put-attribute name="body" value="/WEB-INF/jsp/home/{1}.jsp" />
    </definition>
+    <!-- 시험 -->
+   <definition name="/examination/*" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/jsp/examination/{1}.jsp" />
+   </definition>
 
 </tiles-definitions>
