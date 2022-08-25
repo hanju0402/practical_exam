@@ -76,9 +76,10 @@
 	}
 
 	// 공백확인 함수    
-	function checkExistData(value, dataName) {        
-		if (value == "") {            
-			alert(dataName + " 입력해주세요!");            
+	function checkExistData(eleId, dataName) {        
+		if (eleId.value == "") {            
+			alert(dataName + " 입력해주세요!");   
+			eleId.focus();         
 			return false;        
 		}       
 	 	return true;   
@@ -87,14 +88,15 @@
 	
 	// 아이디 유효성체크
     function checkId(id) {      
-	  	if (!checkExistData(id, "계정명을"))      
+	  	if (!checkExistData(id, "계정명을")) {    
 	      	return false;
-	        
+		}     
 		var idRegExp = /^[A-Za-z]{1}[A-Za-z0-9]{3,19}$/;
-  		if (!idRegExp.test(id)) {          
+		
+  		if (!idRegExp.test(id.value)) {          
 	  		alert("계정명이 올바르지 않습니다.\n(영어,숫자 4~20자리, 첫글자 숫자 X)");      
-			form.id.value = "";
-			form.id.focus();     
+			id.value = "";
+	 		id.focus();    
 	 		return false;      
   		}       
  			return true; //확인이 완료되었을 때   
@@ -103,33 +105,37 @@
 	// 비밀번호 유효성체크
     function checkPw(id, pw1, pw2) { 
 		// 비밀번호가 입력되었는지 확인     
-	  	if (!checkExistData(pw1, "비밀번호를"))      
+	  	if (!checkExistData(pw1, "비밀번호를")) {
+			pw1.focus();      
 	      	return false;
+		}
 		// 비밀번호 확인이 입력되었는지 확인
-		if (!checkExistData(pw1, "비밀번호 확인을"))      
+		if (!checkExistData(pw2, "비밀번호 확인을")) {
+			pw2.focus();      
       		return false;
+		}
 	    // 비밀번호 유효성검사    
 		var pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-  		if (!pwRegExp.test(pw1)) {          
+  		if (!pwRegExp.test(pw1.value)) {          
 	  		alert("비밀번호는 최소 8자리, 숫자,문자,특수문자 최소 1개"); 
-			form.pw1.value = "";
-			form.pw1.focus();          
+			pw1.value = "";
+			pw2.value = "";
+			pw1.focus();          
 	 		return false;      
   		}
 		//비밀번호와 비밀번호 확인이 맞지 않을때
-		if (pw1 != pw2) {
+		if (pw1.value != pw2.value) {
 			alert("두 비밀번호가 일치하지 않습니다.");
-			form.pw1.value = ""; 
-			form.pw2.value = ""; 
-			form.pw2.focus();
+			pw2.value = ""; 
+			pw2.focus(); 
 			return false;
 		}
 		//아이디와 비밀번호가 같을 때
-		if (id == pw1) {
+		if (id.value == pw1.value) {
 			alert("아이디와 비밀번호는 같을 수 없습니다.");
-			form.pw1.value = ""; 
-			form.pw2.value = "";
-			form.pw2.focus();
+			pw1.value = "";
+			pw2.value = ""; 
+			pw1.focus(); 
 			return false;
 		}
  		return true; //확인이 완료되었을 때   
@@ -142,10 +148,10 @@
 	      	return false;
 	        
 		var nameRegExp = /^[가-힣]{2,4}$/;      
-  		if (!nameRegExp.test(name)) {          
+  		if (!nameRegExp.test(name.value)) {          
 	  		alert("이름이 올바르지 않습니다.\n(한글 2~4자리)");
-			form.name.value = "";
-			form.name.focus();           
+			name.value = "";
+			name.focus();          
 	 		return false;      
   		}       
  			return true; //확인이 완료되었을 때   
@@ -157,10 +163,10 @@
 	      	return false;
 	        
 		var tellRegExp = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;   
-  		if (!tellRegExp.test(tell)) {          
+  		if (!tellRegExp.test(tell.value)) {          
 	  		alert("전화번호가 올바르지 않습니다.\n하이픈(-)없이 입력해주세요.");
-			form.tell.value = "";
-			form.tell.focus();           
+			tell.value = "";
+			tell.focus() = "";         
 	 		return false;      
   		}       
  			return true; //확인이 완료되었을 때   
@@ -169,49 +175,50 @@
 	// 인증번호발송 버튼 눌렀을때
 	function checkNumBtn() {
 		
-		
-		var tellRegExp = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;  
-
-		
-			
 		if (document.getElementById('phoneCheck').innerText == '인증번호발송') {
-
-			if (tellRegExp.test(document.getElementById('phoneNum').value)) {
-				document.getElementById('checkNum').className = 'text';
-				document.getElementById('phoneNum').disabled = true;
-				document.getElementById('inNum').className = 'inNum';
-				document.getElementById('phoneCheck').innerText = '전화번호수정';
-				confirmNumOk = true;
-				alert("인증번호가 발송되었습니다.");
-				
-				
-			} else {
-				alert("전화번호가 올바르지 않습니다.\n하이픈(-)없이 입력해주세요.");
-				confirmNumOk = false;
-				
-				
-			}
 			
+		if (checkTell(document.getElementById('phoneNum'))) {
+			
+			document.getElementById('checkNum').className = 'text';
+			document.getElementById('phoneNum').disabled = true;
+			document.getElementById('inNum').className = 'inNum';
+			document.getElementById('phoneCheck').innerText = '전화번호수정';
+			alert("인증번호가 발송되었습니다.");
+			
+		}
+		
 		} else {
+			
 			document.getElementById('phoneNum').disabled = false;
 			document.getElementById('checkNum').className = 'notAdd'
 			document.getElementById('phoneNum').value = "";
 			document.getElementById('inNum').className = 'notAdd';
+			document.getElementById('checkNum').value = '';
 			document.getElementById('phoneCheck').innerText = '인증번호발송';
-			confirmNumOk = false;
 			
 		}
-		confirmNumOk = false;
 
 	}
 	
+	// 인증번호 맞으면 회원가입가능
 	function inNum(checkNum) {
 		
-		if(checkNum == '7777') {
-			//confirmNumOk = true;
-			return true
+		if (document.getElementById('phoneCheck').innerText == '인증번호발송') {
+			alert("전화번호 인증을 해주세요");
+			return false
 		}
-		alert("전화번호 인증을 해주세요.");
+		
+		if (checkNum.value == "") {
+			alert("인증번호를 입력해주세요");
+			checkNum.focus(); 
+			return false
+		} else if (checkNum.value == '7777') {
+			return true
+		} 
+		
+		alert("인증번호가 틀렸습니다.");
+		checkNum.value = "";
+		checkNum.focus(); 
 		return false
 	}
 	
@@ -219,15 +226,13 @@
 	function checkAll() {   
 
 		     
-		if (!checkId(document.getElementById('userId').value)) {            
+		if (!checkId(document.getElementById("userId"))) {            
 			return false;        
-		} else if (!checkPw(document.getElementById('userId').value, document.getElementById('password').value, document.getElementById('password2').value)) {            
+		} else if (!checkPw(document.getElementById('userId'), document.getElementById('password'), document.getElementById('password2'))) {            
 			return false;        
-		} else if (!checkName(document.getElementById('userName').value)) {            
+		} else if (!checkName(document.getElementById('userName'))) {            
 			return false;        
-		} else if (!checkTell(document.getElementById('phoneNum').value)) {            
-			return false;        
-		}  else if (!inNum(document.getElementById('checkNum').value)) {
+		}  else if (!inNum(document.getElementById('checkNum'))) {
 			return false;
 		}  
 			return true;    
@@ -246,6 +251,9 @@
 		} else {
 			alert(response.responseData);
 			document.getElementById('userId').value = "";
+			document.getElementById('password').value = "";
+			document.getElementById('password2').value = "";
+			form.document.getElementById('userId').focus();
 		}
 		
 	}
