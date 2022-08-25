@@ -51,8 +51,9 @@ public class LoginService {
 		// 아이디 중복여부 확인
 		
 		String result = "해당 계정 중복입니다. 다시 가입해주세요.";
-		if(loginDao.idDuplicated(reqData)) {			
-			int resultCd= loginDao.addUserInfo(reqData);
+		
+		if(!loginDao.idDuplicated(reqData)) {			
+			loginDao.addUserInfo(reqData);
 			result = "회원가입 성공하셨습니다 !";
 			return new ResponseEntity<>(result,HttpStatus.OK);
 		} else {
