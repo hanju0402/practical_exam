@@ -6,70 +6,16 @@
 <meta charset="UTF-8">
 <title>모의 시험</title>
 
+
+<script defer type="text/javascript" src="js/common/shamExam.js"></script>
+
 <link href="css/shamExamStyle.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 <script type="text/javascript" src="js/common/ajax.js"></script>
 
-<script>
 
-	var interleaveOffset = 0.5;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
-	var swiperOptions = {
-		loop : true,
-		speed : 1000,
-		grabCursor : true,
-		watchSlidesProgress : true,
-		mousewheelControl : true,
-		keyboardControl : true,
-		navigation : {
-			nextEl : ".swiper-button-next",
-			prevEl : ".swiper-button-prev"
-		},
-		on : {
-			progress : function() {
-				var swiper = this;
-				for (var i = 0; i < swiper.slides.length; i++) {
-					var slideProgress = swiper.slides[i].progress;
-					var innerOffset = swiper.width * interleaveOffset;
-					var innerTranslate = slideProgress * innerOffset;
-					swiper.slides[i].querySelector(".slide-inner").style.transform = "translate3d("
-							+ innerTranslate + "px, 0, 0)";
-				}
-			},
-			touchStart : function() {
-				var swiper = this;
-				for (var i = 0; i < swiper.slides.length; i++) {
-					swiper.slides[i].style.transition = "";
-				}
-			},
-			setTransition : function(speed) {
-				var swiper = this;
-				for (var i = 0; i < swiper.slides.length; i++) {
-					swiper.slides[i].style.transition = speed + "ms";
-					swiper.slides[i].querySelector(".slide-inner").style.transition = speed
-							+ "ms";
-				}
-			}
-		}
-	};
-
-	var swiper = new Swiper(".swiper-container", swiperOptions);
-
-	// document.querySelector('[data-toggle]').addEventListener('click', function(){
-	//   if (swiper.realIndex == 0) {
-	//     swiper.slideTo(swiper.slides.length - 1);
-	//   } else {
-	//     swiper.slideTo(0);
-	//   }
-	// });
-
-	// function logIndex () {
-	//   requestAnimationFrame(logIndex);
-	//   console.log(swiper.realIndex);
-	// }
-	// logIndex();
-</script>
 
 </head>
 <body>
@@ -95,10 +41,12 @@
 		<div class="swiper-button-next swiper-button-white"></div>
 		<div class="swiper-button-prev swiper-button-white"></div>
 	</div>
-	
-	<div class="copy"> 
-		Photos by <a target="_blank" href="https://500px.com/udovichenko">Dmitry Udovichenko</a>
+
+	<div class="copy">
+		Photos by <a target="_blank" href="https://500px.com/udovichenko">Dmitry
+			Udovichenko</a>
 		<button id="data-toggle">toggle</button>
 	</div>
+
 </body>
 </html>
