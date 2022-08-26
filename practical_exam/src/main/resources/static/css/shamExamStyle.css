@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  background: #404449;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper-container {
+  height: calc(100vh - 120px);
+  margin: 60px;
+}
+
+.swiper-slide {
+  overflow: hidden;
+}
+
+.slide-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.copy {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  letter-spacing: 0.06em;
+}
+a {
+  color: white;
+}
+
