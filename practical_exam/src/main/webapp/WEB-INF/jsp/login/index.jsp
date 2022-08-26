@@ -164,9 +164,9 @@
 	  	if (!checkExistData(tell, "전화번호를"))      
 	      	return false;
 	        
-		var tellRegExp = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;   
+		var tellRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;   
   		if (!tellRegExp.test(tell.value)) {          
-	  		alert("전화번호가 올바르지 않습니다.\n하이픈(-)없이 입력해주세요.");
+	  		alert("전화번호가 올바르지 않습니다.");
 			tell.value = "";
 			tell.focus() = "";         
 	 		return false;      
@@ -260,16 +260,17 @@
 		
 	}
 	
+	// 로그인 or 회원가입 버튼 눌렀을때
 	function btnClick(){
 		const dataForm= document.getElementById('dataForm');
-		
+		// 로그인 버튼 눌렀을때
 		if(document.getElementById("signin").innerHTML == '로그인'){
 			dataForm.action="/login"
 			dataForm.submit();
 			
 		}
 		
-		
+		// 회원가입 버튼 눌렀을때
 		if (document.getElementById("signin").innerHTML == '회원가입') {
 			
 			if (checkAll()) {
