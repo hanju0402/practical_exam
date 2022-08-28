@@ -43,10 +43,11 @@ public class ApiInterceptor implements HandlerInterceptor {
     		HttpSession session = request.getSession();
     		if(session != null) {			
     			Object obj = session.getAttribute("scopedTarget.userInfo");
-    			
-    			System.out.println("User Id =>" + ((UserInfo)obj).getUserId());
+    			LOGGER.info("User Id =>" + ((UserInfo)obj).getUserId());
     		} else {
-    			System.out.println("세션 없음");				
+    			request.setAttribute("message", "세션이 만료되었습니다. \n 다시 로그인 해주세요.");
+                request.getRequestDispatcher("/").forward(request, response);
+                return false;
     		}
     	}
     	

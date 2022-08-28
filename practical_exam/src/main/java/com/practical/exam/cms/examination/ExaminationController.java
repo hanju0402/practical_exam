@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 메인 페이지 ( 로그인 , 회원가입) 호출 컨트롤러
+ * 시험 화면 Controller  
  * 
  * @author adgjl
  *
