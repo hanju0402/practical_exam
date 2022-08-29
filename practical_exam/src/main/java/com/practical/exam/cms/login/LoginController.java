@@ -3,6 +3,7 @@ package com.practical.exam.cms.login;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,8 +58,24 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(@RequestParam HashMap<String,String> params) {
+		
 		loginService.login(params);
 		return "redirect:/";
+	}
+	
+	/**
+	 * 로그아웃 
+	 * 
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/login/index");
+		session.invalidate();
+		System.out.println("이게뭔데??" + userInfo.getUserId());
+		return mav;
 	}
 	
 	
