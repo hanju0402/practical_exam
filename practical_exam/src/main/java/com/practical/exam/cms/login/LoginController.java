@@ -70,12 +70,9 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public ModelAndView logout(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/login/index");
+	public String logout(HttpSession session) {
 		session.invalidate();
-		System.out.println("이게뭔데??" + userInfo.getUserId());
-		return mav;
+		return "redirect:/";
 	}
 	
 	
