@@ -15,7 +15,7 @@
 					정보</em>
 		</a></li>
 		<li><a class="s-sidebar__nav-link" href="/logout" >
-				<i class="fa fa-logout"></i><em>로그아웃</em>
+				<i class="fa fa-sign-out"></i><em>로그아웃</em>
 		</a></li>
 	</ul>
 </nav>
