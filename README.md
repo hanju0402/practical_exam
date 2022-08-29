@@ -23,7 +23,7 @@ GIF Images
 
 | JavaScript | JSP |  JAVA   | springboot  |
 | :--------: | :--------: | :------: | :-----: |
-|   ![js]    |   ![jsp]    | ![java] | ![node] |
+|   O   |   O  | O | O |
 
 <br>
 
@@ -32,6 +32,8 @@ GIF Images
 ### SMS API 연동
 
 ### Chart.js 를 활용한 데이터 시각화
+
+### 반응형 웹 디자인
 
 
 <br>
@@ -43,14 +45,3 @@ GIF Images
 </p>
 
 <br>
-
-## 라이센스
-
-MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
-
-<!-- Stack Icon Refernces -->
-
-[js]: /images/stack/javascript.svg
-[ts]: /images/stack/typescript.svg
-[react]: /images/stack/react.svg
-[node]: /images/stack/node.svg
