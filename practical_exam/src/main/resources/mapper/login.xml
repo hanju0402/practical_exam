@@ -34,11 +34,13 @@
 	   						, USER_PW
 	   						, USER_SALT
 	   						, USER_NAME
+	   						, REG_DATE
 	   						, USER_PHONE) VALUES (#{userId}
 							, #{password}
 							, ''
 							, #{userName}
-							, #{phoneNum});  
+							, #{phoneNum}
+							, SYSDATE());  
     </insert>
 </mapper>
 
