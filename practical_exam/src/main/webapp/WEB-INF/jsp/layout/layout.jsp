@@ -7,10 +7,10 @@
 <title>정보처리기사 실기 사이트</title>
 <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 <!--<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
-<link href="css/layout.css" rel="stylesheet" type="text/css">
+<link href="/css/layout.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-<script type="text/javascript" src="js/common/ajax.js"></script>
+<script type="text/javascript" src="/js/common/ajax.js"></script>
 
 </head>
 <body>
