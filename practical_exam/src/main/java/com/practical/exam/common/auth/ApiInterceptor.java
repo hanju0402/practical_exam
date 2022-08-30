@@ -24,31 +24,54 @@ import com.practical.exam.common.utils.RequestUtils;
 public class ApiInterceptor implements HandlerInterceptor {
 	private static final Logger LOGGER = LogManager.getLogger(ApiInterceptor.class);
     private static final String REQUEST_METHODS_TYPE_OF_GET="GET";
-    private static final String[] REQUEST_SESSION_NOT_CHECK={"/login"};
+    private static final String[] REQUEST_SESSION_NOT_CHECK={"/login","/"};
+    private static final String[] REQUEST_SESSION_NOT_FILE_CHECK={".css",".js"};
     @Autowired
     
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	// 현재 요청한 URL이 세션 체크 대상인지 확인
     	boolean sessionUrl = false;
-    	for(String uri:REQUEST_SESSION_NOT_CHECK) {
-    		if(uri.equals(request.getRequestURI())) {
+    	String reqUrl = request.getRequestURI();
+    	for(String uri:REQUEST_SESSION_NOT_FILE_CHECK) {
+    		if(reqUrl.indexOf(uri) != -1) {
     			sessionUrl = true;
     			break;
     		}
     	}
+    	if(!sessionUrl) {    		
+    		for(String uri:REQUEST_SESSION_NOT_CHECK) {
+    			if(uri.equals(request.getRequestURI())) {
+    				sessionUrl = true;
+    				break;
+    			}
+    		}
+    	}
     	
     	// 세션 체크 대상인 경우,
-    	if(sessionUrl) {
-    		HttpSession session = request.getSession();
-    		if(session != null) {			
-    			Object obj = session.getAttribute("scopedTarget.userInfo");
-    			LOGGER.info("User Id =>" + ((UserInfo)obj).getUserId());
-    		} else {
-    			request.setAttribute("message", "세션이 만료되었습니다. \n 다시 로그인 해주세요.");
-                request.getRequestDispatcher("/").forward(request, response);
-                return false;
-    		}
+    	if(!sessionUrl) {
+    		HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("scopedTarget.userInfo") == null) {
+				LOGGER.info("Session Expired...");
+				response.sendRedirect("/");
+				return false;
+            } else {
+            	if((session.getAttribute("scopedTarget.userInfo")) instanceof UserInfo) {
+            		UserInfo user = (UserInfo)(session.getAttribute("scopedTarget.userInfo"));
+            		
+            		if(user == null||user.getUserId() == null) {
+            			LOGGER.info("Session Expired...");
+            			response.sendRedirect("/");
+            			return false;
+            		}
+            		LOGGER.info("User_ID => "+ user.getUserId());
+            	} else {  
+        			LOGGER.info("Session Expired...");
+        			response.sendRedirect("/");
+        			return false;
+
+            	}
+            }
     	}
     	
     	//GET 방식인 경우, log를 남기지 않음
