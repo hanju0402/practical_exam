@@ -30,17 +30,21 @@
     
     <insert id="addUserInfo" >
     
-	   	INSERT INTO P_MEMBER (USER_ID
-	   						, USER_PW
-	   						, USER_SALT
-	   						, USER_NAME
-	   						, REG_DATE
-	   						, USER_PHONE) VALUES (#{userId}
-							, #{password}
-							, ''
-							, #{userName}
-							, #{phoneNum}
-							, SYSDATE());  
+	   	INSERT INTO P_MEMBER 
+	   		( USER_ID
+	   		, USER_PW
+	   		, USER_SALT
+	   		, USER_NAME
+	   		, USER_PHONE
+	   		, REG_DATE
+	    ) VALUES 
+	   		( #{userId}
+			, #{password}
+			, ''
+			, #{userName}
+			, #{phoneNum}
+			, SYSDATE()
+		);  
     </insert>
 </mapper>
 
