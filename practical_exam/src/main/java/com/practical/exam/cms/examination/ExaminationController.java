@@ -26,7 +26,7 @@ public class ExaminationController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "a", method = {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "", method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView mun() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/examination/index");
