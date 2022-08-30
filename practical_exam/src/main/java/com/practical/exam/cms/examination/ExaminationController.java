@@ -17,8 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class ExaminationController {
 	
 	
-	@RequestMapping(value = "", method = {RequestMethod.POST,RequestMethod.GET})
+
+	
+	@RequestMapping(value = "/mun1", method = RequestMethod.GET)
 	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/examination/mun1");
+		return mav;
+	}
+	
+	@RequestMapping(value = "a", method = {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView mun() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/examination/index");
 		return mav;
