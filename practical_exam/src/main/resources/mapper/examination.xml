@@ -5,8 +5,8 @@
 <mapper namespace="com.practical.exam.cms.examination.dao.ExaminationDao">
 	
 	<resultMap id="getExaminationCntResult" type="Map">
-	  <result column="QUESTION_TYPE" 	property="q_type" 		javaType="String"/>
-	  <result column="Q_CNT"			property="q_cnt" 		javaType="int"/>
+	  <result column="QUESTION_TYPE" 	property="q_type" 	javaType="String"/>
+	  <result column="Q_CNT"			property="q_cnt" 	javaType="int"/>
 	</resultMap>
 	<!-- 문제별 갯수 조회 -->
     <select id="getExaminationCnt" resultMap="getExaminationCntResult">
@@ -36,7 +36,7 @@
 		 )
     </insert>
     
-    <!-- 문제 생성 -->
+    <!-- 문제 넘버링 랜덤 생성 -->
     <update id="updateRandomNumExamination" >
     	UPDATE P_QUESTION_TEST_HST D , 
 			(
@@ -61,6 +61,7 @@
 	  <result column="QUESTION_TYPE"			property="qType" 	javaType="String"/>
 	  <result column="QUESTION_ANSWER_TYPE"		property="qAnsType" javaType="String"/>
 	</resultMap>
+	<!-- 사용자의 현재 회차 시험문제 출력 -->
     <select id="getExamination" parameterType="Map" resultMap="getExaminationResult">
        SELECT HST.TEST_NUMBER
 			 , HST.QUESTION_NO 
@@ -71,7 +72,7 @@
 		FROM P_QUESTION_TEST_HST HST,P_QUESTION_INFO INFO 
 		WHERE HST.QUESTION_SEQ = INFO.SEQ
 		AND USER_ID = #{userId}
-		and TEST_NUMBER = #{testNum}
+		AND TEST_NUMBER = #{testNum}
 		ORDER BY HST.QUESTION_NO 
     </select>
 </mapper>
