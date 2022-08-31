@@ -1,0 +1,49 @@
+
+
+.flex{
+  display: flex; 
+  height: 100vh; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  margin: 0 auto; 
+	
+}
+
+
+.testStart{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.testStart:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.testStart:before, .testStart:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:3px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.testStart:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.testStart:hover:before,.testStart:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}

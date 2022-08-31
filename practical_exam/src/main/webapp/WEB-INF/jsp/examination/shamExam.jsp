@@ -13,8 +13,10 @@
 <script type="text/javascript" src="../js/common/ajax.js"></script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
 
 </head>
@@ -23,12 +25,18 @@
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="slide-inner"
-					style="background-image: url(https://pp.userapi.com/c836139/v836139003/63ce1/QThPx7qPzvU.jpg)"></div>
-				<input type="text" />	
+					style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAxODAzMTFfOSAg/MDAxNTIwNzE1NzE3NjI4.y_QwGKV-kEtog6M_ROz2J2FyZhFVF1Qe42_jftAFw_Ag.dT8gI-dJeOCwEzcHj7GxV0xZ1Nzybhh815BWuiaZL-8g.PNG.osy2201/35.png?type=w800)">
+					<img class="test-picture" src="../practice_img/2020_4/13.PNG">
+					<p>정답</p>>
+						<textarea id="answer"cols="50" rows="10">정답을입력해주세요</textarea>
+					
+
+				</div>
+
 			</div>
 			<div class="swiper-slide">
 				<div class="slide-inner"
-					style="background-image: url(https://pp.userapi.com/c412624/v412624691/4136/_da_uAA6ha8.jpg)"></div>
+					style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAxODAzMTFfOSAg/MDAxNTIwNzE1NzE3NjI4.y_QwGKV-kEtog6M_ROz2J2FyZhFVF1Qe42_jftAFw_Ag.dT8gI-dJeOCwEzcHj7GxV0xZ1Nzybhh815BWuiaZL-8g.PNG.osy2201/35.png?type=w800)"></div>
 			</div>
 			<div class="swiper-slide">
 				<div class="slide-inner"
@@ -36,8 +44,8 @@
 			</div>
 
 		</div>
-		<div class="swiper-button-next swiper-button-white"></div>
-		<div class="swiper-button-prev swiper-button-white"></div>
+		<div class="swiper-button-next swiper-button-black"></div>
+		<div class="swiper-button-prev swiper-button-black"></div>
 	</div>
 
 	<div class="copy">

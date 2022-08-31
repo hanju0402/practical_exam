@@ -19,10 +19,10 @@ public class ExaminationController {
 	
 
 	
-	@RequestMapping(value = "/mun1", method = RequestMethod.GET)
+	@RequestMapping(value = "/shamExam", method = RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/examination/mun1");
+		mav.setViewName("/examination/shamExam");
 		return mav;
 	}
 	

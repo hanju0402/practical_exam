@@ -41,6 +41,11 @@ var swiperOptions = {
 
 var swiper = new Swiper(".swiper-container", swiperOptions);
 
+
+answer.onfocus = function (e) {
+	answer.innerHTML = "";
+}
+
 // document.querySelector('[data-toggle]').addEventListener('click', function(){
 //   if (swiper.realIndex == 0) {
 //     swiper.slideTo(swiper.slides.length - 1);
