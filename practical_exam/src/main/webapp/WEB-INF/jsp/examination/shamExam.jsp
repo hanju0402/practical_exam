@@ -7,10 +7,10 @@
 <title>모의 시험</title>
 
 
-<script defer type="text/javascript" src="../js/common/shamExam.js"></script>
+<script defer type="text/javascript" src="/js/common/shamExam.js"></script>
 
-<link href="../css/shamExamStyle.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../js/common/ajax.js"></script>
+<link href="/css/shamExamStyle.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/common/ajax.js"></script>
 
 
 <link rel="stylesheet"
@@ -26,9 +26,18 @@
 			<div class="swiper-slide">
 				<div class="slide-inner"
 					style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAxODAzMTFfOSAg/MDAxNTIwNzE1NzE3NjI4.y_QwGKV-kEtog6M_ROz2J2FyZhFVF1Qe42_jftAFw_Ag.dT8gI-dJeOCwEzcHj7GxV0xZ1Nzybhh815BWuiaZL-8g.PNG.osy2201/35.png?type=w800)">
-					<img class="test-picture" src="../practice_img/2020_4/13.PNG">
-					<p>정답</p>>
-						<textarea id="answer"cols="50" rows="10">정답을입력해주세요</textarea>
+					
+					<div id="question-txt">
+					문제텍스트
+					</div>
+					<div class="question-picture-box">
+					<img class="question-picture" src="../practice_img/2020_4/13.PNG">
+					</div>
+					<div>
+					<p>정답</p>
+					<textarea id="answer-area"cols="50" rows="10" onfocus="textClear(this.id)" onblur="answerRequestTxt(this.id)"></textarea>
+					</div>
+						
 					
 
 				</div>
