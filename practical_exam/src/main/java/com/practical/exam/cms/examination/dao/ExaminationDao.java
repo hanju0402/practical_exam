@@ -21,5 +21,5 @@ public interface ExaminationDao {
 	void updateRandomNumExamination(Map<String,Object> params);
 	
 	// 1번 ~ 20번 정렬 후 LIST 출력
-	List<Map<String,String>> getExamination(Map<String,Object> params);
+	List<Map<String,Object>> getExamination(Map<String,Object> params);
 }

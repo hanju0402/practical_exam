@@ -1,5 +1,6 @@
 package com.practical.exam.cms.examination.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class ExaminationService {
 	@Autowired
 	ExaminationDao examinationDao;
 	
-	public List<Map<String,String>> getExamination(){
+	public List<Map<String,Object>> getExamination(){
 		// 과목별 출제될 문제 갯수
 		List<Map<String,String>> examCntList = examinationDao.getExaminationCnt();
 		
@@ -42,9 +43,36 @@ public class ExaminationService {
 		}
 		// 문제 넘버 랜덤으로 변경
 		examinationDao.updateRandomNumExamination(params);
+
+		// 생성된 문제 리스트 
+		List<Map<String,Object>> result = examinationDao.getExamination(params);
 		
-		// 생성된 문제 리스트 반환
-		return examinationDao.getExamination(params);
+		// 문제 유형이 2개 이상 인풋란이 있어야 하는 문제인 경우,
+		for (Map<String,Object> data : result) {
+			Object ansType = data.get("qAnsType");
+			
+			if (ansType != null) {
+				try {
+					int ansTypeNum = Integer.parseInt((String)ansType);
+					ArrayList<Integer> ansTypes = new ArrayList<Integer>();
+					
+					for(int i=1;i <= ansTypeNum;i++) {
+						ansTypes.add(i);
+					}
+					data.put("qAnsType", ansTypes);
+				} catch (NumberFormatException  e) {
+					String[] ansTypesToArr= ((String)ansType).split(",");
+					
+					ArrayList<String> ansTypes = new ArrayList<String>();
+					
+					for(String ansTypeStr : ansTypesToArr) {
+						ansTypes.add(ansTypeStr);
+					}
+					data.put("qAnsType", ansTypes);
+				}
+			}
+		}
+		return result;
 	}
 	
 }
