@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.practical.exam.cms.examination.dao.ExaminationDao">
+	
+	<resultMap id="getExaminationCntResult" type="Map">
+	  <result column="QUESTION_TYPE" 	property="q_type" 		javaType="String"/>
+	  <result column="Q_CNT"			property="q_cnt" 		javaType="int"/>
+	</resultMap>
+	<!-- 문제별 갯수 조회 -->
+    <select id="getExaminationCnt" resultMap="getExaminationCntResult">
+       SELECT QUESTION_TYPE 
+			, ROUND(COUNT(QUESTION_TYPE) * 20.0 / SUM(COUNT(QUESTION_TYPE)) OVER(),0) AS Q_CNT
+		FROM P_QUESTION_INFO PQI 
+		GROUP BY QUESTION_TYPE
+    </select>
+    
+    <!-- 사용자 시험 횟수 -->
+	<select id="getUserTestCnt" parameterType="String" resultType ="int">
+       SELECT IFNULL(MAX(TEST_NUMBER),0)+1 AS CNT
+	   FROM P_QUESTION_TEST_HST
+	   WHERE USER_ID = #{userId}
+    </select>
+    
+    <!-- 문제 생성 -->
+    <insert id="setRandomExamination" >
+		 INSERT INTO P_QUESTION_TEST_HST
+		 	(USER_ID, TEST_NUMBER, QUESTION_NO, QUESTION_SEQ, TEST_DATE)
+		 (
+			 SELECT #{userId} ,#{testNum} , 0 ,SEQ , NOW()
+			 FROM P_QUESTION_INFO PQI 
+			 WHERE QUESTION_TYPE = #{q_type}
+			 ORDER BY RAND()
+			 LIMIT 0, #{q_cnt}
+		 )
+    </insert>
+    
+    <!-- 문제 생성 -->
+    <update id="updateRandomNumExamination" >
+    	UPDATE P_QUESTION_TEST_HST D , 
+			(
+				SELECT ROW_NUMBER() OVER(ORDER BY RAND()) R_NUM
+					 , P.TEST_NUMBER
+					 , P.QUESTION_SEQ
+					 , P.USER_ID 
+				FROM P_QUESTION_TEST_HST P
+				WHERE P.TEST_NUMBER = #{testNum} 
+				AND P.USER_ID = #{userId} 
+			) AS K
+		SET QUESTION_NO = K.R_NUM
+		WHERE D.TEST_NUMBER = K.TEST_NUMBER 
+		AND D.QUESTION_SEQ = K.QUESTION_SEQ
+    </update>
+    
+    <resultMap id="getExaminationResult" type="Map">
+	  <result column="TEST_NUMBER" 				property="testNum" 	javaType="int"/>
+	  <result column="QUESTION_NO"				property="qNo" 		javaType="int"/>
+	  <result column="QUESTION_TITLE"			property="qTitle" 	javaType="String"/>
+	  <result column="QUESTION_CONTENT"			property="qContent" javaType="String"/>
+	  <result column="QUESTION_TYPE"			property="qType" 	javaType="String"/>
+	  <result column="QUESTION_ANSWER_TYPE"		property="qAnsType" javaType="String"/>
+	</resultMap>
+    <select id="getExamination" parameterType="Map" resultMap="getExaminationResult">
+       SELECT HST.TEST_NUMBER
+			 , HST.QUESTION_NO 
+			 , INFO.QUESTION_TITLE 
+			 , INFO.QUESTION_CONTENT 
+			 , INFO.QUESTION_TYPE 
+			 , INFO.QUESTION_ANSWER_TYPE 
+		FROM P_QUESTION_TEST_HST HST,P_QUESTION_INFO INFO 
+		WHERE HST.QUESTION_SEQ = INFO.SEQ
+		AND USER_ID = #{userId}
+		and TEST_NUMBER = #{testNum}
+		ORDER BY HST.QUESTION_NO 
+    </select>
+</mapper>

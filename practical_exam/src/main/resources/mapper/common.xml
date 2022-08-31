@@ -17,4 +17,16 @@
       	AND USER_PW = #{auth}
       	ORDER BY ORD;
     </select>
+    
+    <resultMap id="getCommonCodeResult" type="Map">
+	  <result column="COMN_CODE" 		property="comnCd" 		javaType="String"/>
+	  <result column="COMN_NAME"		property="comnNm" 		javaType="String"/>
+	</resultMap>
+    <select id="getCommonCode" parameterType="String" resultMap="getCommonCodeResult">
+        SELECT COMN_CODE
+        	 , COMN_NAME
+      	FROM P_COMMON_CODE
+      	WHERE GROUP_CODE = #{groupCode}
+      	ORDER BY ORDERS ASC;
+    </select>
 </mapper>
