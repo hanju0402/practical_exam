@@ -26,6 +26,8 @@ public class ExaminationService {
 		// 과목별 출제될 문제 갯수
 		List<Map<String,String>> examCntList = examinationDao.getExaminationCnt();
 		
+
+		//System.out.println("20문제 갯수" + examCntList.get(20));
 		//사용자의 회차 조회 ( 갯수 + 1)
 		int testNum = examinationDao.getUserTestCnt(userInfo.getUserId());
 		
@@ -41,15 +43,23 @@ public class ExaminationService {
 			params.put("q_cnt", data.get("q_cnt"));
 			examinationDao.setRandomExamination(params);
 		}
+		
+		
+		System.out.println("문제 갯수" + examCntList.size());
+		System.out.println("알아보자2" +  examCntList.get(0).get("q_type"));
+		System.out.println("문제 형식" + examCntList);
+		System.out.println("params에 뭐담겼니?? " + params);
 		// 문제 넘버 랜덤으로 변경
+		
 		examinationDao.updateRandomNumExamination(params);
 
 		// 생성된 문제 리스트 
 		List<Map<String,Object>> result = examinationDao.getExamination(params);
-		
+		System.out.println("맵 어떻게?? " + result);
 		// 문제 유형이 2개 이상 인풋란이 있어야 하는 문제인 경우,
 		for (Map<String,Object> data : result) {
 			Object ansType = data.get("qAnsType");
+			
 			
 			if (ansType != null) {
 				try {
@@ -72,6 +82,8 @@ public class ExaminationService {
 				}
 			}
 		}
+		
+		System.out.println("리절트??" + result.get(0).get("qTitle"));
 		return result;
 	}
 	
