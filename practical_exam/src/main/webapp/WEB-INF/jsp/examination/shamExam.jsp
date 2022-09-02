@@ -16,28 +16,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
-
 </head>
-<body>
-
+<body onbeforeunload="return '해당 화면을 벗어나는 경우, 즉시 제출됩니다. 괜찮으십니까?';">
 	<div class="swiper-container">
-
-
 		<div class="swiper-wrapper">
 			<c:forEach var="data" items="${examList}" varStatus="status">
 
 				<div class="swiper-slide">
 
-					<div class="slide-inner" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAxODAzMTFfOSAg/MDAxNTIwNzE1NzE3NjI4.y_QwGKV-kEtog6M_ROz2J2FyZhFVF1Qe42_jftAFw_Ag.dT8gI-dJeOCwEzcHj7GxV0xZ1Nzybhh815BWuiaZL-8g.PNG.osy2201/35.png?type=w800)">
+					<div class="slide-inner">
+						<div id="question-txt">${data.qNo}. ${data.qTitle}</div>
 
-						<div id="question-txt">${data.qTitle}</div>
-						<div class="question-picture-box">${data.qContent}</div>
+						<c:choose>
+							<c:when test="${empty data.imgUrl }">
+								<div class="question-picture-box">${data.qContent}</div>								
+							</c:when>
+							<c:otherwise>
+								<div class="question-picture-box">
+									<img src="${data.imgUrl}" alt="실기 문제">
+								</div>
+							</c:otherwise>
+						</c:choose>
 						<div>
 							<p>정답</p>
 							<textarea id="answer-area" cols="50" rows="10" onfocus="textClear(this.id)" onblur="answerRequestTxt(this.id)"></textarea>
 						</div>
-
-
 					</div>
 
 				</div>

@@ -5,9 +5,9 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
-  background: #404449;
+  background: white;
   margin: 0;
-  padding: 0;
+  padding: 2;
 }
 
 .swiper-container {
@@ -40,7 +40,7 @@ body {
   left: 0;
   right: 0;
   text-align: center;
-  color: white;
+  color: #192b3c;
   letter-spacing: 0.06em;
 }
 a {

@@ -60,6 +60,7 @@
 	  <result column="QUESTION_CONTENT"			property="qContent" javaType="String"/>
 	  <result column="QUESTION_TYPE"			property="qType" 	javaType="String"/>
 	  <result column="QUESTION_ANSWER_TYPE"		property="qAnsType" javaType="String"/>
+	  <result column="IMAGE_URL"				property="imgUrl" 	javaType="String"/>
 	</resultMap>
 	<!-- 사용자의 현재 회차 시험문제 출력 -->
     <select id="getExamination" parameterType="Map" resultMap="getExaminationResult">
@@ -69,6 +70,9 @@
 			 , INFO.QUESTION_CONTENT 
 			 , INFO.QUESTION_TYPE 
 			 , INFO.QUESTION_ANSWER_TYPE 
+			 , CASE WHEN INFO.QUESTION_CONTENT = 'Image' THEN CONCAT(CONCAT('/practice_img/',CONCAT(INFO.QUESTION_KIND,CONCAT('/',INFO.QUESTION_NO))),'.PNG') 
+			 		ELSE NULL 
+		 	   END AS IMAGE_URL
 		FROM P_QUESTION_TEST_HST HST,P_QUESTION_INFO INFO 
 		WHERE HST.QUESTION_SEQ = INFO.SEQ
 		AND USER_ID = #{userId}
