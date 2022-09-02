@@ -242,14 +242,10 @@
 
 	// 로그인 or 회원가입 버튼 클릭시
 	function callback(response){
-		console.log(response);
-		console.log(response.responseData);
-		console.log(response.responseCode);
 		
 		if (response.responseCode == 200) {
 			alert(response.responseData);
-			window.location.href = '/';
-			
+			window.location.href = '/';	
 		} else {
 			alert(response.responseData);
 			document.getElementById('userId').value = "";
@@ -259,15 +255,28 @@
 		}
 		
 	}
-	
+	function loginCallback(response){
+		
+		if (response.responseCode == 200) {
+			window.location.href = '/';
+		} else {
+			alert(response.responseData);
+			document.getElementById('password').value = "";
+			form.document.getElementById('userId').focus();
+		}
+		
+	}
 	// 로그인 or 회원가입 버튼 눌렀을때
 	function btnClick(){
 		const dataForm= document.getElementById('dataForm');
 		// 로그인 버튼 눌렀을때
 		if(document.getElementById("signin").innerHTML == '로그인'){
-			dataForm.action="/login"
-			dataForm.submit();
-			
+			let jsonStr = {
+               	"userId":document.getElementById('userId').value,
+                "password":document.getElementById('password').value,
+            }
+				
+            callPostData('/login' , jsonStr, loginCallback);
 		}
 		
 		// 회원가입 버튼 눌렀을때

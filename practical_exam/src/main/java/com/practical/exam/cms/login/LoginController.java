@@ -57,10 +57,8 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@RequestParam HashMap<String,String> params) {
-		
-		loginService.login(params);
-		return "redirect:/";
+	public ResponseEntity<Object> login(@RequestBody HashMap<String,String> params) {
+		return loginService.login(params);
 	}
 	
 	/**
