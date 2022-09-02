@@ -26,16 +26,19 @@ public class ExaminationController {
 	@Autowired
 	ExaminationService examinationService;
 
-	@RequestMapping(value = "/shamExam", method = RequestMethod.POST)
+	@RequestMapping(value = "/shamExam", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView index(@RequestParam HashMap<String,String> reqData) {
 		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("/examination/shamExam");
-		mav.addObject("examList",examinationService.getExamination());
+		if(reqData.get("hiddenData") == null) {
+			mav.setViewName("redirect:/examination");
+		} else {
+			mav.setViewName("/examination/shamExam");
+			mav.addObject("examList",examinationService.getExamination());
+		}
 		return mav;
 	}
 	
-	@RequestMapping(value = "", method = {RequestMethod.GET})
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView mun() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/examination/index");
