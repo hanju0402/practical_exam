@@ -4,12 +4,20 @@
 
 <mapper namespace="com.practical.exam.common.sms.dao.SmsDao">
     <select id="getRegisterAuth" resultType="int">
-       
+    	SELECT AUTH_NUM
+    	FROM P_AUTH_NUMBER_LOG    	
+    	WHERE USER_ID =#{userId}
+    	AND USER_IP = #{userIp}
+    	AND PHONE = #{phone}
+    	ORDER BY SEQ DESC
+    	LIMIT 1
     </select>
     
-    
     <insert id="addAuthNumber" >
-    
+    	INSERT INTO P_AUTH_NUMBER_LOG
+			(USER_ID, USER_PHONE, AUTH_NUM, USER_IP, AUTH_DATE)
+		VALUES(#{userId}, #{phone}, #{authNum},#{userIp}, NOW())
+    	
     </insert>
 </mapper>
 
