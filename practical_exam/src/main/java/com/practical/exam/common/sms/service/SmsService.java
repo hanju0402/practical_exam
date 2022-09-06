@@ -80,8 +80,8 @@ public class SmsService {
         System.out.println(resp);
         
         reqData.put("authNum", randomNumber);
-        smsDao.getRegisterAuth(reqData);
         smsDao.addAuthNumber(reqData);
+        
 		return true;
 	}
 	
