@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>모의 시험</title>
+<title>모의 시험</title>
 
 
 <script defer type="text/javascript" src="/js/common/shamExam.js"></script>
@@ -33,13 +33,13 @@
 							</c:when>
 							<c:otherwise>
 								<div class="question-picture-box">
-									<img src="${data.imgUrl}" alt="실기 문제">
+									<img src="${data.imgUrl}" alt="실기 문제 ">
 								</div>
 							</c:otherwise>
 						</c:choose>
 						<div>
 							<p>정답</p>
-							<textarea id="answer-area" cols="50" rows="10" onfocus="textClear(this.id)" onblur="answerRequestTxt(this.id)"></textarea>
+							<textarea id="answer-area" cols="50" rows="10"></textarea>
 						</div>
 					</div>
 
@@ -56,8 +56,7 @@
 
 
 	<div class="copy">
-		Photos by <a target="_blank" href="https://500px.com/udovichenko">Dmitry Udovichenko</a>
-		<button id="data-toggle">toggle</button>
+		<button id="submit">제출하기</button>
 	</div>
 
 </body>

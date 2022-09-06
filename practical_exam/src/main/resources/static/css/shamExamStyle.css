@@ -22,7 +22,7 @@ body {
 }
 
 .slide-inner {
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center; 
@@ -35,9 +35,10 @@ body {
 }
 
 .copy {
-  position: absolute;
-  bottom: 15px;
-  left: 0;
+  position: relative;
+  bottom: -407px;
+  height: 50px;
+  left: -100px;
   right: 0;
   text-align: center;
   color: #192b3c;
@@ -54,8 +55,10 @@ a {
 	}
 	
 .question-picture-box {
-	height: 300px;
+	text-align: center;
+	height: 100%;
 }	
+
 	
 .question-picture {
 	width: 100%;
@@ -63,7 +66,13 @@ a {
 }
 
 #answer-area {
+	resize: none;
 	width: 100%;
 }
+
+#submit {
+	padding: 10px 20px;
+}
+	
 	
 
