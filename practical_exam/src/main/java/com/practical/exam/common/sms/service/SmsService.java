@@ -1,9 +1,14 @@
 package com.practical.exam.common.sms.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.practical.exam.common.sms.dao.SmsDao;
 
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
@@ -16,23 +21,38 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Service("SmsService")
 public class SmsService {
+	
 	private final String apiKey = "NCSAVC7G9Q2SLUKL";
 	private final String apiSecretKey = "ZN5YSRQK5460UDQC7KVCEYPV603HJOHS";
 	private final String msgTitle="[정모해] - 정보처리기사 모의테스트\n";
-	private final String fromNumber ="01076130401";
+	private final String fromNumber ="0808001004";
 	private final DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(this.apiKey, this.apiSecretKey, "https://api.coolsms.co.kr");
 	
-	//Cool SMS Docs = https://github.com/coolsms/coolsms-java-examples/blob/main/maven-spring-demo/src/main/java/net/nurigo/mavenspringdemo/ExampleController.java
+	// Cool SMS Docs = https://github.com/coolsms/coolsms-java-examples/blob/main/maven-spring-demo/src/main/java/net/nurigo/mavenspringdemo/ExampleController.java
 	// https://docs.coolsms.co.kr/development-kits/java
 	// 위 URL 참고 
 	
+	@Autowired
+	SmsDao smsDao;
 	/**
 	 * 회원가입 인증문자 발송
 	 * 번호는 반드시 01012345678 형태로 입력되어야 함
 	 * @param phoneNumber
 	 * @return
 	 */
-	public boolean postRegisterAuthMsg(String phoneNumber) {
+	public boolean postRegisterAuthMsg(String phoneNumber,String userId, String ip) {
+		Map<String,String> reqData= new HashMap<String,String>();
+		reqData.put("userId", userId);
+		reqData.put("phone", phoneNumber);
+		reqData.put("userIp", ip);
+
+		// 당일 현재의 ip로 3회 이상 SMS 발송이 되었을 경우, 보내지 않음
+		boolean ipCheck = smsDao.getSmsIpCheck(reqData);
+		
+		if(!ipCheck) {
+			return false;
+		}
+		
 		String randomNumber = "";
 		
 		Random rand = new Random();
@@ -49,15 +69,19 @@ public class SmsService {
             }
         }
 		String msg = this.msgTitle+"회원가입 인증번호는 ["+randomNumber+"] 입니다.";
-		System.out.println(msg);
 		Message message = new Message();
         message.setFrom(this.fromNumber);
         message.setTo(phoneNumber);
         message.setText(msg);
+
+        System.out.println(msg);
         
         SingleMessageSentResponse resp = this.sendMsg(message);
         System.out.println(resp);
         
+        reqData.put("authNum", randomNumber);
+        smsDao.getRegisterAuth(reqData);
+        smsDao.addAuthNumber(reqData);
 		return true;
 	}
 	

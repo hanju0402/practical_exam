@@ -3,7 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.practical.exam.common.sms.dao.SmsDao">
-    <select id="getRegisterAuth" resultType="int">
+    
+    <select id="getSmsIpCheck" resultType="boolean">
+    	SELECT CASE WHEN COUNT(*) >= 3 THEN 1 
+    				ELSE 0 END AS TODAY_CNT 
+		FROM P_AUTH_NUMBER_LOG 
+		WHERE USER_IP = #{userIp}
+		AND DATE(AUTH_DATE) = DATE(NOW())
+    </select>
+    <select id="getRegisterAuth" resultType="String">
     	SELECT AUTH_NUM
     	FROM P_AUTH_NUMBER_LOG    	
     	WHERE USER_ID =#{userId}
@@ -12,7 +20,6 @@
     	ORDER BY SEQ DESC
     	LIMIT 1
     </select>
-    
     <insert id="addAuthNumber" >
     	INSERT INTO P_AUTH_NUMBER_LOG
 			(USER_ID, USER_PHONE, AUTH_NUM, USER_IP, AUTH_DATE)
