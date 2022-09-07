@@ -1,65 +1,63 @@
 @charset "UTF-8";
 
 body {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  background: white;
-  margin: 0;
-  padding: 2;
+	background: #eee;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000;
+	background: white;
+	margin: 0;
+	padding: 2;
 }
 
 .swiper-container {
-	width:1200px;
-  height: calc(100vh - 120px);
-  margin: 60px;
+	width: 1200px;
+	height: calc(100vh - 120px);
+	margin: 60px;
 }
 
 .swiper-slide {
-  
-  overflow: hidden;
+	overflow: hidden;
 }
 
 .slide-inner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background-size: cover;
-  background-position: center;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-size: cover;
+	background-position: center;
 }
 
 .copy {
-  position: relative;
-  bottom: -407px;
-  height: 50px;
-  left: -100px;
-  right: 0;
-  text-align: center;
-  color: #192b3c;
-  letter-spacing: 0.06em;
+	position: relative;
+	bottom: -407px;
+	height: 50px;
+	left: -100px;
+	right: 0;
+	text-align: center;
+	color: #192b3c;
+	letter-spacing: 0.06em;
 }
+
 a {
-  color: white;
+	color: white;
 }
 
 #question-txt {
 	height: 100px;
 	left: 50%;
+}
 
-	}
-	
 .question-picture-box {
 	text-align: center;
 	height: 100%;
-}	
+}
 
-	
 .question-picture {
 	width: 100%;
 	height: 100%;
@@ -73,6 +71,46 @@ a {
 #submit {
 	padding: 10px 20px;
 }
-	
-	
 
+.swiper-pagination {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	top: 15%;
+	left: 90%;
+	color: blue;
+	background-color: transparent;
+	border-radius: 0;
+	transform: translateY(-50%);
+}
+
+.swiper-pagination-bullet {
+	position: relative;
+	height: 0%;
+	display: none;
+	min-height: 15px;
+	font-size: 20px;
+	background-color: transparent;
+	margin: 10px;
+	list-style : none;
+	border-radius: 0;
+	background: transparent;
+	opacity: 1;
+}
+
+.swiper-pagination-bullet-active:before {
+	content: "";
+	display: block;
+	position: relative;
+	right: 30px;
+	bottom: 10px;
+	border-radius: 0;
+	text-align: right;
+	background-color: transparent;
+	border-top: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid pink;
+	
+	transition: all .5 ease-in-out;
+}

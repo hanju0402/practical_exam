@@ -41,20 +41,21 @@
 							<p>정답</p>
 							<textarea id="answer-area" cols="50" rows="10"></textarea>
 						</div>
+						
+						
+						
 					</div>
 
 				</div>
 			</c:forEach>
 		</div>
 
-
-
-
 		<div class="swiper-button-next swiper-button-black"></div>
 		<div class="swiper-button-prev swiper-button-black"></div>
+		
 	</div>
 
-
+	<div id="pagination" class="swiper-pagination"></div>
 	<div class="copy">
 		<button id="submit">제출하기</button>
 	</div>
