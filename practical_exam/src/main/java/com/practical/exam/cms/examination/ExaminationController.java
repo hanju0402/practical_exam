@@ -32,6 +32,7 @@ public class ExaminationController {
 		if(reqData.get("hiddenData") == null) {
 			mav.setViewName("redirect:/examination");
 		} else {
+			System.out.println("히든데이터???  " + reqData.get("hiddenData"));
 			mav.setViewName("/examination/shamExam");
 			mav.addObject("examList",examinationService.getExamination());
 		}
@@ -44,6 +45,19 @@ public class ExaminationController {
 		mav.setViewName("/examination/index");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/marking", method = {RequestMethod.POST})
+	public ModelAndView marking(@RequestParam HashMap<String,String> reqData) {
+		ModelAndView mav = new ModelAndView();
+	
+		System.out.println("정답아레아???  " + reqData.get("answer-area"));
+		
+			mav.setViewName("/examination/marking");
+		
+		return mav;
+	}
+	
+	
 	
 	
 }

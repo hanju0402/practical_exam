@@ -266,6 +266,8 @@
 		}
 		
 	}
+
+
 	// 로그인 or 회원가입 버튼 눌렀을때
 	function btnClick(){
 		const dataForm= document.getElementById('dataForm');
