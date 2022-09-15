@@ -1,12 +1,12 @@
 package com.practical.exam.cms.examination;
 
 import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practical.exam.cms.examination.service.ExaminationService;
 
-import net.sf.json.*;
+
 
 
 
@@ -53,20 +53,20 @@ public class ExaminationController {
 	}
 	
 	@RequestMapping(value = "/marking", method = RequestMethod.POST)
-	public ModelAndView marking(HttpServletRequest request) {
+	public ModelAndView marking(@RequestBody List<String> params) {
 		ModelAndView mav = new ModelAndView();
-		String jsonStr = request.getParameter("jsonEle");
-		
-		JSONArray jsonArr = new JSONArray();
-		
-		  // 문자열 형식의 데이터를 JSONArray로 가공
-	    jsonArr =  JSONArray
-	    
-		// 데이터의 길이만큼 반복 및 JSONObject로 변환하며 확인
-	    for(int i=0;i<jsonArr.size();i++){
-	    	JSONObject jsonObj = jsonArr.getJSONObject(i);
-	        System.out.println("id : "+jsonObj.get("id")+", addr"+jsonObj.get("addr"));
-	    }
+//		String jsonStr = request.getParameter("jsonEle");
+//		
+//		JSONArray jsonArr = new JSONArray();
+//		
+//		  // 문자열 형식의 데이터를 JSONArray로 가공
+//	    jsonArr =  JSONArray
+//	    
+//		// 데이터의 길이만큼 반복 및 JSONObject로 변환하며 확인
+//	    for(int i=0;i<jsonArr.size();i++){
+//	    	JSONObject jsonObj = jsonArr.getJSONObject(i);
+//	       
+//	    }
 		mav.setViewName("/examination/marking");
 		
 		System.out.println("정답아레아???  " + params);

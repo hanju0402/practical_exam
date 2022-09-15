@@ -45,6 +45,7 @@ function callPostData(url , jsonStr , callback){
 	
 	httpRequest.open("POST", url , true);
 	httpRequest.setRequestHeader('Content-Type', 'application/json');
+	console.log(jsonStr);
 	//send메소드에 인수 전달
 	httpRequest.send(jsonStr);
 	
