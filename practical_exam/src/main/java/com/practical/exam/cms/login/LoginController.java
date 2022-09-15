@@ -1,6 +1,6 @@
 package com.practical.exam.cms.login;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -82,6 +82,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestBody HashMap<String, String> params) {
+		System.out.println("회원정보 출력가능??" + params);
 		return loginService.signUp(params);
 	}
 	

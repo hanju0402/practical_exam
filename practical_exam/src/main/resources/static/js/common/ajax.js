@@ -28,6 +28,8 @@ function jsonValidation(jsonStr){
 	return 0;
 }
 
+
+
 //POST 방식 데이터 전송 
 function callPostData(url , jsonStr , callback){
 

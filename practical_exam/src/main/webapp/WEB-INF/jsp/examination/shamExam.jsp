@@ -24,7 +24,7 @@
 	function markingCallback(response){
 		
 		if (response.responseCode == 200) {
-			alert(response.responseData);
+			alert("성공" + response.responseData);
 			window.location.href = '/examination/marking';	
 		} else {
 			alert("답전송 오류" + response.responseData);
@@ -44,18 +44,20 @@
 				alert(i+1 + "번 항목을 입력하시오.");
 				return false;
 			}   */
-			answers.push(areas[i].value); 
 			
-			
+			answers.push(areas[i].value);
 		}
+
 		
-		alert("답 들어갔나?" + answers);
-		console.log("답 들어갔나?" + answers);
+	    
+		$('#jsonEle').val(JSON.stringify(answers));
+		/* let jsonStr = JSON.stringify(answers); */
+		alert(jsonStr);
+
+		callPostData('/examination/marking', jsonStr, markingCallback);
 		
-		callpostData('/examination/marking', answers, markingCallback);
-		
-		marking.action = "/examination/marking";
-		marking.submit();
+/* 		marking.action = "/examination/marking";
+		marking.submit(); */
 		
 		
 		
@@ -66,8 +68,7 @@
 </script>
 
 </head>
-<body onbeforeunload="return '해당 화면을 벗어나는 경우, 즉시 제출됩니다. 괜찮으십니까?';">
-	<form id="marking" name="marking" method="post">
+<body >
 		<div class="swiper-container">
 
 			<div class="swiper-wrapper">
@@ -107,11 +108,10 @@
 
 
 		<div id="pagination" class="swiper-pagination"></div>
-	
-	<div class="copy">
-		<button onclick="markingAnswer()" >제출하기</button>
-	</div>
-</form>
+
+		<div class="copy">
+			<button onclick="markingAnswer()">제출하기</button>
+		</div>
 
 </body>
 </html>

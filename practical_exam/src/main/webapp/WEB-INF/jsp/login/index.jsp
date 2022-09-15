@@ -244,10 +244,10 @@
 	function callback(response){
 		
 		if (response.responseCode == 200) {
-			alert(response.responseData);
+			alert("200" + response.responseData);
 			window.location.href = '/';	
 		} else {
-			alert(response.responseData);
+			alert("else" + response.responseData);
 			document.getElementById('userId').value = "";
 			document.getElementById('password').value = "";
 			document.getElementById('password2').value = "";

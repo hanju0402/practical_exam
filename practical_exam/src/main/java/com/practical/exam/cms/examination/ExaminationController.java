@@ -1,7 +1,8 @@
 package com.practical.exam.cms.examination;
 
-import java.util.ArrayList; 
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practical.exam.cms.examination.service.ExaminationService;
 
-import net.minidev.json.JSONArray;
+import net.sf.json.*;
 
 
 
@@ -51,15 +52,27 @@ public class ExaminationController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/marking", method = {RequestMethod.POST})
-	public void marking(@RequestParam String params) {
-		params.toString();
+	@RequestMapping(value = "/marking", method = RequestMethod.POST)
+	public ModelAndView marking(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String jsonStr = request.getParameter("jsonEle");
+		
+		JSONArray jsonArr = new JSONArray();
+		
+		  // 문자열 형식의 데이터를 JSONArray로 가공
+	    jsonArr =  JSONArray
+	    
+		// 데이터의 길이만큼 반복 및 JSONObject로 변환하며 확인
+	    for(int i=0;i<jsonArr.size();i++){
+	    	JSONObject jsonObj = jsonArr.getJSONObject(i);
+	        System.out.println("id : "+jsonObj.get("id")+", addr"+jsonObj.get("addr"));
+	    }
+		mav.setViewName("/examination/marking");
+		
+		System.out.println("정답아레아???  " + params);
 		
 		
-		System.out.println("정답아레아???  " + params.toString());
-		
-		
-
+		return mav;
 	}
 	
 	
