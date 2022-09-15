@@ -20,22 +20,39 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
 <script>
+	
+	function markingCallback(response){
+		
+		if (response.responseCode == 200) {
+			alert(response.responseData);
+			window.location.href = '/examination/marking';	
+		} else {
+			alert("답전송 오류" + response.responseData);
+			
+		}
+		
+	}
+
 
 	function markingAnswer() {
 		
 		var areas = document.getElementsByTagName('textarea');
-		var answers = [];
+		var answers = new Array();
 		
 		for (i = 0; i < areas.length; i++) {
-	/*		if (areas[i].value == "") {
+/* 			if (areas[i].value == "") {
 				alert(i+1 + "번 항목을 입력하시오.");
-				areas[i].focus();
 				return false;
-			}  */
-			answers[i] = areas[i].value;
+			}   */
+			answers.push(areas[i].value); 
+			
 			
 		}
+		
+		alert("답 들어갔나?" + answers);
 		console.log("답 들어갔나?" + answers);
+		
+		callpostData('/examination/marking', answers, markingCallback);
 		
 		marking.action = "/examination/marking";
 		marking.submit();

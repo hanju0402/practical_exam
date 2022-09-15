@@ -1,5 +1,6 @@
 package com.practical.exam.cms.examination;
 
+import java.util.ArrayList; 
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.practical.exam.cms.examination.service.ExaminationService;
+
+import net.minidev.json.JSONArray;
+
+
 
 /**
  * 시험 화면 Controller  
@@ -47,14 +52,14 @@ public class ExaminationController {
 	}
 	
 	@RequestMapping(value = "/marking", method = {RequestMethod.POST})
-	public ModelAndView marking(@RequestParam HashMap<String,String> reqData) {
-		ModelAndView mav = new ModelAndView();
-	
-		System.out.println("정답아레아???  " + reqData.get("answer-area"));
+	public void marking(@RequestParam String params) {
+		params.toString();
 		
-			mav.setViewName("/examination/marking");
 		
-		return mav;
+		System.out.println("정답아레아???  " + params.toString());
+		
+		
+
 	}
 	
 	
