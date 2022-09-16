@@ -6,9 +6,8 @@
 	namespace="com.practical.exam.cms.examination.dao.ExaminationDao">
 
 	<resultMap id="getExaminationCntResult" type="Map">
-		<result column="QUESTION_TYPE" property="q_type"
-			javaType="String" />
-		<result column="Q_CNT" property="q_cnt" javaType="int" />
+		<result column="QUESTION_TYPE" 	 property="q_type" javaType="String" />
+		<result column="Q_CNT"			 property="q_cnt"  javaType="int" />
 	</resultMap>
 	<!-- 문제별 갯수 조회 -->
 	<select id="getExaminationCnt"
@@ -49,68 +48,59 @@
 	<update id="updateRandomNumExamination">
 		UPDATE P_QUESTION_TEST_HST D ,
 		(
-		SELECT ROW_NUMBER()
-		OVER(ORDER BY RAND()) R_NUM
-		, P.TEST_NUMBER
-		, P.QUESTION_SEQ
-		, P.USER_ID
-		FROM P_QUESTION_TEST_HST P
-		WHERE P.TEST_NUMBER = #{testNum}
-		AND
-		P.USER_ID = #{userId}
+			SELECT ROW_NUMBER() OVER(ORDER BY RAND()) R_NUM
+				 , P.TEST_NUMBER
+				 , P.QUESTION_SEQ
+				 , P.USER_ID
+			FROM P_QUESTION_TEST_HST P
+			WHERE P.TEST_NUMBER = #{testNum}
+			AND P.USER_ID = #{userId}
 		) AS K
 		SET QUESTION_NO = K.R_NUM
-		WHERE
-		D.TEST_NUMBER = K.TEST_NUMBER
+		WHERE D.TEST_NUMBER = K.TEST_NUMBER
 		AND D.QUESTION_SEQ = K.QUESTION_SEQ
 	</update>
 
 	<resultMap id="getExaminationResult" type="Map">
-		<result column="TEST_NUMBER" property="testNum" javaType="int" />
-		<result column="QUESTION_NO" property="qNo" javaType="int" />
-		<result column="QUESTION_TITLE" property="qTitle"
-			javaType="String" />
-		<result column="QUESTION_CONTENT" property="qContent"
-			javaType="String" />
-		<result column="QUESTION_TYPE" property="qType"
-			javaType="String" />
-		<result column="QUESTION_ANSWER_TYPE" property="qAnsType"
-			javaType="String" />
-		<result column="IMAGE_URL" property="imgUrl" javaType="String" />
+		<result column="TEST_NUMBER" 			property="testNum" 		javaType="int" />
+		<result column="QUESTION_NO" 			property="qNo" 			javaType="int" />
+		<result column="QUESTION_TITLE"	 		property="qTitle" 		javaType="String" />
+		<result column="QUESTION_CONTENT" 		property="qContent" 	javaType="String" />
+		<result column="QUESTION_TYPE" 			property="qType" 		javaType="String" />
+		<result column="QUESTION_ANSWER_TYPE" 	property="qAnsType"		javaType="String" />
+		<result column="IMAGE_URL" 				property="imgUrl" 		javaType="String" />
 	</resultMap>
 	<!-- 사용자의 현재 회차 시험문제 출력 -->
 	<select id="getExamination" parameterType="Map"
 		resultMap="getExaminationResult">
 		SELECT HST.TEST_NUMBER
-		, HST.QUESTION_NO
-		, INFO.QUESTION_TITLE
-		, INFO.QUESTION_CONTENT
-		, INFO.QUESTION_TYPE
-		, INFO.QUESTION_ANSWER_TYPE
-		, CASE WHEN INFO.QUESTION_CONTENT = 'Image' THEN
-		CONCAT(CONCAT('/practice_img/',CONCAT(INFO.QUESTION_KIND,CONCAT('/',INFO.QUESTION_NO))),'.PNG')
-		ELSE NULL
-		END AS IMAGE_URL
-		FROM P_QUESTION_TEST_HST HST,P_QUESTION_INFO
-		INFO
+			 , HST.QUESTION_NO
+			 , INFO.QUESTION_TITLE
+			 , INFO.QUESTION_CONTENT
+			 , INFO.QUESTION_TYPE
+			 , INFO.QUESTION_ANSWER_TYPE
+			 , CASE WHEN INFO.QUESTION_CONTENT = 'Image' THEN CONCAT(CONCAT('/practice_img/',CONCAT(INFO.QUESTION_KIND,CONCAT('/',INFO.QUESTION_NO))),'.PNG')
+					ELSE NULL END AS IMAGE_URL
+		FROM P_QUESTION_TEST_HST HST,P_QUESTION_INFO INFO
 		WHERE HST.QUESTION_SEQ = INFO.SEQ
 		AND USER_ID = #{userId}
-		AND
-		TEST_NUMBER =
-		#{testNum}
+		AND TEST_NUMBER = #{testNum}
 		ORDER BY HST.QUESTION_NO
 	</select>
 	<resultMap id="answer" type="Map">
 		<result column="question_seq" property="seq" javaType="int" />
 	</resultMap>
 	<select id="getAnswerSeq" parameterType="Map" resultMap="answer">
-		select
-		question_seq from p_question_test_hst where user_id = #{userId} and
-		test_number = #{testCnt} order by question_no
+		SELECT QUESTION_SEQ 
+		FROM P_QUESTION_TEST_HST 
+		WHERE USER_ID = #{userId} 
+		AND TEST_NUMBER = #{testCnt} ORDER BY QUESTION_NO
 	</select>
 
 	<select id="getAnswer" parameterType="int" resultType="String">
-		select question_answer from p_question_info where seq = #{seq};
+		SELECT QUESTION_ANSWER 
+		FROM P_QUESTION_INFO 
+		WHERE SEQ = #{seq};
 	</select>
 
 
