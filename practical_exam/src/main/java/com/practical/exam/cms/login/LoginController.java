@@ -46,6 +46,7 @@ public class LoginController {
 		} else {
 			mav.setViewName("/home/index");
 		}
+		System.out.println("세션존재??" + userInfo.getUserId());
 		
 		return mav;
 	}
@@ -58,6 +59,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ResponseEntity<Object> login(@RequestBody HashMap<String,String> params) {
+		System.out.println("여기로오냐");
 		return loginService.login(params);
 	}
 	

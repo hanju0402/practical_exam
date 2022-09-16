@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.assembler.MethodExclusionMBeanInfoAssembler;
 import org.springframework.stereotype.Service;
 
 import com.practical.exam.cms.examination.dao.ExaminationDao;
@@ -78,6 +79,36 @@ public class ExaminationService {
 		return result;
 	}
 	
-//	public ArrayList<String> 
+	public String getUserId() {
+		return userInfo.getUserId();
+	}
+	
+	// 채점시 testCnt 가져오기
+	public int getTestCnt(String userId) {
+		int testCnt = examinationDao.getUserTestCnt(userId) - 1;
+		return testCnt;
+	}
+	
+	// 출제된 20문제의 각각의 seq 가져오기
+	public List<Map<String,Object>> getAnswerSeq(String userId, int testCnt) {
+		HashMap<String,Object> params = new HashMap<String,Object>();
+		params.put("userId", userId);
+		params.put("testCnt", testCnt);
+		System.out.println(examinationDao.getAnswerSeq(params));
+		return examinationDao.getAnswerSeq(params);
+	}
+	
+	// seq를 이용하여 각각문제의 실제 정답 List 가져오기
+	public List<String> getAnswer(List<Map<String,Object>> seqList) {
+		
+		List<String> answers = new ArrayList<>();
+		for (int i = 0; i < seqList.size(); i++) {
+			String answer = examinationDao.getAnswer((Integer)seqList.get(i).get("seq"));
+			answers.add(answer);
+		}
+		System.out.println("이것만되면된다  " + answers);
+		return answers;
+		
+	}
 	
 }

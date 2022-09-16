@@ -32,9 +32,10 @@ public class LoginService {
 	 * @param reqData
 	 * @return
 	 */
+	
 	public ResponseEntity<Object> login(HashMap<String,String> reqData) {
 		Map<String,String> reslt = loginDao.getUserInfo(reqData);
-		
+		System.out.println("있긴있냐??" + reslt);
 		String result = "아이디가 존재하지 않거나, 패스워드가 올바르지 않습니다.";
 		
 		// 로그인 성공 시,
@@ -47,8 +48,10 @@ public class LoginService {
 			userInfo.setUserNm(reslt.get("userNm"));
 
 			result = "정상적으로 로그인되었습니다.";
+			System.out.println(result);
 			return new ResponseEntity<>(result,HttpStatus.OK);
 		} else {
+			System.out.println(result);
 			return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
 		}
 	}

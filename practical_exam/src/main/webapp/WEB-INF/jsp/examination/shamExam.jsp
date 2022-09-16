@@ -50,10 +50,10 @@
 
 		
 	    
-		/* $('#jsonEle').val(JSON.stringify(answers)); */
 		let jsonStr = JSON.stringify(answers); 
 		/* console.log(jsonStr); */
 		alert(jsonStr);
+		
 
 		callPostData('/examination/marking', jsonStr, markingCallback);
 		

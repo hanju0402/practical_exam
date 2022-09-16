@@ -22,4 +22,12 @@ public interface ExaminationDao {
 	
 	// 1번 ~ 20번 정렬 후 LIST 출력
 	List<Map<String,Object>> getExamination(Map<String,Object> params);
+	
+	// 세션아이디와 마지막testCnt 비교해서 seq 가져오기
+	List<Map<String,Object>> getAnswerSeq(Map<String,Object> params);
+	
+	// seq 를 주고 문제 정답가져오기
+	String getAnswer(int seqs);
+	
+	
 }
