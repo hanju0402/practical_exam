@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,99 +21,102 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
 <script>
-	
-	function markingCallback(response){
-		
+	function markingCallback(response) {
+
 		if (response.responseCode == 200) {
 			alert("성공" + response.responseData);
-			window.location.href = '/examination/marking';	
+			window.location.href = '/examination/marking';
 		} else {
 			alert("답전송 오류" + response.responseData);
-			
+
 		}
-		
+
 	}
 
-
 	function markingAnswer() {
-		
+
 		var areas = document.getElementsByTagName('textarea');
 		var answers = new Array();
-		
+
 		for (i = 0; i < areas.length; i++) {
-/* 			if (areas[i].value == "") {
-				alert(i+1 + "번 항목을 입력하시오.");
-				return false;
-			}   */
-			
+			/* 			if (areas[i].value == "") {
+			 alert(i+1 + "번 항목을 입력하시오.");
+			 return false;
+			 }   */
+
 			answers.push(areas[i].value);
 		}
 
-		
-	    
-		let jsonStr = JSON.stringify(answers); 
+		let jsonStr = JSON.stringify(answers);
 		/* console.log(jsonStr); */
 		alert(jsonStr);
-		
 
 		callPostData('/examination/marking', jsonStr, markingCallback);
-		
-/* 		marking.action = "/examination/marking";
-		marking.submit(); */
-		
-		
-		
-	}
-			
-		
 
+		/* 		marking.action = "/examination/marking";
+		 marking.submit(); */
+
+	}
 </script>
 
 </head>
-<body >
-		<div class="swiper-container">
+<body>
+	<div class="swiper-container">
 
-			<div class="swiper-wrapper">
-				<c:forEach var="data" items="${examList}" varStatus="status">
+		<div class="swiper-wrapper">
+			<c:forEach var="data" items="${examList}" varStatus="status">
 
-					<div class="swiper-slide">
+				<div class="swiper-slide">
 
-						<div class="slide-inner">
-							<div id="question-txt">${data.qNo}.${data.qTitle}</div>
+					<div class="slide-inner">
+						<div id="question-txt">${data.qNo}.${data.qTitle}</div>
+
+						<c:choose>
+							<c:when test="${empty data.imgUrl }">
+								<div class="question-picture-box">${data.qContent}</div>
+							</c:when>
+							<c:otherwise>
+								<div class="question-picture-box">
+									<img src="${data.imgUrl}" alt="실기 문제 ">
+								</div>
+							</c:otherwise>
+						</c:choose>
+						<div>
+							<p>정답 ${data.qAnsType}</p>
 
 							<c:choose>
-								<c:when test="${empty data.imgUrl }">
-									<div class="question-picture-box">${data.qContent}</div>
+								<c:when test="${data.qAnsType == null }">
+									<textarea id="answer-area" name="answer-area" cols="50"
+										rows="10"></textarea>
 								</c:when>
 								<c:otherwise>
-									<div class="question-picture-box">
-										<img src="${data.imgUrl}" alt="실기 문제 ">
-									</div>
+									<c:forEach var="data" items="${qAnsType}" varStatus="status">
+
+										<input type="text" value="${data.qAnsType}" />
+									</c:forEach>
 								</c:otherwise>
 							</c:choose>
-							<div>
-								<p>정답</p>
-								<textarea id="answer-area" name="answer-area" cols="50"
-									rows="10"></textarea>
-							</div>
+
+
 						</div>
-
 					</div>
-				</c:forEach>
-			</div>
 
-
-			<div class="swiper-button-next swiper-button-black"></div>
-			<div class="swiper-button-prev swiper-button-black"></div>
-
+				</div>
+			</c:forEach>
 		</div>
 
 
-		<div id="pagination" class="swiper-pagination"></div>
+		<div class="swiper-button-next swiper-button-black"></div>
+		<div class="swiper-button-prev swiper-button-black"></div>
 
-		<div class="copy">
-			<button onclick="markingAnswer()">제출하기</button>
-		</div>
+	</div>
+
+
+	<div id="pagination" class="swiper-pagination"></div>
+
+	<div class="copy">
+		<button onclick="markingAnswer()">제출하기</button>
+	</div>
 
 </body>
 </html>

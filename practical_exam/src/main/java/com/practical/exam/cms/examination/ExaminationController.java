@@ -43,7 +43,6 @@ public class ExaminationController {
 			System.out.println("히든데이터???  " + reqData.get("hiddenData"));
 			mav.setViewName("/examination/shamExam");
 			mav.addObject("examList",examinationService.getExamination());
-			mav.addObject("test", "나와라");
 		}
 		return mav;
 	}
