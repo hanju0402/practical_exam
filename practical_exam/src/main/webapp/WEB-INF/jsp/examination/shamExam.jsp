@@ -35,26 +35,40 @@
 
 	function markingAnswer() {
 
-		var areas = document.getElementsByTagName('textarea');
+		var areas = document.getElementsByClassName('answerBox');
+		
+		var map = new Map();
+
+		<c:forEach var="a" items="${examList}" varStatus="status">
+
+/* 		map.put("회차", "${a.testNum}"");
+		map.put("${a.qNo}", areas) */
+		alert("${a.qAnsType}.length");
+		
+		</c:forEach>
+
+/* 		for (i = 0; i < areas.length; i++) {
+			
+			
+		} */
+		
+		
+		
 		var answers = new Array();
+		
+/* 		for (i = 0; i < areas.length; i++) {
 
-		for (i = 0; i < areas.length; i++) {
-			/* 			if (areas[i].value == "") {
-			 alert(i+1 + "번 항목을 입력하시오.");
-			 return false;
-			 }   */
-
+			map.put("회차", ${testNum})
 			answers.push(areas[i].value);
 		}
 
 		let jsonStr = JSON.stringify(answers);
-		/* console.log(jsonStr); */
+
 		alert(jsonStr);
 
-		callPostData('/examination/marking', jsonStr, markingCallback);
+		callPostData('/examination/marking', jsonStr, markingCallback); */
 
-		/* 		marking.action = "/examination/marking";
-		 marking.submit(); */
+
 
 	}
 </script>
@@ -82,17 +96,19 @@
 							</c:otherwise>
 						</c:choose>
 						<div>
-							<p>정답 ${data.qAnsType}</p>
+							<p>정답 ${data.testNum}</p>
 
 							<c:choose>
 								<c:when test="${data.qAnsType == null }">
-									<textarea id="answer-area" name="answer-area" cols="50"
-										rows="10"></textarea>
+									<textarea id="answer-area" name="answer-area" class="answerBox"
+										cols="50" rows="10"></textarea>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="data" items="${qAnsType}" varStatus="status">
-
-										<input type="text" value="${data.qAnsType}" />
+									<c:forEach var="data" items="${data.qAnsType}"
+										varStatus="status">
+										<c:out value="${data}" />
+										<input type="text" class="answerBox"
+											style="width: 200px; height: 45px;" />
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
