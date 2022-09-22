@@ -96,7 +96,7 @@
 							</c:otherwise>
 						</c:choose>
 						<div>
-							<p>정답 ${data.testNum}</p>
+							<p>정답 ${data.testNum}, 시퀀스${data.qSeq}</p>
 
 							<c:choose>
 								<c:when test="${data.qAnsType == null }">
