@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -15,12 +14,13 @@
 <script type="text/javascript" src="/js/common/ajax.js"></script>
 
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
 <script>
+
+
+
 	function markingCallback(response) {
 
 		if (response.responseCode == 200) {
@@ -34,42 +34,54 @@
 	}
 
 	function markingAnswer() {
-
-		var areas = document.getElementsByClassName('answerBox');
+		let areas = document.getElementsByClassName('answerBox');
+		let map = new Map();
+	
+ 		let jsonStr = {
+				"cycleNum": "aa",
+				
+				"questionA": [
 		
-		var map = new Map();
-
-		<c:forEach var="a" items="${examList}" varStatus="status">
-
-/* 		map.put("회차", "${a.testNum}"");
-		map.put("${a.qNo}", areas) */
-		alert("${a.qAnsType}.length");
+				{ "1번": { "seq":2, "answer":["aaa", "bbb"] } },
+				
+				{"2번": { "seq":3, "answer":["ccc","ddd"] } }
 		
-		</c:forEach>
-
-/* 		for (i = 0; i < areas.length; i++) {
-			
-			
-		} */
-		
-		
-		
-		var answers = new Array();
-		
-/* 		for (i = 0; i < areas.length; i++) {
-
-			map.put("회차", ${testNum})
-			answers.push(areas[i].value);
+				]
+						
 		}
-
-		let jsonStr = JSON.stringify(answers);
-
-		alert(jsonStr);
-
-		callPostData('/examination/marking', jsonStr, markingCallback); */
-
-
-
+ 		
+ 		var arrayT = [];
+ 		
+ 		for(var i=0; i<4; i++) {
+ 			arrayT.push('name'+i);
+ 		}
+ 		
+ 		var keyt = arrayT[1];
+ 		alert('keyt:: ' + keyt);
+ 		
+ 		alert(jsonStr.questionA[0][keyt]);
+ 		
+/*  		for(var ele in jsonStr) {
+ 			 console.log(jsonStr[ele].questionA)
+ 		}
+ 		 */
+ 		 
+ 		
+ 		
+/*  		console.log(jsonStr);
+ 		console.log(jsonStr);
+ 		
+ 		for(var ele in i){
+ 	        for(var ele2 in i[ele]){
+ 	            console.log(i[ele][ele2]);
+ 	        } 
+ 	        console.log(i[ele].t_no);
+ 	        console.log(i[ele].t_content);
+ 	        console.log(i[ele].t_writer);
+ 	        console.log(i[ele].obtain);
+ 	        console.log(i[ele].t_date);
+ 	    }
+ */
 	}
 </script>
 
@@ -97,18 +109,14 @@
 						</c:choose>
 						<div>
 							<p>정답 ${data.testNum}, 시퀀스${data.qSeq}</p>
-
 							<c:choose>
 								<c:when test="${data.qAnsType == null }">
-									<textarea id="answer-area" name="answer-area" class="answerBox"
-										cols="50" rows="10"></textarea>
+									<textarea id="answer-area" name="answer-area" class="answerBox" cols="50" rows="10"></textarea>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="data" items="${data.qAnsType}"
-										varStatus="status">
+									<c:forEach var="data" items="${data.qAnsType}" varStatus="status">
 										<c:out value="${data}" />
-										<input type="text" class="answerBox"
-											style="width: 200px; height: 45px;" />
+										<input type="text" class="answerBox" style="width: 200px; height: 45px;" />
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -131,6 +139,7 @@
 	<div id="pagination" class="swiper-pagination"></div>
 
 	<div class="copy">
+		<input type="hidden" id="testa" value="개줫같다" />
 		<button onclick="markingAnswer()">제출하기</button>
 	</div>
 
