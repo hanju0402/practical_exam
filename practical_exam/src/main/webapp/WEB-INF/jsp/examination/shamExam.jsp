@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -14,13 +15,12 @@
 <script type="text/javascript" src="/js/common/ajax.js"></script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
 <script>
-
-
-
 	function markingCallback(response) {
 
 		if (response.responseCode == 200) {
@@ -34,54 +34,39 @@
 	}
 
 	function markingAnswer() {
-		let areas = document.getElementsByClassName('answerBox');
-		let map = new Map();
-	
- 		let jsonStr = {
-				"cycleNum": "aa",
-				
-				"questionA": [
-		
-				{ "1번": { "seq":2, "answer":["aaa", "bbb"] } },
-				
-				{"2번": { "seq":3, "answer":["ccc","ddd"] } }
-		
-				]
-						
+		let markingAnswer = new Array();
+
+		for(let i=1;i<=20;i++){
+			let data = new Object() ;
+			//문제 번호
+			data.questionNo = i;
+			//seq 정보
+			data.seq = document.getElementById('seq-hidden-'+i).value;
+			//답변 유형
+			let ansType = document.getElementById('answer-type-'+i).value;
+
+			let ansArr = new Array();
+			// TEXT AREA 인 경우,
+			if(ansType == 'area'){
+				ansArr.push(document.getElementById('answer-area-'+i).value);
+			} else {
+				for(let k=0;k<ansType;k++){
+					ansArr.push(document.getElementById('answer-type-input-'+i+"-"+k).value);
+				}
+			}
+
+			data.answer = ansArr;
+			
+			markingAnswer.push(data)
 		}
- 		
- 		var arrayT = [];
- 		
- 		for(var i=0; i<4; i++) {
- 			arrayT.push('name'+i);
- 		}
- 		
- 		var keyt = arrayT[1];
- 		alert('keyt:: ' + keyt);
- 		
- 		alert(jsonStr.questionA[0][keyt]);
- 		
-/*  		for(var ele in jsonStr) {
- 			 console.log(jsonStr[ele].questionA)
- 		}
- 		 */
- 		 
- 		
- 		
-/*  		console.log(jsonStr);
- 		console.log(jsonStr);
- 		
- 		for(var ele in i){
- 	        for(var ele2 in i[ele]){
- 	            console.log(i[ele][ele2]);
- 	        } 
- 	        console.log(i[ele].t_no);
- 	        console.log(i[ele].t_content);
- 	        console.log(i[ele].t_writer);
- 	        console.log(i[ele].obtain);
- 	        console.log(i[ele].t_date);
- 	    }
- */
+		let postData = new Object() ;
+		// 회차정보
+		postData.testNum = document.getElementById('testNum-1').value
+		postData.markData = markingAnswer
+
+		var jsonData = JSON.stringify(postData) ;
+	
+		console.log(jsonData) ;
 	}
 </script>
 
@@ -91,9 +76,11 @@
 
 		<div class="swiper-wrapper">
 			<c:forEach var="data" items="${examList}" varStatus="status">
-
+				<!-- 회차 -->
+				<input type ="hidden" id="testNum-${data.qNo }" value="${data.testNum }">
+				
 				<div class="swiper-slide">
-
+					
 					<div class="slide-inner">
 						<div id="question-txt">${data.qNo}.${data.qTitle}</div>
 
@@ -108,15 +95,19 @@
 							</c:otherwise>
 						</c:choose>
 						<div>
-							<p>정답 ${data.testNum}, 시퀀스${data.qSeq}</p>
+							<input type="hidden" id="seq-hidden-${data.qNo}" value="${data.qSeq}">
+							
 							<c:choose>
 								<c:when test="${data.qAnsType == null }">
-									<textarea id="answer-area" name="answer-area" class="answerBox" cols="50" rows="10"></textarea>
+									<input type="hidden" id="answer-type-${data.qNo}" value="area">
+									<textarea id="answer-area-${data.qNo}" name="answer-area" class="answerBox" cols="50" rows="10"></textarea>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="data" items="${data.qAnsType}" varStatus="status">
-										<c:out value="${data}" />
-										<input type="text" class="answerBox" style="width: 200px; height: 45px;" />
+									<input type="hidden" id="answer-type-${data.qNo}" value="${fn:length(data.qAnsType)}">
+									
+									<c:forEach var="qAnsT" items="${data.qAnsType}" varStatus="status">
+										<c:out value="${qAnsT}" />
+										<input type="text" id="answer-type-input-${data.qNo}-${status.index}" class="answerBox" value="" style="width: 200px; height: 45px;" />
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -139,7 +130,6 @@
 	<div id="pagination" class="swiper-pagination"></div>
 
 	<div class="copy">
-		<input type="hidden" id="testa" value="개줫같다" />
 		<button onclick="markingAnswer()">제출하기</button>
 	</div>
 
