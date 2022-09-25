@@ -78,4 +78,12 @@ public class ExaminationService {
 		
 		return result;
 	}
+	
+	public void marking(HashMap<String,Object> reqData) {
+		
+		// 유저가 입력한 답 DB에 입력
+		examinationDao.updateUserInputAnswer(reqData);
+		
+	}
+	
 }

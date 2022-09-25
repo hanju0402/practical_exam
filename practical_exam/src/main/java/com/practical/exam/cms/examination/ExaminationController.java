@@ -54,9 +54,14 @@ public class ExaminationController {
 	}
 	
 	@RequestMapping(value = "/marking", method = RequestMethod.POST)
-	public ModelAndView marking(@RequestBody List<String> params) {
+	public ModelAndView marking(@RequestBody HashMap<String,Object> params) {
+		System.out.println("전달받냐?" + params);
+		
+		examinationService.marking(params);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/examination/marking");
+		
 		return mav;
 	}
 	

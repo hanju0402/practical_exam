@@ -29,5 +29,8 @@ public interface ExaminationDao {
 	// seq 를 주고 문제 정답가져오기
 	String getAnswer(int seqs);
 	
+	// 유저가 입력한 답 DB에 입력
+	void updateUserInputAnswer(Map<String,Object> params);
+	
 	
 }

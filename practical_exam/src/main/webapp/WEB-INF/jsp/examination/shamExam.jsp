@@ -58,7 +58,9 @@
 			data.answer = ansArr;
 			
 			markingAnswer.push(data)
+			
 		}
+		
 		let postData = new Object() ;
 		// 회차정보
 		postData.testNum = document.getElementById('testNum-1').value
@@ -67,6 +69,8 @@
 		var jsonData = JSON.stringify(postData) ;
 	
 		console.log(jsonData) ;
+		
+		callPostData('/examination/marking', jsonData, markingCallback);
 	}
 </script>
 

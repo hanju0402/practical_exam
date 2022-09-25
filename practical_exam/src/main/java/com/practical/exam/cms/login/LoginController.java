@@ -59,7 +59,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ResponseEntity<Object> login(@RequestBody HashMap<String,String> params) {
-		System.out.println("여기로오냐");
+		System.out.println("여기로오냐" + params);
 		return loginService.login(params);
 	}
 	
