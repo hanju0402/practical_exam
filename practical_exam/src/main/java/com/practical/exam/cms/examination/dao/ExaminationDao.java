@@ -30,7 +30,7 @@ public interface ExaminationDao {
 	String getAnswer(int seqs);
 	
 	// 유저가 입력한 답 DB에 입력
-	void updateUserInputAnswer(Map<String,Object> params);
+	void updateUserInputAnswer(int testNum, int seq, String userAnswer);
 	
-	
+	Map<String,Object> correctAnswer(int seq, int no);
 }

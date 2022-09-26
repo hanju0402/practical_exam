@@ -72,6 +72,22 @@
 		
 		callPostData('/examination/marking', jsonData, markingCallback);
 	}
+	
+	// 정답 입력칸에 [,] 못쓰게 제한
+	function characterCheck(obj){
+
+		  var regExp = /[,]/gi; 
+
+		  if( regExp.test(obj.value) ){
+
+		     alert("[, ]는 입력하실수 없습니다.");
+
+		     obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+
+		  }
+
+
+		}
 </script>
 
 </head>
@@ -104,14 +120,14 @@
 							<c:choose>
 								<c:when test="${data.qAnsType == null }">
 									<input type="hidden" id="answer-type-${data.qNo}" value="area">
-									<textarea id="answer-area-${data.qNo}" name="answer-area" class="answerBox" cols="50" rows="10"></textarea>
+									<textarea id="answer-area-${data.qNo}" name="answer-area" class="answerBox" class="answerBox" value="" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" cols="50" rows="10"></textarea>
 								</c:when>
 								<c:otherwise>
 									<input type="hidden" id="answer-type-${data.qNo}" value="${fn:length(data.qAnsType)}">
 									
 									<c:forEach var="qAnsT" items="${data.qAnsType}" varStatus="status">
 										<c:out value="${qAnsT}" />
-										<input type="text" id="answer-type-input-${data.qNo}-${status.index}" class="answerBox" value="" style="width: 200px; height: 45px;" />
+										<input type="text" id="answer-type-input-${data.qNo}-${status.index}" class="answerBox" value="" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" style="width: 200px; height: 45px;" />
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>

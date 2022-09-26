@@ -1,6 +1,7 @@
 package com.practical.exam.cms.examination.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jmx.export.assembler.MethodExclusionMBeanInfoAssembler;
 import org.springframework.stereotype.Service;
 
 import com.practical.exam.cms.examination.dao.ExaminationDao;
@@ -79,10 +79,41 @@ public class ExaminationService {
 		return result;
 	}
 	
-	public void marking(HashMap<String,Object> reqData) {
-		
+	public int marking(HashMap<String,Object> reqData) {
+	
 		// 유저가 입력한 답 DB에 입력
-		examinationDao.updateUserInputAnswer(reqData);
+		int testNum = Integer.parseInt((String)reqData.get("testNum"));
+		// 유저가 입력한 정답
+		List<HashMap<String,Object>> markData = (List<HashMap<String,Object>>)reqData.get("markData");
+		// 실제 정답
+		List<Map<String, Object>> correctAnswers = new ArrayList<>();
+		for (int i = 0; i < 20; i++) {
+			int seq = Integer.parseInt((String)markData.get(i).get("seq"));
+			ArrayList<String> userAnswer= (ArrayList<String>)markData.get(i).get("answer");
+			String arrayToString = String.join(",", userAnswer);
+			examinationDao.updateUserInputAnswer(testNum, seq, arrayToString);
+			
+			Map<String,Object> correctAnswer = examinationDao.correctAnswer(seq, i+1);
+			correctAnswers.add(correctAnswer);
+
+			
+		}
+		String str = "EAIss";
+		String[] result = str.split(",");
+		System.out.println("1번쨰" + result[0]);
+		System.out.println("2번쨰" + result[1]);
+		System.out.println("3번쨰" + result[2]);
+		
+		
+		
+		System.out.println("사용자 입력답ㅂㅂㅂㅂㅂ: " + markData);
+		System.out.println("찾아아아아앙ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ카나나" + correctAnswers);
+		correctAnswers.get(0).get("correctAnswer");
+		
+		return 1;
+		
+		
+		
 		
 	}
 	

@@ -55,7 +55,6 @@ public class ExaminationController {
 	
 	@RequestMapping(value = "/marking", method = RequestMethod.POST)
 	public ModelAndView marking(@RequestBody HashMap<String,Object> params) {
-		System.out.println("전달받냐?" + params);
 		
 		examinationService.marking(params);
 		
