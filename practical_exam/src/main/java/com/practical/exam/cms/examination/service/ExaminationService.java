@@ -118,8 +118,6 @@ public class ExaminationService {
 				splitAns.put("corretAns", asdf);
 				compareToAns.add(splitAns);
 				
-				
-				
 			}
 		}
 		
@@ -129,7 +127,7 @@ public class ExaminationService {
 			List<String> fff = (List)markData.get(i).get("answer");
 			List<String> ddd = (List)compareToAns.get(i).get("corretAns");
 			for (int j = 0; j < fff.size(); j++) {
-				if (!fff.get(j).equals(ddd.get(j))) {
+				if (!fff.get(j).trim().equals(ddd.get(j).trim())) {
 					mark++;
 				}
 			}
@@ -141,11 +139,6 @@ public class ExaminationService {
 				examinationDao.updateAnswerYn(testNum, seq);
 			}
 		}
-		
-
-		
-		System.out.println("사용자 입력답ㅂㅂㅂㅂㅂ: " + markData);
-		System.out.println("찾아아아아앙ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ카나나" + compareToAns);
 		correctAnswers.get(0).get("correctAnswer");
 		
 		return 1;
