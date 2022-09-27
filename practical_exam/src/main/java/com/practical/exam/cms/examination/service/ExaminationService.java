@@ -82,33 +82,32 @@ public class ExaminationService {
 	
 		// 유저가 입력한 답 DB에 입력
 		int testNum = Integer.parseInt((String)reqData.get("testNum"));
+		
 		// 유저가 입력한 정답
 		List<HashMap<String,Object>> markData = (List<HashMap<String,Object>>)reqData.get("markData");
-		
+		reqData.put("userId", userInfo.getUserId());
 		// 실제 정답
 		List<Map<String,Object>> correctAnswer = examinationDao.correctAnswer(reqData);
 		
+		System.out.println(reqData);
 		HashMap<String,Object> updateData = new HashMap<String,Object>();
 		updateData.put("userId", userInfo.getUserId());
 		updateData.put("testNum",testNum );
 		
 		for (int i = 0; i < 20; i++) {
-			
-			int questionNo = Integer.parseInt((String)markData.get(i).get("questionNo"));
+			int questionNo = i+1;
+//					Integer.parseInt((String)markData.get(i).get("questionNo"));
 			ArrayList<String> userAnswer= (ArrayList<String>)markData.get(i).get("answer");
-			
 			updateData.put("qNo", questionNo);
-			updateData.put("userAnswer", userAnswer);
-			
+			String userAns = String.join(",", userAnswer);
+			updateData.put("userAnswer", userAns);
             String answerYn = "N";
-            
             if(correctAnswer.get(i).get("qType") == null) {
 				String answer = (String)correctAnswer.get(i).get("correctAnswer");
-				
 				if(answer.trim().equals(userAnswer.get(0).trim())){
 					answerYn = "Y";
 				}
-				
+	            
 			} else {
 				String answer = (String)correctAnswer.get(i).get("correctAnswer");
 				String[] answers = answer.split(",");

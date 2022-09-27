@@ -100,14 +100,14 @@
 		<result column="QUESTION_ANSWER" 		property="correctAnswer" 	javaType="String" />
 		<result column="QUESTION_ANSWER_TYPE" 	property="qType" 			javaType="String" />
 	</resultMap>
-	<select id="correctAnswer" parameterType="int" resultMap="correctAnswer">
+	<select id="correctAnswer" parameterType="Map" resultMap="correctAnswer">
 		SELECT HST.QUESTION_NO 
 			 , HST.QUESTION_SEQ 
 			 , INFO.QUESTION_ANSWER 
 			 , INFO.QUESTION_ANSWER_TYPE  
 		FROM P_QUESTION_TEST_HST HST , P_QUESTION_INFO INFO 
-		WHERE USER_ID =#{userId}
-		AND TEST_NUMBER=#{testNum}
+		WHERE USER_ID = #{userId}
+		AND TEST_NUMBER= #{testNum}
 		AND HST.QUESTION_SEQ =INFO.SEQ 
 		ORDER BY QUESTION_NO ASC
 	</select>
