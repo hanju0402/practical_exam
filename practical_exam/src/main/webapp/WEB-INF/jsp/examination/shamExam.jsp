@@ -25,7 +25,8 @@
 
 		if (response.responseCode == 200) {
 			alert("성공" + response.responseData);
-			window.location.href = '/examination/marking';
+			window.location.href = '/examination/marking';	
+			/* document.getElementById("answerData").submit(); */
 		} else {
 			alert("답전송 오류" + response.responseData);
 
@@ -36,122 +37,134 @@
 	function markingAnswer() {
 		let markingAnswer = new Array();
 
-		for(let i=1;i<=20;i++){
-			let data = new Object() ;
+		for (let i = 1; i <= 20; i++) {
+			let data = new Object();
 			//문제 번호
 			data.questionNo = i;
 			//seq 정보
-			data.seq = document.getElementById('seq-hidden-'+i).value;
+			data.seq = document.getElementById('seq-hidden-' + i).value;
 			//답변 유형
-			let ansType = document.getElementById('answer-type-'+i).value;
+			let ansType = document.getElementById('answer-type-' + i).value;
 
 			let ansArr = new Array();
 			// TEXT AREA 인 경우,
-			if(ansType == 'area'){
-				ansArr.push(document.getElementById('answer-area-'+i).value);
+			if (ansType == 'area') {
+				ansArr.push(document.getElementById('answer-area-' + i).value);
 			} else {
-				for(let k=0;k<ansType;k++){
-					ansArr.push(document.getElementById('answer-type-input-'+i+"-"+k).value);
+				for (let k = 0; k < ansType; k++) {
+					ansArr.push(document.getElementById('answer-type-input-'
+							+ i + "-" + k).value);
 				}
 			}
 
 			data.answer = ansArr;
-			
+
 			markingAnswer.push(data)
-			
+
 		}
-		
-		let postData = new Object() ;
+
+		let postData = new Object();
 		// 회차정보
 		postData.testNum = document.getElementById('testNum-1').value
 		postData.markData = markingAnswer
 
-		var jsonData = JSON.stringify(postData) ;
-	
-		console.log(jsonData) ;
-		
+		var jsonData = JSON.stringify(postData);
+
+		console.log(jsonData);
+
 		callPostData('/examination/marking', jsonData, markingCallback);
 	}
-	
+
 	// 정답 입력칸에 [,] 못쓰게 제한
-	function characterCheck(obj){
+	function characterCheck(obj) {
 
-		  var regExp = /[,]/gi; 
+		var regExp = /[,]/gi;
 
-		  if( regExp.test(obj.value) ){
+		if (regExp.test(obj.value)) {
 
-		     alert("[, ]는 입력하실수 없습니다.");
+			alert("[, ]는 입력하실수 없습니다.");
 
-		     obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-
-		  }
-
+			obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
 
 		}
+
+	}
 </script>
 
 </head>
 <body>
-	<div class="swiper-container">
+	<!-- <form id="answerData" action="/examination/marking" method="post"> -->
+		<div class="swiper-container">
 
-		<div class="swiper-wrapper">
-			<c:forEach var="data" items="${examList}" varStatus="status">
-				<!-- 회차 -->
-				<input type ="hidden" id="testNum-${data.qNo }" value="${data.testNum }">
-				
-				<div class="swiper-slide">
-					
-					<div class="slide-inner">
-						<div id="question-txt">${data.qNo}.${data.qTitle}</div>
 
-						<c:choose>
-							<c:when test="${empty data.imgUrl }">
-								<div class="question-picture-box">${data.qContent}</div>
-							</c:when>
-							<c:otherwise>
-								<div class="question-picture-box">
-									<img src="${data.imgUrl}" alt="실기 문제 ">
-								</div>
-							</c:otherwise>
-						</c:choose>
-						<div>
-							<input type="hidden" id="seq-hidden-${data.qNo}" value="${data.qSeq}">
-							
+			<div class="swiper-wrapper">
+				<c:forEach var="data" items="${examList}" varStatus="status">
+					<!-- 회차 -->
+					<input type="hidden" id="testNum-${data.qNo }"
+						value="${data.testNum }">
+
+					<div class="swiper-slide">
+
+						<div class="slide-inner">
+							<div id="question-txt">${data.qNo}.${data.qTitle}</div>
+
 							<c:choose>
-								<c:when test="${data.qAnsType == null }">
-									<input type="hidden" id="answer-type-${data.qNo}" value="area">
-									<textarea id="answer-area-${data.qNo}" name="answer-area" class="answerBox" class="answerBox" value="" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" cols="50" rows="10"></textarea>
+								<c:when test="${empty data.imgUrl }">
+									<div class="question-picture-box">${data.qContent}</div>
 								</c:when>
 								<c:otherwise>
-									<input type="hidden" id="answer-type-${data.qNo}" value="${fn:length(data.qAnsType)}">
-									
-									<c:forEach var="qAnsT" items="${data.qAnsType}" varStatus="status">
-										<c:out value="${qAnsT}" />
-										<input type="text" id="answer-type-input-${data.qNo}-${status.index}" class="answerBox" value="" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" style="width: 200px; height: 45px;" />
-									</c:forEach>
+									<div class="question-picture-box">
+										<img src="${data.imgUrl}" alt="실기 문제 ">
+									</div>
 								</c:otherwise>
 							</c:choose>
 
+							<div>
+								<input type="hidden" id="seq-hidden-${data.qNo}"
+									value="${data.qSeq}">
+								<p>정답</p>
 
+								<c:choose>
+									<c:when test="${data.qAnsType == null }">
+										<input type="hidden" id="answer-type-${data.qNo}" value="area">
+										<textarea id="answer-area-${data.qNo}" name="answer-area"
+											class="answerBox" onkeyup="characterCheck(this)"
+											onkeydown="characterCheck(this)" cols="50" rows="10"></textarea>
+									</c:when>
+									<c:otherwise>
+										<input type="hidden" id="answer-type-${data.qNo}"
+											value="${fn:length(data.qAnsType)}">
+
+										<c:forEach var="qAnsT" items="${data.qAnsType}"
+											varStatus="status">
+											<c:out value="${qAnsT}" />
+											<input type="text"
+												id="answer-type-input-${data.qNo}-${status.index}" value=""
+												onkeyup="characterCheck(this)"
+												onkeydown="characterCheck(this)"
+												style="width: 200px; height: 45px;" />
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+
+							</div>
 						</div>
 					</div>
+				</c:forEach>
+			</div>
 
-				</div>
-			</c:forEach>
+
+			<div class="swiper-button-next swiper-button-black"></div>
+			<div class="swiper-button-prev swiper-button-black"></div>
+
 		</div>
 
 
-		<div class="swiper-button-next swiper-button-black"></div>
-		<div class="swiper-button-prev swiper-button-black"></div>
+		<div id="pagination" class="swiper-pagination"></div>
 
-	</div>
-
-
-	<div id="pagination" class="swiper-pagination"></div>
-
-	<div class="copy">
-		<button onclick="markingAnswer()">제출하기</button>
-	</div>
-
+		<div class="copy">
+			<button onclick="markingAnswer()">제출하기</button>
+		</div>
+	<!-- </form> -->
 </body>
 </html>

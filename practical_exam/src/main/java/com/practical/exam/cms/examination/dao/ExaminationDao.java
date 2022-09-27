@@ -33,4 +33,6 @@ public interface ExaminationDao {
 	void updateUserInputAnswer(int testNum, int seq, String userAnswer);
 	
 	Map<String,Object> correctAnswer(int seq, int no);
+	
+	void updateAnswerYn(int testNum, int seq);
 }

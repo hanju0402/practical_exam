@@ -129,21 +129,30 @@
 		WHERE TEST_NUMBER = #{testNum} AND QUESTION_SEQ = #{seq};
 
 	</update>
-	
+
 	<resultMap id="correctAnswer" type="Map">
 		<result column="qNo" property="qno" javaType="int" />
-		<result column="QUESTION_ANSWER" property="correctAnswer" javaType="String" />
-		<result column="QUESTION_ANSWER_TYPE" property="qType" javaType="String" />
+		<result column="QUESTION_ANSWER" property="correctAnswer"
+			javaType="String" />
+		<result column="QUESTION_ANSWER_TYPE" property="qType"
+			javaType="String" />
 	</resultMap>
-	<select id="correctAnswer" parameterType="int" resultMap="correctAnswer">
+	<select id="correctAnswer" parameterType="int"
+		resultMap="correctAnswer">
 		SELECT
-		#{no} as qNo, 
+		#{no} as qNo,
 		QUESTION_ANSWER,
 		QUESTION_ANSWER_TYPE
 		FROM P_QUESTION_INFO
 		WHERE SEQ = #{seq};
 
 	</select>
+
+	<update id="updateAnswerYn">
+		UPDATE P_QUESTION_TEST_HST
+		SET ANSWER_YN = 'Y'
+		WHERE TEST_NUMBER = #{testNum} AND QUESTION_SEQ = #{seq};
+	</update>
 
 
 

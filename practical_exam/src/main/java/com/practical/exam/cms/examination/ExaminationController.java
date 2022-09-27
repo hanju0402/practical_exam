@@ -53,13 +53,15 @@ public class ExaminationController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/marking", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/marking", method = RequestMethod.POST, consumes="application/json;")
 	public ModelAndView marking(@RequestBody HashMap<String,Object> params) {
 		
-		examinationService.marking(params);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/examination/marking");
+		mav.addObject("markingList", examinationService.marking(params));
 		
 		return mav;
 	}

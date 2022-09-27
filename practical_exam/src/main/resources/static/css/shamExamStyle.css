@@ -63,9 +63,10 @@ a {
 	height: 100%;
 }
 
-#answer-area {
+.answerBox {
 	resize: none;
 	width: 100%;
+	font-size: 1.5em;
 }
 
 #submit {

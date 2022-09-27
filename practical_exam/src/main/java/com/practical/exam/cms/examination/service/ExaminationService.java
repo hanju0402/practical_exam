@@ -78,6 +78,7 @@ public class ExaminationService {
 		return result;
 	}
 
+		
 	public int marking(HashMap<String,Object> reqData) {
 	
 		// 유저가 입력한 답 DB에 입력
@@ -87,11 +88,13 @@ public class ExaminationService {
 		// 실제 정답
 		List<Map<String, Object>> correctAnswers = new ArrayList<>();
 		List<Map<String,Object>> compareToAns = new ArrayList<>();
+		
+		
 		for (int i = 0; i < 20; i++) {
 			int seq = Integer.parseInt((String)markData.get(i).get("seq"));
 			ArrayList<String> userAnswer= (ArrayList<String>)markData.get(i).get("answer");
-			String arrayToString = String.join(",", userAnswer);
-			examinationDao.updateUserInputAnswer(testNum, seq, arrayToString);
+			String userAns = String.join(",", userAnswer);
+			examinationDao.updateUserInputAnswer(testNum, seq, userAns);
 			
 			Map<String,Object> correctAnswer = examinationDao.correctAnswer(seq, i+1);
 			
@@ -114,31 +117,32 @@ public class ExaminationService {
 				
 				splitAns.put("corretAns", asdf);
 				compareToAns.add(splitAns);
+				
+				
+				
 			}
-			
-			
-
-			
 		}
 		
 		for (int i = 0; i < 20; i++) {
+			int seq = Integer.parseInt((String)markData.get(i).get("seq"));
+			int mark = 0;
+			List<String> fff = (List)markData.get(i).get("answer");
+			List<String> ddd = (List)compareToAns.get(i).get("corretAns");
+			for (int j = 0; j < fff.size(); j++) {
+				if (!fff.get(j).equals(ddd.get(j))) {
+					mark++;
+				}
+			}
 			
-		int mark = 0;
-		List<String> fff = (List)markData.get(i).get("answer");
-		List<String> ddd = (List)compareToAns.get(i).get("corretAns");
-		for (int j = 0; j < fff.size(); j++) {
-			if (!fff.get(j).equals(ddd.get(j))) {
-				mark++;
+			if (mark != 0) {
+				System.out.println(i+1 + "번문제  오답");
+			} else {
+				System.out.println(i+1 + "번문제  정답");
+				examinationDao.updateAnswerYn(testNum, seq);
 			}
 		}
 		
-		if (mark != 0) {
-			System.out.println(i+1 + "번문제  오답");
-		} else {
-			System.out.println(i+1 + "번문제 정답");
-		}
-		
-		}
+
 		
 		System.out.println("사용자 입력답ㅂㅂㅂㅂㅂ: " + markData);
 		System.out.println("찾아아아아앙ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ카나나" + compareToAns);
