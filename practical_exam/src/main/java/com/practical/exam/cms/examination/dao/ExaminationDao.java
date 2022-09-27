@@ -32,7 +32,9 @@ public interface ExaminationDao {
 	// 유저가 입력한 답 DB에 입력
 	void updateUserInputAnswer(int testNum, int seq, String userAnswer);
 	
-	Map<String,Object> correctAnswer(int seq, int no);
+	//정답 리스트 불러오기
+	List<Map<String,Object>> correctAnswer(Map<String,Object> params);
 	
-	void updateAnswerYn(int testNum, int seq);
+	//정답 업데이트
+	void updateAnswerYn(Map<String,Object> params);
 }

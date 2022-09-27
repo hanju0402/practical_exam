@@ -66,18 +66,14 @@
 	</update>
 
 	<resultMap id="getExaminationResult" type="Map">
-		<result column="TEST_NUMBER" property="testNum" javaType="int" />
-		<result column="QUESTION_NO" property="qNo" javaType="int" />
-		<result column="QUESTION_SEQ" property="qSeq" javaType="int" />
-		<result column="QUESTION_TITLE" property="qTitle"
-			javaType="String" />
-		<result column="QUESTION_CONTENT" property="qContent"
-			javaType="String" />
-		<result column="QUESTION_TYPE" property="qType"
-			javaType="String" />
-		<result column="QUESTION_ANSWER_TYPE" property="qAnsType"
-			javaType="String" />
-		<result column="IMAGE_URL" property="imgUrl" javaType="String" />
+		<result column="TEST_NUMBER" 			property="testNum" 		javaType="int" />
+		<result column="QUESTION_NO"			property="qNo" 			javaType="int" />
+		<result column="QUESTION_SEQ" 			property="qSeq" 		javaType="int" />
+		<result column="QUESTION_TITLE" 		property="qTitle" 		javaType="String" />
+		<result column="QUESTION_CONTENT" 		property="qContent" 	javaType="String" />
+		<result column="QUESTION_TYPE" 			property="qType" 		javaType="String" />
+		<result column="QUESTION_ANSWER_TYPE"	property="qAnsType" 	javaType="String" />
+		<result column="IMAGE_URL" 				property="imgUrl" 		javaType="String" />
 	</resultMap>
 	<!-- 사용자의 현재 회차 시험문제 출력 -->
 	<select id="getExamination" parameterType="Map"
@@ -98,30 +94,6 @@
 		AND TEST_NUMBER = #{testNum}
 		ORDER BY HST.QUESTION_NO
 	</select>
-	<resultMap id="answer" type="Map">
-		<result column="question_seq" property="seq" javaType="int" />
-	</resultMap>
-	<select id="getAnswerSeq" parameterType="Map" resultMap="answer">
-		SELECT QUESTION_SEQ
-		FROM P_QUESTION_TEST_HST
-		WHERE USER_ID = #{userId}
-		AND TEST_NUMBER = #{testCnt} ORDER BY QUESTION_NO
-	</select>
-
-	<select id="getAnswer" parameterType="int" resultType="String">
-		SELECT
-		QUESTION_ANSWER
-		FROM P_QUESTION_INFO
-		WHERE SEQ = #{seq};
-	</select>
-
-	<update id="updateUserInputAnswer">
-		UPDATE P_QUESTION_TEST_HST
-		SET USER_ANSWER =
-		#{userAnswer}
-		WHERE TEST_NUMBER = #{testNum} AND QUESTION_SEQ = #{seq};
-
-	</update>
 
 	<resultMap id="correctAnswer" type="Map">
 		<result column="qNo" 					property="qno" 				javaType="int" />
@@ -129,19 +101,24 @@
 		<result column="QUESTION_ANSWER_TYPE" 	property="qType" 			javaType="String" />
 	</resultMap>
 	<select id="correctAnswer" parameterType="int" resultMap="correctAnswer">
-		SELECT
-		#{no} as qNo,
-		QUESTION_ANSWER,
-		QUESTION_ANSWER_TYPE
-		FROM P_QUESTION_INFO
-		WHERE SEQ = #{seq};
-
+		SELECT HST.QUESTION_NO 
+			 , HST.QUESTION_SEQ 
+			 , INFO.QUESTION_ANSWER 
+			 , INFO.QUESTION_ANSWER_TYPE  
+		FROM P_QUESTION_TEST_HST HST , P_QUESTION_INFO INFO 
+		WHERE USER_ID =#{userId}
+		AND TEST_NUMBER=#{testNum}
+		AND HST.QUESTION_SEQ =INFO.SEQ 
+		ORDER BY QUESTION_NO ASC
 	</select>
 
 	<update id="updateAnswerYn">
-		UPDATE P_QUESTION_TEST_HST
-		SET ANSWER_YN = 'Y'
-		WHERE TEST_NUMBER = #{testNum} AND QUESTION_SEQ = #{seq};
+		UPDATE P_QUESTION_TEST_HST SET 
+			ANSWER_YN = #{answerYn} , 
+			USER_ANSWER = #{userAnswer}
+		WHERE TEST_NUMBER = #{testNum} 
+		AND USER_ID = #{userId}
+		AND QUESTION_NO = #{qNo}
 	</update>
 
 

@@ -1,7 +1,6 @@
 package com.practical.exam.cms.examination.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,61 +84,48 @@ public class ExaminationService {
 		int testNum = Integer.parseInt((String)reqData.get("testNum"));
 		// 유저가 입력한 정답
 		List<HashMap<String,Object>> markData = (List<HashMap<String,Object>>)reqData.get("markData");
+		
 		// 실제 정답
-		List<Map<String, Object>> correctAnswers = new ArrayList<>();
-		List<Map<String,Object>> compareToAns = new ArrayList<>();
+		List<Map<String,Object>> correctAnswer = examinationDao.correctAnswer(reqData);
 		
+		HashMap<String,Object> updateData = new HashMap<String,Object>();
+		updateData.put("userId", userInfo.getUserId());
+		updateData.put("testNum",testNum );
 		
 		for (int i = 0; i < 20; i++) {
-			int seq = Integer.parseInt((String)markData.get(i).get("seq"));
+			
+			int questionNo = Integer.parseInt((String)markData.get(i).get("questionNo"));
 			ArrayList<String> userAnswer= (ArrayList<String>)markData.get(i).get("answer");
-			String userAns = String.join(",", userAnswer);
-			examinationDao.updateUserInputAnswer(testNum, seq, userAns);
 			
-			Map<String,Object> correctAnswer = examinationDao.correctAnswer(seq, i+1);
+			updateData.put("qNo", questionNo);
+			updateData.put("userAnswer", userAnswer);
 			
-			correctAnswers.add(correctAnswer);
-			Map<String, Object> splitAns = new HashMap<>();
-			
-			if(correctAnswer.get("qType") == null) {
-				String answer = (String)correctAnswer.get("correctAnswer");
-				List<String> asdf = new ArrayList<>();
-				asdf.add(answer);
-				splitAns.put("corretAns", asdf);
-				compareToAns.add(splitAns);
+            String answerYn = "N";
+            
+            if(correctAnswer.get(i).get("qType") == null) {
+				String answer = (String)correctAnswer.get(i).get("correctAnswer");
+				
+				if(answer.trim().equals(userAnswer.get(0).trim())){
+					answerYn = "Y";
+				}
+				
 			} else {
-				String answer = (String)correctAnswer.get("correctAnswer");
+				String answer = (String)correctAnswer.get(i).get("correctAnswer");
 				String[] answers = answer.split(",");
-				List<String> asdf = new ArrayList<>();
+				
+				int mark = 0;
 				for (int j = 0; j < answers.length; j ++) {
-					asdf.add(answers[j]);
+					if (!userAnswer.get(j).trim().equals(answers[j].trim())) {
+						mark++;
+					}
 				}
-				
-				splitAns.put("corretAns", asdf);
-				compareToAns.add(splitAns);
-				
-			}
-		}
-		
-		for (int i = 0; i < 20; i++) {
-			int seq = Integer.parseInt((String)markData.get(i).get("seq"));
-			int mark = 0;
-			List<String> fff = (List)markData.get(i).get("answer");
-			List<String> ddd = (List)compareToAns.get(i).get("corretAns");
-			for (int j = 0; j < fff.size(); j++) {
-				if (!fff.get(j).trim().equals(ddd.get(j).trim())) {
-					mark++;
+				if(mark ==0) {
+					answerYn="Y";
 				}
 			}
-			
-			if (mark != 0) {
-				System.out.println(i+1 + "번문제  오답");
-			} else {
-				System.out.println(i+1 + "번문제  정답");
-				examinationDao.updateAnswerYn(testNum, seq);
-			}
+            updateData.put("answerYn", answerYn);
+			examinationDao.updateAnswerYn(updateData);
 		}
-		correctAnswers.get(0).get("correctAnswer");
 		
 		return 1;
 		
