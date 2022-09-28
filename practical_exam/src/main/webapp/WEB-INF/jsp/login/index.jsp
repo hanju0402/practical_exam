@@ -53,6 +53,7 @@
 			
 			newP2.innerHTML = "<div><input type='text' class='text' id='phoneNum' name='phoneNum'> <span id='phoneNumWord'>전화번호</span></div>" +
 							  "<button type='button' id='phoneCheck' onclick='checkNumBtn()'>인증번호발송</button>";
+							  
 							 		  
 		  	newP2.id = 'phoneCheckDiv';
 	
@@ -180,7 +181,8 @@
 		if (document.getElementById('phoneCheck').innerText == '인증번호발송') {
 			
 		if (checkTell(document.getElementById('phoneNum'))) {
-			
+
+			/*  인증 controller로 이동하는 메소드 적어야댐*/
 			document.getElementById('checkNum').className = 'text';
 			document.getElementById('phoneNum').disabled = true;
 			document.getElementById('inNum').className = 'inNum';
@@ -240,7 +242,7 @@
 			return true;    
 		}
 
-	// 로그인 or 회원가입 버튼 클릭시
+	
 	function callback(response){
 		
 		if (response.responseCode == 200) {

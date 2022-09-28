@@ -2,13 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>모의 시험</title>
-
-
 <script defer type="text/javascript" src="/js/common/shamExam.js"></script>
 
 <link href="/css/shamExamStyle.css" rel="stylesheet" type="text/css">
@@ -25,7 +24,7 @@
 
 		if (response.responseCode == 200) {
 			alert("성공" + response.responseData);
-			window.location.href = '/examination/marking';	
+			window.location.href = '/examination/marking';
 			/* document.getElementById("answerData").submit(); */
 		} else {
 			alert("답전송 오류" + response.responseData);
@@ -69,6 +68,7 @@
 		postData.markData = markingAnswer
 
 		var jsonData = JSON.stringify(postData);
+		
 
 		console.log(jsonData);
 
@@ -93,7 +93,8 @@
 
 </head>
 <body>
-	<!-- <form id="answerData" action="/examination/marking" method="post"> -->
+	<form id="form">
+
 		<div class="swiper-container">
 
 
@@ -165,6 +166,7 @@
 		<div class="copy">
 			<button onclick="markingAnswer()">제출하기</button>
 		</div>
-	<!-- </form> -->
+	</form>
+
 </body>
 </html>

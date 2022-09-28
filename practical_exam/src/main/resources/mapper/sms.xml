@@ -10,6 +10,7 @@
 		FROM P_AUTH_NUMBER_LOG 
 		WHERE USER_IP = #{userIp}
 		AND DATE(AUTH_DATE) = DATE(NOW())
+		
     </select>
     <select id="getRegisterAuth" resultType="String">
     	SELECT AUTH_NUM

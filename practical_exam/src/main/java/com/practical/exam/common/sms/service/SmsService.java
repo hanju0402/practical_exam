@@ -34,6 +34,8 @@ public class SmsService {
 	
 	@Autowired
 	SmsDao smsDao;
+	
+	
 	/**
 	 * 회원가입 인증문자 발송
 	 * 번호는 반드시 01012345678 형태로 입력되어야 함
@@ -68,8 +70,10 @@ public class SmsService {
                 i-=1;
             }
         }
+		 
 		String msg = this.msgTitle+"회원가입 인증번호는 ["+randomNumber+"] 입니다.";
 		Message message = new Message();
+		
         message.setFrom(this.fromNumber);
         message.setTo(phoneNumber);
         message.setText(msg);

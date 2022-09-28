@@ -35,14 +35,17 @@ public class LoginService {
 	
 	public ResponseEntity<Object> login(HashMap<String,String> reqData) {
 		Map<String,String> reslt = loginDao.getUserInfo(reqData);
+		
+		
 		System.out.println("있긴있냐??" + reslt);
+		
 		String result = "아이디가 존재하지 않거나, 패스워드가 올바르지 않습니다.";
 		
 		// 로그인 성공 시,
 		if(reslt != null) {			
 			// 회원가입 시, 인증번호 테스트..
-//			smsService.postRegisterAuthMsg(reslt.get("phone"));
-//			System.out.println("테스트 입니다..");
+			smsService.postRegisterAuthMsg(reslt.get("phone"), reslt.get("userId"), reslt.get(""));
+			System.out.println("테스트 입니다..");
 			// 세션 생성
 			userInfo.setUserId(reslt.get("userId"));
 			userInfo.setUserNm(reslt.get("userNm"));
