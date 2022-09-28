@@ -21,10 +21,11 @@ import com.practical.exam.common.utils.RequestUtils;
  * @author 이동준 (blog.naver.com/adgjl1125)
  *
  */
+
 public class ApiInterceptor implements HandlerInterceptor {
 	private static final Logger LOGGER = LogManager.getLogger(ApiInterceptor.class);
     private static final String REQUEST_METHODS_TYPE_OF_GET="GET";
-    private static final String[] REQUEST_SESSION_NOT_CHECK={"/login","/"};
+    private static final String[] REQUEST_SESSION_NOT_CHECK={"/login","/", "/sendSms", "/signUp"};
     private static final String[] REQUEST_SESSION_NOT_FILE_CHECK={".css",".js"};
     @Autowired
     

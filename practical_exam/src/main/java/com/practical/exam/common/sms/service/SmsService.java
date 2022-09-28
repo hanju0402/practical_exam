@@ -6,8 +6,11 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.practical.exam.cms.login.dao.LoginDao;
 import com.practical.exam.common.sms.dao.SmsDao;
 
 import net.nurigo.sdk.NurigoApp;
@@ -25,12 +28,15 @@ public class SmsService {
 	private final String apiKey = "NCSAVC7G9Q2SLUKL";
 	private final String apiSecretKey = "ZN5YSRQK5460UDQC7KVCEYPV603HJOHS";
 	private final String msgTitle="[정모해] - 정보처리기사 모의테스트\n";
-	private final String fromNumber ="0808001004";
+	private final String fromNumber ="01088565382";
 	private final DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(this.apiKey, this.apiSecretKey, "https://api.coolsms.co.kr");
 	
 	// Cool SMS Docs = https://github.com/coolsms/coolsms-java-examples/blob/main/maven-spring-demo/src/main/java/net/nurigo/mavenspringdemo/ExampleController.java
 	// https://docs.coolsms.co.kr/development-kits/java
 	// 위 URL 참고 
+	
+	@Autowired
+	private LoginDao loginDao;
 	
 	@Autowired
 	SmsDao smsDao;
@@ -42,18 +48,32 @@ public class SmsService {
 	 * @param phoneNumber
 	 * @return
 	 */
-	public boolean postRegisterAuthMsg(String phoneNumber,String userId, String ip) {
+	public ResponseEntity<Object> postRegisterAuthMsg(String phoneNumber,String userId, String ip) {
 		Map<String,String> reqData= new HashMap<String,String>();
 		reqData.put("userId", userId);
 		reqData.put("phone", phoneNumber);
 		reqData.put("userIp", ip);
+		
+		System.out.println("뭐뜰까??" + fromNumber);
 
 		// 당일 현재의 ip로 3회 이상 SMS 발송이 되었을 경우, 보내지 않음
-		boolean ipCheck = smsDao.getSmsIpCheck(reqData);
+//		boolean ipCheck = smsDao.getSmsIpCheck(reqData);
+//		
+//		if(!ipCheck) {
+//			return false;
+//		}
 		
-		if(!ipCheck) {
-			return false;
+		String result = "인증번호가 전송되었습니다.";
+		
+		if(!loginDao.idDuplicated(reqData)) {
+			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
+		} else {
+			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
+			result = "해당 계정 중복입니다. 다시 입력해주세요.";
+			return new ResponseEntity<>(result,HttpStatus.FAILED_DEPENDENCY);
 		}
+		
+		
 		
 		String randomNumber = "";
 		
@@ -80,13 +100,15 @@ public class SmsService {
 
         System.out.println(msg);
         
-        SingleMessageSentResponse resp = this.sendMsg(message);
-        System.out.println(resp);
+//        SingleMessageSentResponse resp = this.sendMsg(message);
+//        System.out.println(resp);
         
         reqData.put("authNum", randomNumber);
         smsDao.addAuthNumber(reqData);
         
-		return true;
+        
+        
+		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
 	/**

@@ -26,6 +26,7 @@ public class LoginService {
 	
 	@Autowired
 	private SmsService smsService;
+	
 	/**
 	 * 로그인 처리 
 	 * 
@@ -43,9 +44,8 @@ public class LoginService {
 		
 		// 로그인 성공 시,
 		if(reslt != null) {			
-			// 회원가입 시, 인증번호 테스트..
-			smsService.postRegisterAuthMsg(reslt.get("phone"), reslt.get("userId"), reslt.get(""));
-			System.out.println("테스트 입니다..");
+			
+			
 			// 세션 생성
 			userInfo.setUserId(reslt.get("userId"));
 			userInfo.setUserNm(reslt.get("userNm"));
@@ -72,11 +72,13 @@ public class LoginService {
 		
 		String result = "해당 계정 중복입니다. 다시 입력해주세요.";
 		
-		if(!loginDao.idDuplicated(reqData)) {			
+		if(!loginDao.idDuplicated(reqData)) {
+			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
 			loginDao.addUserInfo(reqData);
 			result = "회원가입 성공하셨습니다 !";
 			return new ResponseEntity<>(result,HttpStatus.OK);
 		} else {
+			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
 			return new ResponseEntity<>(result,HttpStatus.FAILED_DEPENDENCY);
 		}
 	}
