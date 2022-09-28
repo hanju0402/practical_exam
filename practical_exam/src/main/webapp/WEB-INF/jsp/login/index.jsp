@@ -44,7 +44,7 @@
 			const box2 = document.getElementById("addPhoneNum");
 			const newP2 = document.createElement('div');
 
-			newP2.innerHTML = "<div><input type='text' class='text' id='phoneNum' name='phoneNum'> <span id='phoneNumWord'>전화번호</span></div>"
+			newP2.innerHTML = "<div><input type='text' class='text' id='phoneNum' name='phoneNum' maxlength='11' onKeyup='onlyNum()'> <span id='phoneNumWord'>전화번호</span></div>"
 					+ "<button type='button' id='phoneCheck' onclick='checkNumBtn()'>인증번호발송</button>";
 
 			newP2.id = 'phoneCheckDiv';
@@ -151,10 +151,12 @@
 
 	// 전화번호 유효성체크
 	function checkTell(tell) {
-		if (!checkExistData(tell, "전화번호를"))
+		
+		if (!checkExistData(tell, "전화번호를")){
 			return false;
+		}
 
-		var tellRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+		var tellRegExp = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
 		if (!tellRegExp.test(tell.value)) {
 			alert("전화번호가 올바르지 않습니다.");
 			tell.value = "";
@@ -162,6 +164,16 @@
 			return false;
 		}
 		return true; //확인이 완료되었을 때   
+	}
+	
+	function onlyNum() {
+		var pattern_num = /[0-9]/;	// 숫자
+		var phoneNum = document.getElementById('phoneNum').value;
+		if (!pattetn_num.test(phoneNum)) {
+			alert("전화번호는 숫자만입력가능합니다.");
+			str.substring(0, phoneNum - 1);
+		}
+		
 	}
 
 	function smsCallback(response) {
@@ -240,21 +252,24 @@
 
 		if (document.getElementById('phoneCheck').innerText == '인증번호발송') {
 			alert("전화번호 인증을 해주세요");
-			return false
+			return false;
 		}
 
-		if (checkNum.value == "") {
+		if (checkNum.value == "" ) {
 			alert("인증번호를 입력해주세요");
 			checkNum.focus();
-			return false
-		} else if (checkNum.value == '7777') {
-			return true
-		}
+			return false;
+		} 
+		
+		if (checkNum.value.length != 6) {
+			alert("6자리의 인증번호를 입력해주세요.");
+			checkNum.value = "";
+			checkNum.focus();
+			return false;
+		} 
 
-		alert("인증번호가 틀렸습니다.");
-		checkNum.value = "";
-		checkNum.focus();
-		return false
+		
+		return true;
 	}
 
 	// 유효성검사 통합
@@ -297,12 +312,15 @@
 		if (response.responseCode == 200) {
 			alert(response.responseData);
 			window.location.href = '/';
-		} else {
+		} else if (response.responseCode == 424){
 			alert(response.responseData);
 			document.getElementById('userId').value = "";
 			document.getElementById('password').value = "";
 			document.getElementById('password2').value = "";
 			form.document.getElementById('userId').focus();
+		} else {
+			alert(response.responseData);
+			document.getElementById('checkNum').value = "";
 		}
 
 	}
@@ -343,7 +361,8 @@
 					"userId" : document.getElementById('userId').value,
 					"password" : document.getElementById('password').value,
 					"userName" : document.getElementById('userName').value,
-					"phoneNum" : document.getElementById('phoneNum').value
+					"phoneNum" : document.getElementById('phoneNum').value,
+					"authNumber": document.getElementById('checkNum').value
 				}
 				
 				callPostData('/signUp', jsonStr, signUpCallback);
@@ -364,7 +383,7 @@
 			<div id="addTxtDiv"></div>
 			<div id="addPhoneNum"></div>
 			<div id="addCheckNumTxt">
-				<input type='text' class='notAdd' id='checkNum' name='checkNum'> <span id='inNum' class='notAdd'>인증번호</span>
+				<input type='text' class='notAdd' id='checkNum' name='checkNum' maxlength="6"> <span id='inNum' class='notAdd'>인증번호</span>
 			</div>
 
 			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>

@@ -63,7 +63,7 @@ public class SmsService {
 //			return false;
 //		}
 		
-		String result = "인증번호가 전송되었습니다.";
+		String result = "인증번호가 전송되었습니다. \n3분 이내에 입력해주세요.";
 		
 		if(!loginDao.idDuplicated(reqData)) {
 			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));

@@ -46,5 +46,18 @@
 			, SYSDATE()
 		);  
     </insert>
+    
+    <select id="authNumberValid" resultType="boolean">
+    
+   		SELECT CASE WHEN COUNT(*) = 0 THEN 0 ELSE 1 END  
+		from p_auth_number_log 
+		where user_id = #{userId}
+		and user_phone = #{phoneNum}
+		and now() <![CDATA[<]]> DATE_ADD(auth_date, INTERVAL 3 MINUTE)
+		and auth_num = #{authNumber}
+		order by seq desc 
+		limit 1;
+	
+    </select>
 </mapper>
 

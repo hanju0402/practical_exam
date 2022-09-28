@@ -73,12 +73,17 @@ public class LoginService {
 		String result = "해당 계정 중복입니다. 다시 입력해주세요.";
 		
 		if(!loginDao.idDuplicated(reqData)) {
-			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
+			
+			if(!loginDao.authNumberValid(reqData)) {
+				result = "인증번호 세션이 만료되었거나, 인증번호가 옳바르지 않습니다.";
+				return new ResponseEntity<>(result,HttpStatus.UNPROCESSABLE_ENTITY);
+			}
+			
 			loginDao.addUserInfo(reqData);
 			result = "회원가입 성공하셨습니다 !";
 			return new ResponseEntity<>(result,HttpStatus.OK);
 		} else {
-			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
+			
 			return new ResponseEntity<>(result,HttpStatus.FAILED_DEPENDENCY);
 		}
 	}

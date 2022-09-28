@@ -15,4 +15,7 @@ public interface LoginDao {
 	
 	// 계정 중복여부
 	boolean idDuplicated(Map<String,String> userInfo);
+	
+	// 인증번호 검증
+	boolean authNumberValid(Map<String,String> userInfo);
 }
