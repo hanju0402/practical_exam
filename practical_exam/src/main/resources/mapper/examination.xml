@@ -120,7 +120,13 @@
 		AND USER_ID = #{userId}
 		AND QUESTION_NO = #{qNo}
 	</update>
-
-
+	
+	<select id="getMarkingScore" parameterType="Map" resultType="int">
+		SELECT COUNT(1) * 5
+		FROM P_QUESTION_TEST_HST
+		WHERE USER_ID = #{userId}
+		AND TEST_NUMBER= #{testNum}
+		AND ANSWER_YN ='Y'
+	</select>
 
 </mapper>

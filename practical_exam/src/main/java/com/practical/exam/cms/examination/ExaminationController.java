@@ -3,8 +3,8 @@ package com.practical.exam.cms.examination;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practical.exam.cms.examination.service.ExaminationService;
 
-
-
-
-
 /**
  * 시험 화면 Controller  
  * 
@@ -24,13 +20,19 @@ import com.practical.exam.cms.examination.service.ExaminationService;
  *
  */
 @Controller
-@RequestMapping(value="/examination", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value="/examination")
 public class ExaminationController {
 	
 
 	@Autowired
 	ExaminationService examinationService;
 
+	/**
+	 * 20문제 뽑아내기
+	 * 
+	 * @param reqData
+	 * @return
+	 */
 	@RequestMapping(value = "/shamExam", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView index(@RequestParam HashMap<String,String> reqData) {
 		ModelAndView mav = new ModelAndView();
@@ -43,6 +45,11 @@ public class ExaminationController {
 		return mav;
 	}
 	
+	/**
+	 * 문제 풀기 화면 노출
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView mun() {
 		ModelAndView mav = new ModelAndView();
@@ -51,19 +58,14 @@ public class ExaminationController {
 	}
 	
 	
-	@RequestMapping(value = "/marking", method = RequestMethod.POST, consumes="application/json;")
-	public ModelAndView marking(@RequestBody HashMap<String,Object> params) {
-		
-		
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/examination/marking");
-		mav.addObject("markingList", examinationService.marking(params));
-		
-		return mav;
+	/**
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping(value = "/marking", method = RequestMethod.POST)
+	public String marking(@RequestBody HashMap<String,Object> params,Model model) {
+		model.addAttribute("marking", examinationService.marking(params));
+		return "/examination/marking";
 	}
-	
-	
-	
 	
 }

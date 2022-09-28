@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.practical.exam.cms.examination.dao.ExaminationDao;
@@ -78,7 +80,7 @@ public class ExaminationService {
 	}
 
 		
-	public int marking(HashMap<String,Object> reqData) {
+	public HashMap<String,Object> marking(HashMap<String,Object> reqData) {
 	
 		// 유저가 입력한 답 DB에 입력
 		int testNum = Integer.parseInt((String)reqData.get("testNum"));
@@ -89,7 +91,6 @@ public class ExaminationService {
 		// 실제 정답
 		List<Map<String,Object>> correctAnswer = examinationDao.correctAnswer(reqData);
 		
-		System.out.println(reqData);
 		HashMap<String,Object> updateData = new HashMap<String,Object>();
 		updateData.put("userId", userInfo.getUserId());
 		updateData.put("testNum",testNum );
@@ -125,12 +126,14 @@ public class ExaminationService {
             updateData.put("answerYn", answerYn);
 			examinationDao.updateAnswerYn(updateData);
 		}
+		HashMap<String,Object> result = new HashMap<String,Object>();
+		int score = examinationDao.getMarkingScore(updateData);
+		String passYn = score >= 60 ? "합격":"불합격";
 		
-		return 1;
+		result.put("score", score);
+		result.put("passYn", passYn);
 		
-		
-		
-		
+		return result;
 	}
 
 }

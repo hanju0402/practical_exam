@@ -37,4 +37,7 @@ public interface ExaminationDao {
 	
 	//정답 업데이트
 	void updateAnswerYn(Map<String,Object> params);
+	
+	//채점한 정보 점수 
+	int getMarkingScore(Map<String,Object> params);
 }

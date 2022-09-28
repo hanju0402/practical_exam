@@ -20,17 +20,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
 
 <script>
-	function markingCallback(response) {
-
-		if (response.responseCode == 200) {
-			alert("성공" + response.responseData);
-			window.location.href = '/examination/marking';
-			/* document.getElementById("answerData").submit(); */
-		} else {
-			alert("답전송 오류" + response.responseData);
-
-		}
-
+	function callback(response) {
+		document.getElementById('examinationBody').innerHTML = response.responseData;
 	}
 
 	function markingAnswer() {
@@ -64,15 +55,12 @@
 
 		let postData = new Object();
 		// 회차정보
-		postData.testNum = document.getElementById('testNum-1').value
-		postData.markData = markingAnswer
+		postData.testNum = document.getElementById('testNum-1').value;
+		postData.markData = markingAnswer;
 
 		var jsonData = JSON.stringify(postData);
 		
-
-		console.log(jsonData);
-
-		callPostData('/examination/marking', jsonData, markingCallback);
+		callPostData('/examination/marking', jsonData, callback);
 	}
 
 	// 정답 입력칸에 [,] 못쓰게 제한
@@ -92,12 +80,9 @@
 </script>
 
 </head>
-<body>
+<body id="examinationBody">
 	<form id="form">
-
 		<div class="swiper-container">
-
-
 			<div class="swiper-wrapper">
 				<c:forEach var="data" items="${examList}" varStatus="status">
 					<!-- 회차 -->
@@ -164,7 +149,7 @@
 		<div id="pagination" class="swiper-pagination"></div>
 
 		<div class="copy">
-			<button onclick="markingAnswer()">제출하기</button>
+			<button type="button" onclick="markingAnswer()">제출하기</button>
 		</div>
 	</form>
 
