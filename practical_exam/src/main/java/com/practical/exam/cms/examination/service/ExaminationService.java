@@ -130,7 +130,7 @@ public class ExaminationService {
 				
 				int mark = 0;
 				for (int j = 0; j < answers.length; j ++) {
-					if (!userAnswer.get(j).replaceAll(" ", "").equals(answers[j]..replaceAll(" ", ""))) {
+					if (!userAnswer.get(j).replaceAll(" ", "").equals(answers[j].replaceAll(" ", ""))) {
 						mark++;
 					}
 				}
