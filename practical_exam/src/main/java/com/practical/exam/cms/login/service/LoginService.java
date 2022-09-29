@@ -75,7 +75,7 @@ public class LoginService {
 		if(!loginDao.idDuplicated(reqData)) {
 			
 			if(!loginDao.authNumberValid(reqData)) {
-				result = "인증번호 세션이 만료되었거나, 인증번호가 옳바르지 않습니다.";
+				result = "인증번호가 옳바르지 않거나, 인증번호 세션이 만료되었습니다. ";
 				return new ResponseEntity<>(result,HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 			

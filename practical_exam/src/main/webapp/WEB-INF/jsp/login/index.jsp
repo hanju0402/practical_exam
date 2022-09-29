@@ -165,17 +165,18 @@
 		}
 		return true; //확인이 완료되었을 때   
 	}
-	
+
+	// 숫자가 아닌 다른값입력시 숫자뺴고 삭제
 	function onlyNum() {
-		var pattern_num = /[0-9]/;	// 숫자
-		var phoneNum = document.getElementById('phoneNum').value;
-		if (!pattetn_num.test(phoneNum)) {
-			alert("전화번호는 숫자만입력가능합니다.");
-			str.substring(0, phoneNum - 1);
-		}
+		var phoneNumValue = document.getElementById('phoneNum').value;
+		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
+		var result = phoneNumValue.replace(regex, "");
+		document.getElementById('phoneNum').value = result;
+		console.log("나오냐?");
 		
 	}
 
+	// 인증번호 눌렀을때 callback
 	function smsCallback(response) {
 		
 		if (response.responseCode == 200) {
@@ -188,10 +189,9 @@
 			
 		} else if (response.responseCode == 424) {
 			alert(response.responseData);
+			document.getElementById('userId').value = "";
+			form.document.getElementById('userId').focus();
 		}
-		
-		
-		return response.responseData;
 		
 	}
 	
@@ -199,14 +199,19 @@
 
 		if (response.responseCode == 200) {
 			alert(response.responseData);
-            window.location.href = '/'; 
-		} else {
+			window.location.href = '/';
+		} else if (response.responseCode == 424){
 			alert(response.responseData);
 			document.getElementById('userId').value = "";
 			document.getElementById('password').value = "";
 			document.getElementById('password2').value = "";
 			form.document.getElementById('userId').focus();
+		} else {
+			alert(response.responseData);
+			document.getElementById('checkNum').value = "";
 		}
+
+
 
 	}
 

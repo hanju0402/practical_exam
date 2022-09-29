@@ -100,6 +100,7 @@ public class SmsService {
 
         System.out.println(msg);
         
+        // sms 발송기능 (주석처리시 문자발송안함)
 //        SingleMessageSentResponse resp = this.sendMsg(message);
 //        System.out.println(resp);
         
