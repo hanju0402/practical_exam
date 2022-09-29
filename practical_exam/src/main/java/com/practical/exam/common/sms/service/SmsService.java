@@ -54,8 +54,6 @@ public class SmsService {
 		reqData.put("phone", phoneNumber);
 		reqData.put("userIp", ip);
 		
-		System.out.println("뭐뜰까??" + fromNumber);
-
 		// 당일 현재의 ip로 3회 이상 SMS 발송이 되었을 경우, 보내지 않음
 //		boolean ipCheck = smsDao.getSmsIpCheck(reqData);
 //		
@@ -65,15 +63,10 @@ public class SmsService {
 		
 		String result = "인증번호가 전송되었습니다. \n3분 이내에 입력해주세요.";
 		
-		if(!loginDao.idDuplicated(reqData)) {
-			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
-		} else {
-			System.out.println("중복이냐?? " + loginDao.idDuplicated(reqData));
+		if(loginDao.idDuplicated(reqData)) {
 			result = "해당 계정 중복입니다. 다시 입력해주세요.";
 			return new ResponseEntity<>(result,HttpStatus.FAILED_DEPENDENCY);
 		}
-		
-		
 		
 		String randomNumber = "";
 		
@@ -98,12 +91,9 @@ public class SmsService {
         message.setTo(phoneNumber);
         message.setText(msg);
 
-        System.out.println(msg);
-        
         // sms 발송기능 (주석처리시 문자발송안함)
 //        SingleMessageSentResponse resp = this.sendMsg(message);
-//        System.out.println(resp);
-        
+  
         reqData.put("authNum", randomNumber);
         smsDao.addAuthNumber(reqData);
         
@@ -138,8 +128,6 @@ public class SmsService {
 
             // 중복 수신번호를 허용하고 싶으실 경우 위 코드 대신 아래코드로 대체해 사용해보세요!
             //MultipleDetailMessageSentResponse response = this.messageService.send(messageList, true);
-
-            System.out.println(response);
 
             return true;
         } catch (NurigoMessageNotReceivedException exception) {

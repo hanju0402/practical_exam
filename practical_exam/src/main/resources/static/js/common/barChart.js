@@ -3,7 +3,7 @@
  */
 
 // 바 차트 [element-id(text) , title(text) , 레이블(배열), 데이터[배열] ]
-function barChart(eleId, title, labels, data, color) {
+function barChart(eleId, title, labels, data) {
 	let chartArea = document.getElementById(eleId).getContext('2d');
 
 	let myChart = new Chart(chartArea, {
@@ -14,7 +14,6 @@ function barChart(eleId, title, labels, data, color) {
 			labels: labels,
 			datasets: [{
 				data: data,
-				backgroundColor: color,
 				borderColor: 'rgba(255, 99, 132, 1)',
 				borderWidth: 1
 			}]

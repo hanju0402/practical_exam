@@ -1,6 +1,9 @@
 package com.practical.exam.cms.home.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -27,8 +30,25 @@ public class HomeService {
 		HashMap<String, Object> homeInfo = new HashMap<>();
 		homeInfo.put("userName", userInfo.getUserNm());
 		
-		int passPercent = homeDao.passPercent(userId);
-		System.out.println("합격률??" + homeDao.passPercent(userId));
+		homeInfo.put("passPercent", homeDao.passPercent(userId));
+		
+		List<Map<String, Object>> barChart = homeDao.barChart(userId);
+		HashMap<String, List<Object>> charts = new HashMap<String, List<Object>>();
+		
+		List<Object> score = new ArrayList<Object>();
+		List<Object> testNum = new ArrayList<Object>();
+		
+		
+		for (Map<String, Object> chart : barChart) {
+			score.add(chart.get("score"));
+			testNum.add(chart.get("testNum"));
+		}
+		charts.put("score", score);
+		charts.put("testNum", testNum);
+		
+		homeInfo.put("barChart", charts);
+		System.out.println("ddd/???" + homeInfo);
+		
 		return homeInfo;
 		
 	}

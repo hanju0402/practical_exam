@@ -59,7 +59,6 @@ public class LoginController {
 			mav.addObject("homeInfo", homeService.dash());
 			mav.setViewName("/home/index");
 		}
-		System.out.println("세션존재??" + userInfo.getUserId());
 
 		return mav;
 	}
@@ -73,16 +72,12 @@ public class LoginController {
 	@RequestMapping(value = "/sendSms", method = RequestMethod.POST)
 	public ResponseEntity<Object> sendSms(HttpServletRequest req, @RequestBody HashMap<String, String> params) {
 		
-		
 		String userId = params.get("userId");
 		String phoneNum = params.get("phoneNum");
-		String ip = RequestUtils.getIp(req);
-		
+		String ip = RequestUtils.getIp(req);	
 		
 		// 회원가입 시, 인증번호 테스트..
-		
-		System.out.println("테스트 입니다..");
-		 
+ 
 		return smsService.postRegisterAuthMsg(phoneNum, userId, ip);
 	}
 
@@ -94,7 +89,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Object> login(@RequestBody HashMap<String, String> params) {
-		System.out.println("여기로오냐" + params);
+
 
 		return loginService.login(params);
 	}
@@ -119,8 +114,6 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestBody HashMap<String, String> params) {
-		System.out.println("회원정보 출력가능??" + params);
-		
 		return loginService.signUp(params);
 	}
 	

@@ -14,4 +14,23 @@
 		) A
 	</select>
 	
+	<resultMap id="chartMap" type="Map">
+		<result column="TEST_NUMBER" property="testNum" javaType="String"></result>
+		<result column="SCORE" property="score" javaType="int"></result>
+	</resultMap>
+	<select id="barChart" parameterType="String" resultMap="chartMap">
+		select CONCAT(TEST_NUMBER, ' 회차') as TEST_NUMBER
+			 , SCORE
+		from (SELECT TEST_NUMBER
+				, SUM(CASE WHEN ANSWER_YN='Y' THEN 5 ELSE 0 END) AS SCORE
+			FROM P_QUESTION_TEST_HST PQTH 
+			WHERE USER_ID = #{userId}
+			GROUP BY TEST_NUMBER
+			order by test_number desc
+			limit 5) as a 
+		order by test_number;
+	</select>
+	
+	
+	
 </mapper>
