@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper
-	namespace="com.practical.exam.cms.home.dao.HomeDao">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.practical.exam.cms.home.dao.HomeDao">
 	
-	<select id="passPercent" parameterTyp="String" resultType="int">
+	<select id="passPercent" parameterType="String" resultType="int">
 		SELECT ROUND(SUM(CASE WHEN SCORE>=60 THEN 1 ELSE 0 END)/ COUNT(1),2) * 100 AS PASS_PERCENT
 		FROM (
     		SELECT SUM(CASE WHEN ANSWER_YN='Y' THEN 5 ELSE 0 END) AS SCORE
@@ -10,7 +12,6 @@
     		WHERE USER_ID = #{userId}
     		GROUP BY TEST_NUMBER
 		) A
-		
-		</select>
+	</select>
 	
-	</mapper>
+</mapper>
