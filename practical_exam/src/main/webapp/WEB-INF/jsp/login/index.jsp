@@ -7,6 +7,7 @@
 <link href="css/login.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/common/ajax.js"></script>
 <script>
+
 	// 로그인 탭 눌렀을때
 	function signIn() {
 		document.getElementById('signUpTxt').className = 'nonactive';

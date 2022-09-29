@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper
+	namespace="com.practical.exam.cms.home.dao.HomeDao">
+	
+	<select id="passPercent" parameterTyp="String" resultType="int">
+		SELECT ROUND(SUM(CASE WHEN SCORE>=60 THEN 1 ELSE 0 END)/ COUNT(1),2) * 100 AS PASS_PERCENT
+		FROM (
+    		SELECT SUM(CASE WHEN ANSWER_YN='Y' THEN 5 ELSE 0 END) AS SCORE
+    		FROM P_QUESTION_TEST_HST PQTH 
+    		WHERE USER_ID = #{userId}
+    		GROUP BY TEST_NUMBER
+		) A
+		
+		</select>
+	
+	</mapper>
