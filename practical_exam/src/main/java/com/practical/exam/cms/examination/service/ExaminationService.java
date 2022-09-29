@@ -111,7 +111,7 @@ public class ExaminationService {
 					String[] answers = answer.split("||");
 					int succCount = 0;
 					for(String ans:answers) {
-						if(ans.trim().equals(userAnswer.get(0).trim())){
+						if(ans.replaceAll(" ", "").equals(userAnswer.get(0).replaceAll(" ", ""))){
 							succCount = 1;
 						}
 					}
@@ -119,7 +119,7 @@ public class ExaminationService {
 						answerYn = "Y";
 					}
 				} else {					
-					if(answer.trim().equals(userAnswer.get(0).trim())){
+					if(answer.replaceAll(" ", "").equals(userAnswer.get(0).replaceAll(" ", ""))){
 						answerYn = "Y";
 					}
 				}
@@ -130,7 +130,7 @@ public class ExaminationService {
 				
 				int mark = 0;
 				for (int j = 0; j < answers.length; j ++) {
-					if (!userAnswer.get(j).trim().equals(answers[j].trim())) {
+					if (!userAnswer.get(j).replaceAll(" ", "").equals(answers[j]..replaceAll(" ", ""))) {
 						mark++;
 					}
 				}
