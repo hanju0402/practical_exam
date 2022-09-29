@@ -69,10 +69,6 @@ a {
 	font-size: 1.5em;
 }
 
-#submit {
-	padding: 10px 20px;
-}
-
 .swiper-pagination {
 	position: relative;
 	display: flex;
@@ -114,4 +110,43 @@ a {
 	border-left: 10px solid pink;
 	
 	transition: all .5 ease-in-out;
+}
+
+.submit{
+  bottom: -100px;
+  right: 200px;
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.submit:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.submit:before, .submit:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:3px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.submit:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.submit:hover:before, .submit:hover:after{
+  width:100%;
+  transition:800ms ease all;
 }

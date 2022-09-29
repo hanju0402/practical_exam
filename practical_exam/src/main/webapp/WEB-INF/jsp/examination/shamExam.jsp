@@ -81,7 +81,6 @@
 
 </head>
 <body id="examinationBody">
-	<form id="form">
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="data" items="${examList}" varStatus="status">
@@ -146,12 +145,11 @@
 		</div>
 
 
-		<div id="pagination" class="swiper-pagination"></div>
+		<!-- <div id="pagination" class="swiper-pagination"></div> -->
 
 		<div class="copy">
-			<button type="button" onclick="markingAnswer()">제출하기</button>
+			<button class="submit" type="button" onclick="markingAnswer()">제출하기</button>
 		</div>
-	</form>
 
 </body>
 </html>

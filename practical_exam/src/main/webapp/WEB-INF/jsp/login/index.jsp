@@ -391,7 +391,7 @@
 				<input type='text' class='notAdd' id='checkNum' name='checkNum' maxlength="6"> <span id='inNum' class='notAdd'>인증번호</span>
 			</div>
 
-			<input type="checkbox" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin">로그인 유지</label>
+			<input type="hidden" id="keepLogin" class="custom-checkbox" /><label id="keepLoginTxt" for="keepLogin"><!-- 로그인 유지 --></label>
 			<button type="button" id="signin" class="signin" onclick="btnClick()">로그인</button>
 			<hr id="bottomLine">
 			<a id="findPw" href="#">비밀번호 찾기</a>

@@ -6,10 +6,10 @@
 <nav class="s-sidebar__nav">
 	<ul>
 		<li><a class="s-sidebar__nav-link" href="/"> <i
-				class="fa fa-home"></i><em>대시보드</em>
+				class="fa fa-line-chart"></i><em>대시보드</em>
 		</a></li>
-		<li><a class="s-sidebar__nav-link" href="/examination"> <i
-				class="fa fa-camera"></i><em>모의 시험</em>
+		<li><a class="s-sidebar__nav-link" href="/examination"> 
+		<i class="fa fa-pencil-square-o"></i><em>모의 시험</em>
 		</a></li>
 		<li><a class="s-sidebar__nav-link"> <i class="fa fa-user"></i><em>내
 					정보</em>
