@@ -104,9 +104,24 @@ public class ExaminationService {
 			updateData.put("userAnswer", userAns);
             String answerYn = "N";
             if(correctAnswer.get(i).get("qType") == null) {
+            	
 				String answer = (String)correctAnswer.get(i).get("correctAnswer");
-				if(answer.trim().equals(userAnswer.get(0).trim())){
-					answerYn = "Y";
+				
+				if(answer.contains("||")) {
+					String[] answers = answer.split("||");
+					int succCount = 0;
+					for(String ans:answers) {
+						if(ans.trim().equals(userAnswer.get(0).trim())){
+							succCount = 1;
+						}
+					}
+					if(succCount>0) {
+						answerYn = "Y";
+					}
+				} else {					
+					if(answer.trim().equals(userAnswer.get(0).trim())){
+						answerYn = "Y";
+					}
 				}
 	            
 			} else {
