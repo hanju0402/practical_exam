@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.practical.exam.cms.home.service.HomeService;
 import com.practical.exam.cms.login.service.LoginService;
 import com.practical.exam.common.auth.UserInfo;
 import com.practical.exam.common.sms.service.SmsService;
@@ -36,11 +37,13 @@ public class LoginController {
 	
 	@Autowired
 	SmsService smsService;
+	
+	@Autowired
+	HomeService homeService;
 
 	@Resource
 	private UserInfo userInfo;
-	
-	
+
 
 	/**
 	 * 로그인 페이지 이동 해당 URL로 접근 시, 세션 여부 확인 후, LOGIN 페이지 OR 메인 페이지로 노출하는 로직 개발 필요
@@ -53,6 +56,7 @@ public class LoginController {
 		if (userInfo.getUserId() == null) {
 			mav.setViewName("/login/index");
 		} else {
+			mav.addObject("homeInfo", homeService.dash());
 			mav.setViewName("/home/index");
 		}
 		System.out.println("세션존재??" + userInfo.getUserId());
@@ -119,5 +123,19 @@ public class LoginController {
 		
 		return loginService.signUp(params);
 	}
+	
+	/**
+     * 마이페이지 화면 이동
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/mypage", method = { RequestMethod.GET })
+    public ModelAndView mypage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/mypage/index");
+        mav.addObject("userNm", userInfo.getUserNm());
+
+        return mav;
+    }
 
 }
