@@ -33,21 +33,20 @@ public class HomeService {
 		homeInfo.put("passPercent", homeDao.passPercent(userId));
 		
 		List<Map<String, Object>> barChart = homeDao.barChart(userId);
-		HashMap<String, List<Object>> charts = new HashMap<String, List<Object>>();
-		
-		List<Object> score = new ArrayList<Object>();
-		List<Object> testNum = new ArrayList<Object>();
+		HashMap<String, List<String>> charts = new HashMap<String, List<String>>();
+		List<String> score = new ArrayList<String>();
+		List<String> testNum = new ArrayList<String>();
 		
 		
 		for (Map<String, Object> chart : barChart) {
-			score.add(chart.get("score"));
-			testNum.add(chart.get("testNum"));
+			score.add((String)chart.get("score"));
+			testNum.add((String)chart.get("testNum"));
 		}
+
 		charts.put("score", score);
 		charts.put("testNum", testNum);
 		
 		homeInfo.put("barChart", charts);
-		System.out.println("ddd/???" + homeInfo);
 		
 		return homeInfo;
 		

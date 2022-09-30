@@ -8,8 +8,8 @@
 <script>
 	
 	window.onload = function() {
-		console.log('${homeInfo}');
-		barChart('userWeekTestBarChart','최근 5회차 기사시험 점수','${homeInfo.barChart.testNum}','${homeInfo.barChart.score}');
+		
+		barChart('userWeekTestBarChart','최근 5회차 기사시험 점수',${homeInfo.barChart.testNum},${homeInfo.barChart.score}, '받은점수');
 		lineChart('userAvgLineChart', '과목별 회원 평균 점수와 사용자의 평균 점수', [1,2,3,4,5], '${homeInfo.userName}님', '회원 평균', [1,3,2,4,6],[1,2,5,3,4])
 		
 	}
@@ -18,6 +18,7 @@
 </script>
 </head>
 <body>
+
 	<div id="dashboard">
 		<div id ="menuHeader">
 			<h2>Dashboard</h2>

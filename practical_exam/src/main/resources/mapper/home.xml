@@ -16,10 +16,10 @@
 	
 	<resultMap id="chartMap" type="Map">
 		<result column="TEST_NUMBER" property="testNum" javaType="String"></result>
-		<result column="SCORE" property="score" javaType="int"></result>
+		<result column="SCORE" property="score" javaType="String"></result>
 	</resultMap>
 	<select id="barChart" parameterType="String" resultMap="chartMap">
-		select CONCAT(TEST_NUMBER, ' 회차') as TEST_NUMBER
+		select CONCAT('"',TEST_NUMBER, ' 회차"') as TEST_NUMBER
 			 , SCORE
 		from (SELECT TEST_NUMBER
 				, SUM(CASE WHEN ANSWER_YN='Y' THEN 5 ELSE 0 END) AS SCORE
