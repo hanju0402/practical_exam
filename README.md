@@ -8,7 +8,7 @@
 
 ## 작업자
 <p align="justify">
- - 이한주<br><br>
+ - 이한주<br>
  - 이동준
 </p>
   
